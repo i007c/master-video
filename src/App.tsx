@@ -3,12 +3,13 @@ import ReactDOM from 'react-dom'
 
 // components
 import Head from './components/Head'
+import Home from './components/Home'
 
 const App = () => {
     return (
         <>
             <Head />
-            <span>Welcome !</span>
+            <Home />
         </>
     )
 }
