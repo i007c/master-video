@@ -1,18 +1,14 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
 
-import { Helmet } from 'react-helmet'
-
-import favicon from './static/img/favicon.ico'
+// components
+import Head from './components/Head'
 
 const App = () => {
     return (
         <>
-            <Helmet>
-                <title>00 Team Video Player</title>
-                <link rel="icon" href={favicon} />
-            </Helmet>
-            xx
+            <Head />
+            <span>Welcome !</span>
         </>
     )
 }
