@@ -63,9 +63,6 @@ var config = {
     devServer: {
         compress: true,
         port: 8000,
-        devMiddleware: {
-            writeToDisk: true
-        }
     },
 }
 
