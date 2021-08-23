@@ -53,7 +53,6 @@ var config = {
         new HtmlWebpackPlugin({
             filename: 'index.html',
             template: './src/static/template.html',
-            // favicon: './src/static/img/favicon.ico',
             inject: true,
             publicPath: '/',
             templateParameters: {
