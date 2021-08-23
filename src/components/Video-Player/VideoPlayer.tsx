@@ -5,11 +5,9 @@ type VideoPlayerProps = {
 } 
 
 const VideoPlayer: FC<VideoPlayerProps> = ({ VideoSource }): ReactElement => {
-    console.log(VideoSource);
-    
     return (
         <div className='video-container'>
-            <video src={VideoSource}></video>
+            <video src={VideoSource} controls ></video>
         </div>
     )
 }
