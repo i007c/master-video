@@ -9,7 +9,10 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/i007c/master-video.git"
+    "url": "https://github.com/i007c/master-video.git"
+  },
+  "engines": {
+    "node": ">=12.0.0"
   },
   "keywords": [
     "react-video-player",
@@ -32,6 +35,7 @@
     "@types/react": "^17.0.19",
     "@types/react-dom": "^17.0.9",
     "css-loader": "^6.2.0",
+    "file-loader": "^6.2.0",
     "html-webpack-plugin": "^5.3.2",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
