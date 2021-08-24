@@ -105,3 +105,6 @@ dist
 
 # locale test files
 src/static/test/
+
+# ignore lib
+lib/
