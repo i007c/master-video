@@ -1,5 +1,5 @@
 {
-  "name": "video-player",
+  "name": "master-video",
   "version": "1.0.0",
   "description": "a React Video Player with TypeScript",
   "main": "index.js",
@@ -10,15 +10,15 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/i007c/video-player.git"
+    "url": "git+https://github.com/i007c/master-video.git"
   },
   "keywords": [],
   "author": "",
   "license": "GPL",
   "bugs": {
-    "url": "https://github.com/i007c/video-player/issues"
+    "url": "https://github.com/i007c/master-video/issues"
   },
-  "homepage": "https://github.com/i007c/video-player",
+  "homepage": "https://github.com/i007c/master-video",
   "devDependencies": {
     "@types/react": "^17.0.19",
     "@types/react-dom": "^17.0.9",
