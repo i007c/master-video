@@ -26,6 +26,14 @@ module.exports = {
                 test: /\.s[ac]ss$/i,
                 use: ['style-loader', 'css-loader', 'sass-loader'],
             },
+            {
+                test: /\.(mp4)$/i,
+                use: [
+                    {
+                        loader: 'file-loader'
+                    }
+                ],
+            },
         ],
     },
     resolve: {
@@ -43,6 +51,7 @@ module.exports = {
     devServer: {
         compress: true,
         port: 8000,
+        open: false,
         devMiddleware: {
             writeToDisk: false,
         },
