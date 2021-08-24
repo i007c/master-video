@@ -1,10 +1,9 @@
 const path = require('path')
-const webpack = require('webpack')
 
 module.exports = {
     context: __dirname,
-    entry: './src/index.ts',
     mode: 'production',
+    entry: './src/index.ts',
     output: {
         path: path.resolve(__dirname, 'lib'),
         clean: true,
@@ -24,7 +23,7 @@ module.exports = {
                 exclude: /node_modules/,
             },
             {
-                test: [/\.s[ac]ss$/i, /\.css$/i],
+                test: /\.s[ac]ss$/i,
                 use: ['style-loader', 'css-loader', 'sass-loader'],
             },
         ],
