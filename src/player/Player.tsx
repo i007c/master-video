@@ -1,18 +1,52 @@
-import React, { FC, ReactElement } from 'react'
+import React, { ReactElement } from 'react'
 
 // style
 import './sass/player.scss'
 
-type VideoPlayerProps = {
-    VideoSource: string,
-} 
+export interface Options {
+    source: string
+    loop?: boolean
+    controls?: boolean
+    style?: {
+        className?: string
+    }
+}
 
-const VideoPlayer: FC<VideoPlayerProps> = ({ VideoSource }): ReactElement => {
+type PlayerProps = {
+    options: Options
+}
+
+const defaultProps = {
+    options: {
+        source: '',
+        loop: false,
+        controls: false,
+        style: {},
+    },
+}
+
+const Player = ({ options }: PlayerProps): ReactElement => {
+    console.log(options)
     return (
-        <div className='video-player'>
-            <video src={VideoSource} controls ></video>
+        <div className='video-player-container'>
+            <div
+                className={
+                    'video-player' +
+                    (options.style?.className
+                        ? ' ' + options.style.className
+                        : '')
+                }
+            >
+                <video
+                    src={options.source}
+                    controls={options.controls}
+                    loop={options.loop}
+                ></video>
+            </div>
         </div>
     )
 }
 
-export default VideoPlayer
+Player.defaultProps = defaultProps
+
+export default Player
