@@ -12,12 +12,12 @@ import './style.scss'
 const PlayerOptions: Options = {
     source: videoFile,
     controls: true,
-    style: { className: 'xxx' },
+    style: { className: 'custom-video-player' },
 }
 
 const App = () => {
     return (
-        <div style={{ width: '100vw', height: '100vh', padding: '100px' }}>
+        <div className='app'>
             <MasterVideo options={PlayerOptions} />
         </div>
     )

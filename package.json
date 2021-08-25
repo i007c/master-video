@@ -1,54 +1,54 @@
 {
-  "name": "master-video",
-  "version": "1.0.5",
-  "description": "a React Video Player",
-  "main": "lib",
-  "scripts": {
-    "build": "webpack",
-    "start": "webpack serve --config webpack.dev.config.js"
-  },
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/i007c/master-video.git"
-  },
-  "engines": {
-    "node": ">=12.0.0"
-  },
-  "keywords": [
-    "react-video-player",
-    "master-video",
-    "master-video-player",
-    "video-player",
-    "master-player",
-    "video",
-    "react",
-    "reactjs",
-    "player"
-  ],
-  "author": "i007c",
-  "license": "GPL",
-  "bugs": {
-    "url": "https://github.com/i007c/master-video/issues"
-  },
-  "homepage": "https://github.com/i007c/master-video",
-  "devDependencies": {
-    "@types/react": "^17.0.19",
-    "@types/react-dom": "^17.0.9",
-    "css-loader": "^6.2.0",
-    "file-loader": "^6.2.0",
-    "html-webpack-plugin": "^5.3.2",
-    "react": "^17.0.2",
-    "react-dom": "^17.0.2",
-    "sass": "^1.38.0",
-    "sass-loader": "^12.1.0",
-    "style-loader": "^3.2.1",
-    "ts-loader": "^9.2.5",
-    "typescript": "^4.3.5",
-    "webpack": "^5.51.1",
-    "webpack-cli": "^4.8.0",
-    "webpack-dev-server": "^4.0.0"
-  },
-  "peerDependencies": {
-    "react": ">=17.0.2"
-  }
+    "name": "master-video",
+    "version": "1.0.5",
+    "description": "a React Video Player",
+    "main": "lib",
+    "scripts": {
+        "build": "webpack",
+        "start": "webpack serve --config webpack.dev.config.js"
+    },
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/i007c/master-video.git"
+    },
+    "engines": {
+        "node": ">=12.0.0"
+    },
+    "keywords": [
+        "react-video-player",
+        "master-video",
+        "master-video-player",
+        "video-player",
+        "master-player",
+        "video",
+        "react",
+        "reactjs",
+        "player"
+    ],
+    "author": "i007c",
+    "license": "GPL",
+    "bugs": {
+        "url": "https://github.com/i007c/master-video/issues"
+    },
+    "homepage": "https://github.com/i007c/master-video",
+    "devDependencies": {
+        "@types/react": "^17.0.19",
+        "@types/react-dom": "^17.0.9",
+        "css-loader": "^6.2.0",
+        "file-loader": "^6.2.0",
+        "html-webpack-plugin": "^5.3.2",
+        "react": "^17.0.2",
+        "react-dom": "^17.0.2",
+        "sass": "^1.38.0",
+        "sass-loader": "^12.1.0",
+        "style-loader": "^3.2.1",
+        "ts-loader": "^9.2.5",
+        "typescript": "^4.3.5",
+        "webpack": "^5.51.1",
+        "webpack-cli": "^4.8.0",
+        "webpack-dev-server": "^4.0.0"
+    },
+    "peerDependencies": {
+        "react": ">=17.0.2"
+    }
 }
