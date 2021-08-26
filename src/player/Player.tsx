@@ -1,4 +1,7 @@
-import React, { ReactElement } from 'react'
+import React, { ReactElement, useRef } from 'react'
+
+// components
+import Controls from './components/Controls'
 
 // style
 import './sass/player.scss'
@@ -26,22 +29,23 @@ const defaultProps = {
 }
 
 const Player = ({ options }: PlayerProps): ReactElement => {
-    console.log(options)
+    const videoElement = useRef<HTMLVideoElement>(null)
+
     return (
-        <div className='video-player-container'>
-            <div
-                className={
-                    'video-player' +
-                    (options.style?.className
-                        ? ' ' + options.style.className
-                        : '')
-                }
-            >
+        <div
+            className={
+                'video-player-container' +
+                (options.style?.className ? ' ' + options.style.className : '')
+            }
+        >
+            <div className='video-player'>
                 <video
-                    src={options.source}
-                    controls={options.controls}
-                    loop={options.loop}
-                ></video>
+                    ref={videoElement}
+                    loop={false}
+                >
+                    <source src={options.source} />
+                </video>
+                {options.controls && <Controls video={videoElement} />}
             </div>
         </div>
     )
