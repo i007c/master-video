@@ -2,6 +2,7 @@
 
 .video-player-container {
     @include box(100%, auto);
+    user-select: none;
 
     .video-player {
         position: relative;
