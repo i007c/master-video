@@ -1,13 +1,14 @@
+@use './mixins.sass' as *;
+
 .video-player-container {
-    width: 100%;
-    height: 100%;
+    @include box(100%, auto);
+
     .video-player {
-        width: 100%;
-        height: 100%;
+        position: relative;
+        @include box(100%, auto);
     
         video {
-            width: 100%;
-            height: 100%;
+            @include box(100%, auto);
         }
     }
 
