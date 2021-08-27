@@ -1,4 +1,4 @@
-@use './mixins.sass' as *;
+@use '../../sass/mixins.sass' as *;
 
 .video-player-container {
     @include box(inherit);

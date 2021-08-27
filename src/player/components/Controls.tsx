@@ -1,10 +1,13 @@
-import React, { RefObject, useEffect, useState, useRef } from 'react'
+import React, { RefObject, useEffect, useState } from 'react'
 
 // style
 import './sass/controls.scss'
 
 // default icons
 import { Pause, Play, Volume } from './icons'
+
+// range
+import Range from '../../Range'
 
 interface ControlsProps {
     video: RefObject<HTMLVideoElement>
@@ -16,10 +19,8 @@ interface DcTimeType {
 }
 
 const Controls = ({ video }: ControlsProps) => {
-    const volumeControl = useRef<HTMLDivElement>(null)
     const [isPlaying, setIsPlaying] = useState(false)
     const [volumeValue, setVolVal] = useState(0)
-    const [isHolding, setIsHolding] = useState(false)
     const [dcTime, setDcTime] = useState<DcTimeType>({
         duration: 0,
         currentTime: 0,
@@ -79,6 +80,12 @@ const Controls = ({ video }: ControlsProps) => {
         video.current.muted = !video.current.muted
     }
 
+    const ChangeVolume = (p: number) => {
+        if (!video.current) return
+
+        video.current.volume = p / 100
+    }
+
     return (
         <div className='controls-container'>
             <div className='controls'>
@@ -93,60 +100,10 @@ const Controls = ({ video }: ControlsProps) => {
                         percentage={volumeValue}
                         onClick={() => Togglemute()}
                     />
-                    <div
-                        ref={volumeControl}
-                        className='volume-control'
-                        onMouseDown={(e) =>
-                            {
-                                if (!video.current) return;
-                                e.preventDefault()
-                                
-                                // const { width, height, bottom, left } = e.currentTarget.getBoundingClientRect()
-                                const { left, width } = e.currentTarget.getBoundingClientRect()
-                                // console.log(e.currentTarget.getBoundingClientRect())
-                                
-                                // console.log();
-                                video.current.volume = (e.clientX - left) / width
-                                setIsHolding(true)
-
-                                document.onmousemove = me => {
-                                    if (!video.current || !volumeControl.current) return;
-                                    me.preventDefault()
-
-                                    const { left, width } = volumeControl.current.getBoundingClientRect()
-                                    let p: number = (me.clientX - left) / width
-
-                                    if (p > 1) {
-                                        p = 1
-                                    } else if (p < 0) {
-                                        p = 0
-                                    }
-
-                                    video.current.volume = p
-
-                                }
-
-                                document.onmouseup = () => {
-                                    document.onmousemove = null
-                                    setIsHolding(false)
-                                }
-                                 
-                            }
-                        }
-                    >
-                        <span className='root'>
-                            <span className='rail'></span>
-                            <span
-                                className='track'
-                                style={video.current ? { width: `${video.current.volume * 100}%` } : {}}
-                            ></span>
-                            <span
-                                className={'thumb' + (isHolding ? ' hold' : '')}
-                                style={video.current ? { left: `${video.current.volume * 100}%` } : {}}
-                                onMouseDown={() => console.log('d')}
-                            ></span>
-                        </span>
-                    </div>
+                    <Range
+                        defaultValue={video.current ? video.current.volume * 100 : 70}
+                        onChange={p => ChangeVolume(p)}
+                    />
                 </div>
                 <div className='controler-section dc-time'>
                     <span>
