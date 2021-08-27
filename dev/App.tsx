@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import ReactDOM from 'react-dom'
 
 // master video
@@ -7,7 +7,10 @@ import MasterVideo, { Options } from '../src/'
 // video file
 import videoFile from './videos/1.mp4'
 
+// style
 import './style.scss'
+
+import favicon from './favicon.ico'
 
 const PlayerOptions: Options = {
     source: videoFile,
@@ -16,6 +19,9 @@ const PlayerOptions: Options = {
 }
 
 const App = () => {
+    useEffect(() => {
+        document.head.insertAdjacentHTML('beforeend', `<link rel="shortcut icon" href="${favicon}" type="image/x-icon">`);
+    }, [])
     return (
         <div className='app'>
             <MasterVideo options={PlayerOptions} />

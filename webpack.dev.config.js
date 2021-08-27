@@ -27,7 +27,7 @@ module.exports = {
                 use: ['style-loader', 'css-loader', 'sass-loader'],
             },
             {
-                test: /\.(mp4)$/i,
+                test: /\.(mp4|ico)$/i,
                 use: [
                     {
                         loader: 'file-loader'
