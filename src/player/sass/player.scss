@@ -1,15 +1,15 @@
 @use './mixins.sass' as *;
 
 .video-player-container {
-    @include box(100%, auto);
+    @include box(inherit);
     user-select: none;
 
     .video-player {
         position: relative;
-        @include box(100%, auto);
+        @include box(inherit);
     
         video {
-            @include box(100%, auto);
+            @include box(inherit);
         }
     }
 

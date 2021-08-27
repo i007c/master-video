@@ -50,7 +50,7 @@ module.exports = {
     },
     devServer: {
         compress: true,
-        port: 8000,
+        port: 8001,
         open: false,
         devMiddleware: {
             writeToDisk: false,

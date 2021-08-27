@@ -38,10 +38,11 @@ export const Pause = () => {
 }
 
 type VolumeProps = {
-    percentage: number
+    percentage: number;
+    onClick: Function
 }
 
-export const Volume = ({ percentage }: VolumeProps): ReactElement => {
+export const Volume = ({ percentage, onClick }: VolumeProps): ReactElement => {
     let front: JSX.Element | null = null;
 
     if (percentage <= 0) {
@@ -70,6 +71,7 @@ export const Volume = ({ percentage }: VolumeProps): ReactElement => {
             strokeWidth='2'
             strokeLinecap='round'
             strokeLinejoin='round'
+            onClick={() => onClick()}
         >
             {/* base */}
             <polygon points='11 5 6 9 2 9 2 15 6 15 11 19 11 5'></polygon>
@@ -81,4 +83,5 @@ export const Volume = ({ percentage }: VolumeProps): ReactElement => {
 
 Volume.defaultProps = {
     percentage: 0,
+    onClick: () => {}
 }

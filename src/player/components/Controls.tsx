@@ -1,4 +1,4 @@
-import React, { RefObject, useEffect, useState } from 'react'
+import React, { RefObject, useEffect, useState, useRef } from 'react'
 
 // style
 import './sass/controls.scss'
@@ -16,6 +16,7 @@ interface DcTimeType {
 }
 
 const Controls = ({ video }: ControlsProps) => {
+    const volumeControl = useRef<HTMLDivElement>(null)
     const [isPlaying, setIsPlaying] = useState(false)
     const [volumeValue, setVolVal] = useState(0)
     const [dcTime, setDcTime] = useState<DcTimeType>({
@@ -33,6 +34,7 @@ const Controls = ({ video }: ControlsProps) => {
                 duration: Math.floor(video.current.duration),
                 currentTime: Math.floor(video.current.currentTime),
             })
+            video.current.volume = 0
         }
 
         video.current.ontimeupdate = () => {
@@ -86,28 +88,39 @@ const Controls = ({ video }: ControlsProps) => {
                 >
                     {isPlaying ? <Pause /> : <Play />}
                 </div>
-                <div
-                    className='controler-section icon volume'
-                    onClick={() => Togglemute()}
-                >
-                    <Volume percentage={volumeValue} />
-                    <div className='volume-control'>
+                <div className='controler-section icon volume'>
+                    <Volume
+                        percentage={volumeValue}
+                        onClick={() => Togglemute()}
+                    />
+                    <div
+                        ref={volumeControl}
+                        className='volume-control'
+                        onMouseDown={(e) =>
+                            {
+                                if (!video.current) return;
+                                e.preventDefault()
+                                
+                                // const { width, height, bottom, left } = e.currentTarget.getBoundingClientRect()
+                                const { left, width } = e.currentTarget.getBoundingClientRect()
+                                // console.log(e.currentTarget.getBoundingClientRect())
+                                
+                                // console.log();
+                                video.current.volume = (e.clientX - left) / width
+                                 
+                            }
+                        }
+                    >
                         <span className='root'>
                             <span className='rail'></span>
                             <span
                                 className='track'
-                                style={{ left: 0, width: '23%' }}
+                                style={video.current ? { width: `${video.current.volume * 100}%` } : {}}
                             ></span>
                             <span
-                                className='thumb'
-                                role='slider'
-                                style={{ left: '23%' }}
-                                data-index='0'
-                                aria-labelledby='continuous-slider'
-                                aria-orientation='horizontal'
-                                // ariaValuemax='100'
-                                // ariaValuemin='0'
-                                // ariaValuenow='23'
+                                className='thumb hold'
+                                style={video.current ? { left: `${video.current.volume * 100}%` } : {}}
+                                onMouseDown={() => console.log('d')}
                             ></span>
                         </span>
                     </div>
