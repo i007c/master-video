@@ -19,6 +19,7 @@ const Controls = ({ video }: ControlsProps) => {
     const volumeControl = useRef<HTMLDivElement>(null)
     const [isPlaying, setIsPlaying] = useState(false)
     const [volumeValue, setVolVal] = useState(0)
+    const [isHolding, setIsHolding] = useState(false)
     const [dcTime, setDcTime] = useState<DcTimeType>({
         duration: 0,
         currentTime: 0,
@@ -34,7 +35,6 @@ const Controls = ({ video }: ControlsProps) => {
                 duration: Math.floor(video.current.duration),
                 currentTime: Math.floor(video.current.currentTime),
             })
-            video.current.volume = 0
         }
 
         video.current.ontimeupdate = () => {
@@ -107,6 +107,29 @@ const Controls = ({ video }: ControlsProps) => {
                                 
                                 // console.log();
                                 video.current.volume = (e.clientX - left) / width
+                                setIsHolding(true)
+
+                                document.onmousemove = me => {
+                                    if (!video.current || !volumeControl.current) return;
+                                    me.preventDefault()
+
+                                    const { left, width } = volumeControl.current.getBoundingClientRect()
+                                    let p: number = (me.clientX - left) / width
+
+                                    if (p > 1) {
+                                        p = 1
+                                    } else if (p < 0) {
+                                        p = 0
+                                    }
+
+                                    video.current.volume = p
+
+                                }
+
+                                document.onmouseup = () => {
+                                    document.onmousemove = null
+                                    setIsHolding(false)
+                                }
                                  
                             }
                         }
@@ -118,7 +141,7 @@ const Controls = ({ video }: ControlsProps) => {
                                 style={video.current ? { width: `${video.current.volume * 100}%` } : {}}
                             ></span>
                             <span
-                                className='thumb hold'
+                                className={'thumb' + (isHolding ? ' hold' : '')}
                                 style={video.current ? { left: `${video.current.volume * 100}%` } : {}}
                                 onMouseDown={() => console.log('d')}
                             ></span>
