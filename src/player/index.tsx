@@ -1,7 +1,7 @@
 import React, { ReactElement, useRef } from 'react'
 
 // components
-import Controls from './components/Controls'
+import Controls from './Controls'
 
 // style
 import './sass/player.scss'
@@ -35,14 +35,13 @@ const Player = ({ options }: PlayerProps): ReactElement => {
         <div
             className={
                 'video-player-container' +
-                (options.style?.className ? ' ' + options.style.className : '')
+                (options.style && options.style.className
+                    ? ' ' + options.style.className
+                    : '')
             }
         >
             <div className='video-player'>
-                <video
-                    ref={videoElement}
-                    loop={false}
-                >
+                <video ref={videoElement} loop={options.loop}>
                     <source src={options.source} />
                 </video>
                 {options.controls && <Controls video={videoElement} />}

@@ -4,10 +4,13 @@ import React, { RefObject, useEffect, useState } from 'react'
 import './sass/controls.scss'
 
 // default icons
-import { Pause, Play, Volume } from './icons'
+import { Volume } from '../components/icons'
 
 // range
 import Range from '../../Range'
+
+// components
+import Play from './Play'
 
 interface ControlsProps {
     video: RefObject<HTMLVideoElement>
@@ -19,8 +22,7 @@ interface DcTimeType {
 }
 
 const Controls = ({ video }: ControlsProps) => {
-    const [isPlaying, setIsPlaying] = useState(false)
-    const [volumeValue, setVolVal] = useState(0)
+    const [volumeValue, setVolVal] = useState(100)
     const [dcTime, setDcTime] = useState<DcTimeType>({
         duration: 0,
         currentTime: 0,
@@ -29,28 +31,30 @@ const Controls = ({ video }: ControlsProps) => {
     useEffect(() => {
         if (!video.current) return
 
-        video.current.oncanplay = () => {
+
+        video.current.addEventListener('canplay', () => {
             if (!video.current) return
 
             setDcTime({
                 duration: Math.floor(video.current.duration),
                 currentTime: Math.floor(video.current.currentTime),
             })
-        }
 
-        video.current.ontimeupdate = () => {
+            setVolVal(video.current.volume * 100);
+
+        })
+
+        video.current.addEventListener('timeupdate', () => {
             if (!video.current) return
 
             setDcTime({
                 duration: Math.floor(video.current.duration),
                 currentTime: Math.floor(video.current.currentTime),
             })
-        }
+        })
 
-        video.current.onended = (): void => {
-            setIsPlaying(false)
-        }
-        video.current.onvolumechange = () => {
+
+        video.current.addEventListener('volumechange', () => {
             if (!video.current) return
 
             if (video.current.muted) {
@@ -58,22 +62,10 @@ const Controls = ({ video }: ControlsProps) => {
             } else {
                 setVolVal(video.current.volume * 100)
             }
-        }
-
-        setVolVal(video.current.volume * 100)
+        })
     }, [video])
 
-    const TogglePlay = (): void => {
-        if (!video.current) return
-
-        if (video.current.paused) {
-            video.current.play()
-            setIsPlaying(true)
-        } else {
-            video.current.pause()
-            setIsPlaying(false)
-        }
-    }
+    
 
     const Togglemute = (): void => {
         if (!video.current) return
@@ -89,19 +81,14 @@ const Controls = ({ video }: ControlsProps) => {
     return (
         <div className='controls-container'>
             <div className='controls'>
-                <div
-                    className='controler-section icon play-pause'
-                    onClick={() => TogglePlay()}
-                >
-                    {isPlaying ? <Pause /> : <Play />}
-                </div>
+                <Play video={video} className='controler-section icon play-pause' />
                 <div className='controler-section icon volume'>
                     <Volume
                         percentage={volumeValue}
                         onClick={() => Togglemute()}
                     />
                     <Range
-                        defaultValue={video.current ? video.current.volume * 100 : 70}
+                        defaultValue={volumeValue}
                         onChange={p => ChangeVolume(p)}
                     />
                 </div>

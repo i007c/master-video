@@ -1,5 +1,7 @@
 @use '../../sass/mixins.sass' as *;
 
+@import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
+
 .video-player-container {
     @include box(inherit);
     user-select: none;

@@ -9,7 +9,7 @@
     margin: -2px 20px 0;
 
     .range {
-        color: #90caf9;
+        color: #FFF;
         width: 100%;
         cursor: pointer;
         position: relative;
@@ -52,7 +52,7 @@
             left: 0;
 
             &.hold {
-                box-shadow: 0px 0px 0px 8px rgba(144, 202, 249, 0.16);
+                box-shadow: 0px 0px 0px 8px #FFFFFF29;
             }
         }
     }

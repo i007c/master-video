@@ -35,8 +35,8 @@ const Range = ({ defaultValue, onChange }: RangeProps) => {
 
         setIsHolding(true)
 
-        document.onmousemove = HandleMouseMove
-        document.onmouseup = HandleMouseUp
+        document.addEventListener('mousemove', HandleMouseMove)
+        document.addEventListener('mouseup', HandleMouseUp)
     }
 
     const HandleMouseMove = (e: MouseEvent) => {
@@ -49,8 +49,8 @@ const Range = ({ defaultValue, onChange }: RangeProps) => {
     }
 
     const HandleMouseUp = () => {
-        document.onmousemove = null
-        document.onmouseup = null
+        document.removeEventListener('mousemove', HandleMouseMove)
+        document.removeEventListener('mouseup', HandleMouseUp)
         setIsHolding(false)
     }
 
@@ -69,7 +69,6 @@ const Range = ({ defaultValue, onChange }: RangeProps) => {
                 <span
                     className={'thumb' + (isHolding ? ' hold' : '')}
                     style={{ left: `${RangeValue}%` }}
-                    onMouseDown={() => console.log('d')}
                 ></span>
             </span>
         </div>

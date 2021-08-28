@@ -1,0 +1,60 @@
+@use '../../../sass/mixins.sass' as *;
+
+.controls-container {
+    background: linear-gradient(
+        0deg,
+        rgba(0, 0, 0, 0.85) 0%,
+        rgba(255, 255, 255, 0) 100%
+    );
+    position: absolute;
+    bottom: 0;
+    @include box(100%, 30%);
+
+    .controls {
+        @include box(100%, 60px);
+        position: absolute;
+        bottom: 0;
+        display: flex;
+        align-items: center;
+        padding: 0 10px;
+
+        .controler-section {
+            margin-left: 10px;
+            &:first-child {
+                margin-left: 0;
+            }
+        }
+
+        .icon {
+            cursor: pointer;
+            @include box(35px);
+
+            &.disable {
+                cursor: default;
+                opacity: 0.5;
+            }
+
+            svg {
+                @include box(100%);
+            }
+        }
+
+        .volume {
+            display: flex;
+            align-items: center;
+            width: 195px;
+            overflow: hidden;
+            cursor: default;
+
+            svg {
+                width: 35px;
+                flex-shrink: 0;
+                cursor: pointer;
+            }
+        }
+
+        .dc-time {
+            font-family: 'Roboto', monospace, sans-serif;
+        }
+    }
+}

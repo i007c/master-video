@@ -1,4 +1,3 @@
-import VideoPlayer from './player/Player'
-export default VideoPlayer
-
-export * from './player/Player'
+import Player from './Player'
+export * from './Player'
+export default Player
