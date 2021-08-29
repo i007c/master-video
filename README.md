@@ -28,6 +28,7 @@ const App = () => {
 ```
 
 ## TODO's
+
 - [ ] make test with jest
 - [ ] make auto tester with github actions
 - [ ] make auto publish on npm with github actions
@@ -37,4 +38,3 @@ const App = () => {
 - [ ] make a component for video time
 - [ ] change video time format to x:xx / x:xx
 - [ ] make controls hover show
-
