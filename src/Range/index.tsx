@@ -3,6 +3,7 @@ import React, {
     PureComponent,
     createRef,
     ReactElement,
+    CSSProperties
 } from 'react'
 
 // style
@@ -10,8 +11,9 @@ import './range.scss'
 
 interface RangeProps {
     defaultValue: number
-    onChange: (percentage: number) => void
-    onHold: (hold: boolean) => void
+    style?: CSSProperties
+    onChange?: (percentage: number) => void
+    onHold?: (hold: boolean) => void
 }
 
 interface RangeState {
@@ -38,7 +40,8 @@ class Range extends PureComponent<RangeProps, RangeState> {
 
         this.setState({ RangeValue: percentage, isHolding: true })
 
-        this.props.onChange(percentage)
+        if (this.props.onChange)
+            this.props.onChange(percentage)
     }
 
     private HandleMouseDown(e: ReactMouseEvent<HTMLDivElement, MouseEvent>) {
@@ -71,7 +74,8 @@ class Range extends PureComponent<RangeProps, RangeState> {
     }
 
     override componentDidUpdate() {
-        this.props.onHold(this.state.isHolding)
+        if (this.props.onHold)
+            this.props.onHold(this.state.isHolding)
     }
 
     override render(): ReactElement {
@@ -80,6 +84,7 @@ class Range extends PureComponent<RangeProps, RangeState> {
                 ref={this.range}
                 className='range-container'
                 onMouseDown={this.HandleMouseDown.bind(this)}
+                style={this.props.style}
             >
                 <span className='range'>
                     <span className='rail'></span>

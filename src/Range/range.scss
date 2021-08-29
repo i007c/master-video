@@ -2,11 +2,12 @@
 
 .range-container {
     cursor: pointer;
-    @include box(120px, 100%);
+    width: 120px;
     min-width: 120px;
+    height: 100%;
     display: flex;
     align-items: center;
-    margin: -2px 20px 0;
+    margin: -2px 15px 0;
 
     .range {
         color: #FFF;

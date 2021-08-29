@@ -93,6 +93,7 @@ export class Volume extends PureComponent<VolumeProps, VolumeState> {
                     defaultValue={this.state.videoVolume}
                     onChange={p => this.ChangeVolume(p)}
                     onHold={h => this.setState({ isMouseHolding: h })}
+                    style={{ width: 100, minWidth: 100 }}
                 />
             </div>
         )
