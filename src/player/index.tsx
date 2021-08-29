@@ -1,4 +1,4 @@
-import React, { ReactElement, useRef } from 'react'
+import React, { ReactElement, PureComponent, createRef } from 'react'
 
 // components
 import Controls from './Controls'
@@ -15,41 +15,42 @@ export interface Options {
     }
 }
 
-type PlayerProps = {
+interface PlayerProps {
     options: Options
 }
 
-const defaultProps = {
-    options: {
-        source: '',
-        loop: false,
-        controls: false,
-        style: {},
-    },
-}
+interface PlayerState {}
 
-const Player = ({ options }: PlayerProps): ReactElement => {
-    const videoElement = useRef<HTMLVideoElement>(null)
+class Player extends PureComponent<PlayerProps, PlayerState> {
+    private videoElement = createRef<HTMLVideoElement>()
 
-    return (
-        <div
-            className={
-                'video-player-container' +
-                (options.style && options.style.className
-                    ? ' ' + options.style.className
-                    : '')
-            }
-        >
-            <div className='video-player'>
-                <video ref={videoElement} loop={options.loop}>
-                    <source src={options.source} />
-                </video>
-                {options.controls && <Controls video={videoElement} />}
+    override componentDidMount() {}
+
+    override render(): ReactElement {
+        return (
+            <div
+                className={
+                    'video-player-container' +
+                    (this.props.options.style &&
+                    this.props.options.style.className
+                        ? ' ' + this.props.options.style.className
+                        : '')
+                }
+            >
+                <div className='video-player'>
+                    <video
+                        ref={this.videoElement}
+                        loop={this.props.options.loop}
+                    >
+                        <source src={this.props.options.source} />
+                    </video>
+                    {this.props.options.controls && (
+                        <Controls video={this.videoElement} />
+                    )}
+                </div>
             </div>
-        </div>
-    )
+        )
+    }
 }
-
-Player.defaultProps = defaultProps
 
 export default Player

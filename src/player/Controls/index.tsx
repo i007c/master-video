@@ -1,4 +1,4 @@
-import React, { RefObject, useEffect, useState } from 'react'
+import React, { PureComponent, ReactElement, RefObject } from 'react'
 
 // style
 import './sass/controls.scss'
@@ -16,90 +16,107 @@ interface ControlsProps {
     video: RefObject<HTMLVideoElement>
 }
 
-interface DcTimeType {
-    duration: number
-    currentTime: number
+interface ControlsState {
+    videoVolume: number
+    videoTime: {
+        duration: number
+        currentTime: number
+    }
 }
 
-const Controls = ({ video }: ControlsProps) => {
-    const [volumeValue, setVolVal] = useState(100)
-    const [dcTime, setDcTime] = useState<DcTimeType>({
-        duration: 0,
-        currentTime: 0,
-    })
+class Controls extends PureComponent<ControlsProps, ControlsState> {
+    override state: ControlsState = {
+        videoVolume: 100,
+        videoTime: {
+            duration: 0,
+            currentTime: 0,
+        },
+    }
 
-    useEffect(() => {
-        if (!video.current) return
+    private video = this.props.video
 
+    override componentDidMount() {
+        if (!this.video.current) return
 
-        video.current.addEventListener('canplay', () => {
-            if (!video.current) return
+        this.video.current.addEventListener('canplay', () => {
+            if (!this.video.current) return
 
-            setDcTime({
-                duration: Math.floor(video.current.duration),
-                currentTime: Math.floor(video.current.currentTime),
-            })
-
-            setVolVal(video.current.volume * 100);
-
-        })
-
-        video.current.addEventListener('timeupdate', () => {
-            if (!video.current) return
-
-            setDcTime({
-                duration: Math.floor(video.current.duration),
-                currentTime: Math.floor(video.current.currentTime),
+            this.setState({
+                videoTime: {
+                    duration: Math.floor(this.video.current.duration),
+                    currentTime: Math.floor(this.video.current.currentTime),
+                },
+                videoVolume: this.video.current.volume * 100,
             })
         })
 
+        this.video.current.addEventListener('timeupdate', () => {
+            if (!this.video.current) return
 
-        video.current.addEventListener('volumechange', () => {
-            if (!video.current) return
+            this.setState({
+                videoTime: {
+                    duration: Math.floor(this.video.current.duration),
+                    currentTime: Math.floor(this.video.current.currentTime),
+                },
+            })
+        })
 
-            if (video.current.muted) {
-                setVolVal(0)
+        this.video.current.addEventListener('volumechange', () => {
+            if (!this.video.current) return
+
+            if (this.video.current.muted) {
+                this.setState({
+                    videoVolume: 0,
+                })
             } else {
-                setVolVal(video.current.volume * 100)
+                this.setState({
+                    videoVolume: this.video.current.volume * 100,
+                })
             }
         })
-    }, [video])
-
-    
-
-    const Togglemute = (): void => {
-        if (!video.current) return
-        video.current.muted = !video.current.muted
     }
 
-    const ChangeVolume = (p: number) => {
-        if (!video.current) return
-
-        video.current.volume = p / 100
+    private Togglemute(): void {
+        if (!this.video.current) return
+        this.video.current.muted = !this.video.current.muted
     }
 
-    return (
-        <div className='controls-container'>
-            <div className='controls'>
-                <Play video={video} className='controler-section icon play-pause' />
-                <div className='controler-section icon volume'>
-                    <Volume
-                        percentage={volumeValue}
-                        onClick={() => Togglemute()}
+    private ChangeVolume(p: number) {
+        if (!this.video.current) return
+
+        this.video.current.muted = false
+
+        this.video.current.volume = p / 100
+    }
+
+    public override render(): ReactElement {
+        return (
+            <div className='controls-container'>
+                <div className='controls'>
+                    <Play
+                        video={this.video}
+                        className='controler-section icon play-pause'
                     />
-                    <Range
-                        defaultValue={volumeValue}
-                        onChange={p => ChangeVolume(p)}
-                    />
-                </div>
-                <div className='controler-section dc-time'>
-                    <span>
-                        {dcTime.currentTime} / {dcTime.duration}
-                    </span>
+                    <div className='controler-section icon volume'>
+                        <Volume
+                            percentage={this.state.videoVolume}
+                            onClick={() => this.Togglemute()}
+                        />
+                        <Range
+                            defaultValue={this.state.videoVolume}
+                            onChange={p => this.ChangeVolume(p)}
+                        />
+                    </div>
+                    <div className='controler-section dc-time'>
+                        <span>
+                            {this.state.videoTime.currentTime} /
+                            {this.state.videoTime.duration}
+                        </span>
+                    </div>
                 </div>
             </div>
-        </div>
-    )
+        )
+    }
 }
 
 export default Controls

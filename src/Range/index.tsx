@@ -1,4 +1,9 @@
-import React, { useRef, useState, MouseEvent as ReactMouseEvent } from 'react'
+import React, {
+    MouseEvent as ReactMouseEvent,
+    PureComponent,
+    createRef,
+    ReactElement,
+} from 'react'
 
 // style
 import './range.scss'
@@ -8,71 +13,85 @@ interface RangeProps {
     onChange: (percentage: number) => void
 }
 
-const Range = ({ defaultValue, onChange }: RangeProps) => {
-    if (defaultValue > 100 || defaultValue < 0) defaultValue = 50
+interface RangeState {
+    RangeValue: number
+    isHolding: boolean
+}
 
-    const range = useRef<HTMLDivElement>(null)
-    const [RangeValue, setRangeValue] = useState(defaultValue)
-    const [isHolding, setIsHolding] = useState(false)
+class Range extends PureComponent<RangeProps, RangeState> {
+    public range = createRef<HTMLDivElement>()
 
-    const HandlePercentage = (percentage: number) => {
+    private HandleMouseMoveBind = this.HandleMouseMove.bind(this)
+    private HandleMouseUpBind = this.HandleMouseUp.bind(this)
+
+    override state: RangeState = {
+        RangeValue: 0,
+        isHolding: false,
+    }
+
+    private HandlePercentage(percentage: number) {
         percentage = percentage * 100
 
         if (percentage > 100) percentage = 100
         else if (percentage < 0) percentage = 0
 
-        setRangeValue(percentage)
-        onChange(percentage)
+        this.setState({ RangeValue: percentage, isHolding: true })
+
+        this.props.onChange(percentage)
     }
 
-    const HandleMouseDown = (
-        e: ReactMouseEvent<HTMLDivElement, MouseEvent>
-    ) => {
+    private HandleMouseDown(e: ReactMouseEvent<HTMLDivElement, MouseEvent>) {
         e.preventDefault()
 
         const { left, width } = e.currentTarget.getBoundingClientRect()
-        HandlePercentage((e.clientX - left) / width)
+        this.HandlePercentage((e.clientX - left) / width)
 
-        setIsHolding(true)
-
-        document.addEventListener('mousemove', HandleMouseMove)
-        document.addEventListener('mouseup', HandleMouseUp)
+        document.addEventListener('mousemove', this.HandleMouseMoveBind)
+        document.addEventListener('mouseup', this.HandleMouseUpBind)
     }
 
-    const HandleMouseMove = (e: MouseEvent) => {
-        if (!range.current) return
+    public HandleMouseMove(e: MouseEvent) {
+        if (!this.range.current) return
 
         e.preventDefault()
 
-        const { left, width } = range.current.getBoundingClientRect()
-        HandlePercentage((e.clientX - left) / width)
+        const { left, width } = this.range.current.getBoundingClientRect()
+        this.HandlePercentage((e.clientX - left) / width)
     }
 
-    const HandleMouseUp = () => {
-        document.removeEventListener('mousemove', HandleMouseMove)
-        document.removeEventListener('mouseup', HandleMouseUp)
-        setIsHolding(false)
+    private HandleMouseUp() {
+        document.removeEventListener('mousemove', this.HandleMouseMoveBind)
+        document.removeEventListener('mouseup', this.HandleMouseUpBind)
+        this.setState({ isHolding: false })
     }
 
-    return (
-        <div
-            className='range-container'
-            ref={range}
-            onMouseDown={e => HandleMouseDown(e)}
-        >
-            <span className='range'>
-                <span className='rail'></span>
-                <span
-                    className='track'
-                    style={{ width: `${RangeValue}%` }}
-                ></span>
-                <span
-                    className={'thumb' + (isHolding ? ' hold' : '')}
-                    style={{ left: `${RangeValue}%` }}
-                ></span>
-            </span>
-        </div>
-    )
+    override componentDidMount() {
+        this.setState({ RangeValue: this.props.defaultValue })
+    }
+
+    override render(): ReactElement {
+        return (
+            <div
+                ref={this.range}
+                className='range-container'
+                onMouseDown={this.HandleMouseDown.bind(this)}
+            >
+                <span className='range'>
+                    <span className='rail'></span>
+                    <span
+                        className='track'
+                        style={{ width: `${this.state.RangeValue}%` }}
+                    ></span>
+                    <span
+                        className={
+                            'thumb' + (this.state.isHolding ? ' hold' : '')
+                        }
+                        style={{ left: `${this.state.RangeValue}%` }}
+                    ></span>
+                </span>
+            </div>
+        )
+    }
 }
 
 export default Range

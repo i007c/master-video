@@ -1,44 +1,54 @@
-import React, { useState, RefObject, useEffect } from 'react'
+import React, { PureComponent, ReactElement, RefObject } from 'react'
 
 // import icons
 import { Pause as PauseIcon, Play as PlayIcon } from '../components/icons'
 
 interface PlayProps {
-    video: RefObject<HTMLVideoElement>;
-    className?: string;
+    video: RefObject<HTMLVideoElement>
+    className?: string
 }
 
-const Play = ({ video, className }: PlayProps) => {
-    const [isPlaying, setIsPlaying] = useState(false)
+interface PlayState {
+    isPlaying: boolean
+}
 
-    useEffect(() => {
-        if (!video.current) return
+class Play extends PureComponent<PlayProps, PlayState> {
+    private video = this.props.video
 
-        video.current.addEventListener('ended', () => {
-            setIsPlaying(false);
+    override state: PlayState = {
+        isPlaying: false,
+    }
+
+    override componentDidMount() {
+        if (!this.video.current) return
+
+        this.video.current.addEventListener('ended', () => {
+            this.setState({ isPlaying: false })
         })
-    }, [video])
+    }
 
-    const TogglePlay = (): void => {
-        if (!video.current) return
+    private TogglePlay(): void {
+        if (!this.video.current) return
 
-        if (video.current.paused) {
-            video.current.play()
-            setIsPlaying(true)
+        if (this.video.current.paused) {
+            this.video.current.play()
+            this.setState({ isPlaying: true })
         } else {
-            video.current.pause()
-            setIsPlaying(false)
+            this.video.current.pause()
+            this.setState({ isPlaying: false })
         }
     }
 
-    return (
-        <div
-            className={className}
-            onClick={() => TogglePlay()}
-        >
-            {isPlaying ? <PauseIcon /> : <PlayIcon />}
-        </div>
-    )
+    override render(): ReactElement {
+        return (
+            <div
+                className={this.props.className}
+                onClick={() => this.TogglePlay()}
+            >
+                {this.state.isPlaying ? <PauseIcon /> : <PlayIcon />}
+            </div>
+        )
+    }
 }
 
 export default Play
