@@ -6,9 +6,9 @@ module.exports = {
     },
     moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx'],
     transform: {
-        '.(ts|tsx|js|jsx)': 'ts-jest',
+        '.(ts|tsx)': 'ts-jest',
     },
-    testRegex: '(/__tests__/.*|(\\.|/)(test|spec))\\.(t|j)sx?$',
+    testRegex: '(/__tests__/.*|(\\.|/)(test|spec))\\.(t)sx?$',
     testEnvironment: 'jsdom',
     roots: ['<rootDir>'],
     moduleDirectories: ['node_modules'],

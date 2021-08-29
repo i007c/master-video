@@ -1,6 +1,6 @@
 import React from 'react';
 import { render, screen } from '@testing-library/react';
-import MasterVideo from '../src';
+import MasterVideo from '../lib/';
 
 import video from './videos/1.mp4'
 
