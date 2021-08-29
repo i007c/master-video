@@ -28,6 +28,9 @@ const App = () => {
 ```
 
 ## TODO's
+- [ ] make test with jest
+- [ ] make auto tester with github actions
+- [ ] make auto publish on npm with github actions
 - [ ] make a component for volume
 - [ ] add hover animation for volume range
 - [ ] handle mute status in volume
