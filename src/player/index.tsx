@@ -29,6 +29,7 @@ class Player extends PureComponent<PlayerProps, PlayerState> {
     override render(): ReactElement {
         return (
             <div
+                role='master-video'
                 className={
                     'video-player-container' +
                     (this.props.options.style &&
