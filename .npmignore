@@ -1,8 +1,12 @@
 .github
 .prettierrc
+.gitattributes
 src
 dev
 dist
 webpack.config.js
 webpack.dev.config.js
 tsconfig.dev.json
+__tests__
+jest.config.ts
+jest.setup.ts
