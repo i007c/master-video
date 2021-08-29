@@ -39,25 +39,28 @@ export const Pause = () => {
 
 type VolumeProps = {
     percentage: number;
-    onClick: Function
+    onClick: Function;
+    muted: boolean
 }
 
-export const Volume = ({ percentage, onClick }: VolumeProps): ReactElement => {
+export const Volume = ({ percentage, onClick, muted }: VolumeProps): ReactElement => {
     let front: JSX.Element | null = null;
 
-    if (percentage <= 0) {
+    if (percentage <= 10) {
+        front = null
+    } else if (percentage <= 50) {
+        front = <path d='M15.54 8.46a5 5 0 0 1 0 7.07'></path>
+    } else {
+        front = <path d='M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07'></path>
+    }
+
+    if (muted) {
         front = (
             <>
                 <line x1='23' y1='9' x2='17' y2='15'></line>
                 <line x1='17' y1='9' x2='23' y2='15'></line>
             </>
         )
-    } else if (percentage <= 10) {
-        front = null
-    } else if (percentage <= 50) {
-        front = <path d='M15.54 8.46a5 5 0 0 1 0 7.07'></path>
-    } else {
-        front = <path d='M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07'></path>
     }
 
     return (

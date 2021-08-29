@@ -11,6 +11,7 @@ import './range.scss'
 interface RangeProps {
     defaultValue: number
     onChange: (percentage: number) => void
+    onHold: (hold: boolean) => void
 }
 
 interface RangeState {
@@ -67,6 +68,10 @@ class Range extends PureComponent<RangeProps, RangeState> {
 
     override componentDidMount() {
         this.setState({ RangeValue: this.props.defaultValue })
+    }
+
+    override componentDidUpdate() {
+        this.props.onHold(this.state.isHolding)
     }
 
     override render(): ReactElement {

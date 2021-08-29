@@ -5,7 +5,7 @@
     "main": "lib",
     "scripts": {
         "build": "webpack",
-        "build:watch": "webpack --mode development -w",
+        "build:watch": "webpack -w",
         "start": "webpack serve --config webpack.dev.config.js",
         "test": "jest"
     },
