@@ -32,7 +32,7 @@ const App = () => {
 - [x] make test with jest
 - [x] make auto tester with github actions
 - [x] make auto publish on npm with github actions
-- [ ] make a component for volume
+- [x] make a component for volume
 - [ ] add hover animation for volume range
 - [ ] handle mute status in volume
 - [ ] make a component for video time
