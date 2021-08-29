@@ -1,21 +1,37 @@
 # Master Video
 
+![npm](https://img.shields.io/npm/v/master-video?color=222&label=npm&labelColor=E20338)\
 a React Video Player
 
 ## Install
 
-```npm install --save master-video```
+```fish
+npm install --save master-video
+```
 
 ## Useage
 
 example:
 
 ```js
-import VideoPlayer from 'master-video'
+import MasterVideo from 'master-video'
 
 import video from 'video.mp4'
 
 const App = () => {
-    return <VideoPlayer VideoSource={video} />
+    return (
+        <div className='app'>
+            <MasterVideo options={{ source: video, controls: true }} />
+        </div>
+    )
 }
 ```
+
+## TODO's
+- [ ] make a component for volume
+- [ ] add hover animation for volume range
+- [ ] handle mute status in volume
+- [ ] make a component for video time
+- [ ] change video time format to x:xx / x:xx
+- [ ] make controls hover show
+
