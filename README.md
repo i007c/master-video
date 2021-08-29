@@ -29,7 +29,7 @@ const App = () => {
 
 ## TODO's
 
-- [ ] make test with jest
+- [x] make test with jest
 - [ ] make auto tester with github actions
 - [ ] make auto publish on npm with github actions
 - [ ] make a component for volume

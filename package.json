@@ -5,7 +5,8 @@
     "main": "lib",
     "scripts": {
         "build": "webpack",
-        "start": "webpack serve --config webpack.dev.config.js"
+        "start": "webpack serve --config webpack.dev.config.js",
+        "test": "jest"
     },
     "repository": {
         "type": "git",
