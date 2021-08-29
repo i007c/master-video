@@ -5,7 +5,7 @@ import ReactDOM from 'react-dom'
 import MasterVideo, { Options } from '../lib'
 
 // video file
-import videoFile from './videos/2.mp4'
+import videoFile from './videos/1.mp4'
 
 // style
 import './style.scss'
