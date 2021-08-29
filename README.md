@@ -33,8 +33,8 @@ const App = () => {
 - [x] make auto tester with github actions
 - [x] make auto publish on npm with github actions
 - [x] make a component for volume
-- [ ] add hover animation for volume range
-- [ ] handle mute status in volume
-- [ ] make a component for video time
-- [ ] change video time format to x:xx / x:xx
+- [x] add hover animation for volume range
+- [x] handle mute status in volume
+- [x] make a component for video time
+- [x] change video time format to x:xx / x:xx
 - [ ] make controls hover show
