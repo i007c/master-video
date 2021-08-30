@@ -16,8 +16,9 @@ interface ControlsProps {
 interface ControlsState {
     isPause: boolean
     showControls: boolean
-    timeout: NodeJS.Timeout | null
-    timePassd: number
+    MouseOver: boolean
+    timer: NodeJS.Timeout | null
+    passdTime: number
 }
 
 /*
@@ -41,8 +42,9 @@ class Controls extends PureComponent<ControlsProps, ControlsState> {
     override state: ControlsState = {
         isPause: true,
         showControls: true,
-        timeout: null,
-        timePassd: 0,
+        MouseOver: false,
+        timer: null,
+        passdTime: 0,
     }
 
     private video = this.props.video
@@ -50,7 +52,6 @@ class Controls extends PureComponent<ControlsProps, ControlsState> {
 
     private HandlePauseBind = this.HandlePause.bind(this)
     private HandlePlayBind = this.HandlePlay.bind(this)
-    private StartTimer = this.Timer
 
     private HandlePause() {
         this.setState({ isPause: true })
@@ -60,46 +61,72 @@ class Controls extends PureComponent<ControlsProps, ControlsState> {
         this.setState({ isPause: false })
     }
 
-    private Timer() {
-        this.setState({
-            timePassd: this.state.timePassd + 1,
-            timeout: setTimeout(this.Timer, 1000),
+    override componentDidMount() {
+        this.video.addEventListener('pause', this.HandlePauseBind)
+        this.video.addEventListener('play', this.HandlePlayBind)
+
+        this.Container.addEventListener('mousemove', () => {
+            if (this.state.timer) {
+                clearTimeout(this.state.timer)
+                this.setState({timer: null, passdTime: 0, showControls: true})
+            }
+            let x = () => {
+                
+                // console.log(this.state);
+                
+                let t = setTimeout(x, 1000)
+
+                this.setState({timer: t, passdTime: this.state.passdTime + 1})
+            }
+
+            x()
+        })
+        this.Container.addEventListener('mouseenter', () => {
+            this.setState({
+                showControls: true,
+                MouseOver: true,
+            })
+
+            let x = () => {
+                
+                // console.log(this.state);
+                
+                let t = setTimeout(x, 1000)
+
+                this.setState({timer: t, passdTime: this.state.passdTime + 1})
+            }
+
+            x()
+        })
+
+        this.Container.addEventListener('mouseleave',() => {
+            
+            if (this.state.timer) {
+                clearTimeout(this.state.timer)
+                this.setState({timer: null, passdTime: 0, showControls:false, MouseOver:false})
+            } else {
+                this.setState({showControls:false, MouseOver:false})
+            }
         })
     }
 
-    private ResetTimer() {
-        if (this.state.timeout) clearTimeout(this.state.timeout)
-
-        this.setState({ timePassd: -1 })
-        this.StartTimer()
-    }
-
-    override componentDidMount() {
-            this.video.addEventListener('pause', this.HandlePauseBind)
-            this.video.addEventListener('play', this.HandlePlayBind)
-
-            this.Container.addEventListener('mousemove', () =>
-                console.log('r')
-            )
-            
-    }
-
     override componentWillUnmount() {
-
-        this.ResetTimer()
-
         this.video.removeEventListener('pause', this.HandlePauseBind)
         this.video.removeEventListener('play', this.HandlePlayBind)
     }
 
     override componentDidUpdate() {
-        console.log(this.state)
-        // this.StartTimer()
+        if (this.state.passdTime > 5) {
+            if (this.state.timer) {
+                clearTimeout(this.state.timer)
+                this.setState({timer: null, passdTime: 0, showControls:false})
+            }
+        }
     }
 
     override render(): ReactElement {
         return (
-            <div className='controls-container'>
+            <div className='controls-container' style={!this.state.showControls ? {transform: 'translateY(1500px)'} : {}}>
                 <div className='controls'>
                     <Play
                         video={this.video}

@@ -39,10 +39,6 @@ class Player extends PureComponent<PlayerProps, PlayerState> {
         this.setState({ videoContainer: node })
     }
 
-    override componentDidUpdate() {
-        console.log(this.state)
-    }
-
     override render(): ReactElement {
         return (
             <div

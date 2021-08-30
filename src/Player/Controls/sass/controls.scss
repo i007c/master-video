@@ -9,7 +9,7 @@
     position: absolute;
     bottom: 0;
     @include box(100%, 30%);
-    transition: transform 500ms;
+    transition: transform 900ms cubic-bezier(1, 0, 0, 1);
     transform: translateY(0);
 
     .controls {
