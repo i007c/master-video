@@ -1,6 +1,6 @@
 {
     "name": "master-video",
-    "version": "1.0.8",
+    "version": "1.0.9",
     "description": "a React Video Player",
     "main": "lib",
     "scripts": {
