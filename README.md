@@ -37,4 +37,4 @@ const App = () => {
 - [x] handle mute status in volume
 - [x] make a component for video time
 - [x] change video time format to x:xx / x:xx
-- [ ] make controls hover show
+- [x] make controls hover show
