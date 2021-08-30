@@ -29,12 +29,11 @@ const App = () => {
 
 ## TODO's
 
-- [x] make test with jest
-- [x] make auto tester with github actions
-- [x] make auto publish on npm with github actions
-- [x] make a component for volume
-- [x] add hover animation for volume range
-- [x] handle mute status in volume
-- [x] make a component for video time
-- [x] change video time format to x:xx / x:xx
-- [x] make controls hover show
+- [ ] make video timeline
+- [ ] work with video sound amp(amplitude)
+- [ ] make fullscreen button
+- [ ] settings button
+- [ ] settings for video speed
+- [ ] play video on click in video
+- [ ] work with subtitles
+- [ ] add multi quality
