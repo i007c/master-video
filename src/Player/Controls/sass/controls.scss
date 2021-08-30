@@ -9,6 +9,8 @@
     position: absolute;
     bottom: 0;
     @include box(100%, 30%);
+    transition: transform 500ms;
+    transform: translateY(0);
 
     .controls {
         @include box(100%, 60px);

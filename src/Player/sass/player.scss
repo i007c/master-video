@@ -9,6 +9,7 @@
     .video-player {
         position: relative;
         @include box(inherit);
+        overflow: hidden;
     
         video {
             @include box(inherit);

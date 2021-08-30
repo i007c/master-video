@@ -1,10 +1,10 @@
-import React, { PureComponent, ReactElement, RefObject } from 'react'
+import React, { PureComponent, ReactElement } from 'react'
 
 // import icons
 import { Pause as PauseIcon, Play as PlayIcon } from '../components/icons'
 
 interface PlayProps {
-    video: RefObject<HTMLVideoElement>
+    video: HTMLVideoElement
     className?: string
 }
 
@@ -20,21 +20,17 @@ class Play extends PureComponent<PlayProps, PlayState> {
     }
 
     override componentDidMount() {
-        if (!this.video.current) return
-
-        this.video.current.addEventListener('ended', () => {
+        this.video.addEventListener('ended', () => {
             this.setState({ isPlaying: false })
         })
     }
 
     private TogglePlay(): void {
-        if (!this.video.current) return
-
-        if (this.video.current.paused) {
-            this.video.current.play()
+        if (this.video.paused) {
+            this.video.play()
             this.setState({ isPlaying: true })
         } else {
-            this.video.current.pause()
+            this.video.pause()
             this.setState({ isPlaying: false })
         }
     }

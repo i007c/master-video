@@ -1,4 +1,4 @@
-import React, { PureComponent, RefObject } from 'react'
+import React, { PureComponent } from 'react'
 
 // icons
 import { Volume as VolumeIcon } from '../components/icons'
@@ -7,7 +7,7 @@ import { Volume as VolumeIcon } from '../components/icons'
 import Range from '../../Range'
 
 interface VolumeProps {
-    video: RefObject<HTMLVideoElement>
+    video: HTMLVideoElement
     className?: string
 }
 
@@ -31,36 +31,27 @@ export class Volume extends PureComponent<VolumeProps, VolumeState> {
     private video = this.props.video
 
     private Togglemute(): void {
-        if (!this.video.current) return
-        this.video.current.muted = !this.video.current.muted
-        this.setState({ volumeMuted: this.video.current.muted })
+        this.video.muted = !this.video.muted
+        this.setState({ volumeMuted: this.video.muted })
     }
 
     private ChangeVolume(p: number) {
-        if (!this.video.current) return
-
-        this.video.current.muted = false
+        this.video.muted = false
         this.setState({ volumeMuted: false })
 
-        this.video.current.volume = p / 100
+        this.video.volume = p / 100
     }
 
     override componentDidMount() {
-        if (!this.video.current) return
-
-        this.video.current.addEventListener('canplay', () => {
-            if (!this.video.current) return
-
+        this.video.addEventListener('canplay', () => {
             this.setState({
-                videoVolume: this.video.current.volume * 100,
+                videoVolume: this.video.volume * 100,
             })
         })
 
-        this.video.current.addEventListener('volumechange', () => {
-            if (!this.video.current) return
-
+        this.video.addEventListener('volumechange', () => {
             this.setState({
-                videoVolume: this.video.current.volume * 100,
+                videoVolume: this.video.volume * 100,
             })
         })
     }

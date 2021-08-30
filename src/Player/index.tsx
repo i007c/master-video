@@ -1,4 +1,4 @@
-import React, { ReactElement, PureComponent, createRef } from 'react'
+import React, { ReactElement, PureComponent } from 'react'
 
 // components
 import Controls from './Controls'
@@ -19,16 +19,34 @@ interface PlayerProps {
     options: Options
 }
 
-interface PlayerState {}
+interface PlayerState {
+    videoElement: HTMLVideoElement | null
+    videoContainer: HTMLDivElement | null
+}
 
 class Player extends PureComponent<PlayerProps, PlayerState> {
-    private videoElement = createRef<HTMLVideoElement>()
 
-    override componentDidMount() {}
+    override state: PlayerState = {
+        videoElement: null,
+        videoContainer: null,
+    }
+
+    private videoElement = (node: HTMLVideoElement) => {
+        this.setState({ videoElement: node })
+    }
+
+    private videoContainer = (node: HTMLDivElement) => {
+        this.setState({ videoContainer: node })
+    }
+
+    override componentDidUpdate() {
+        console.log(this.state)
+    }
 
     override render(): ReactElement {
         return (
             <div
+                ref={this.videoContainer}
                 role='master-video'
                 className={
                     'video-player-container' +
@@ -45,9 +63,14 @@ class Player extends PureComponent<PlayerProps, PlayerState> {
                     >
                         <source src={this.props.options.source} />
                     </video>
-                    {this.props.options.controls && (
-                        <Controls video={this.videoElement} />
-                    )}
+                    {this.props.options.controls &&
+                        this.state.videoElement &&
+                        this.state.videoContainer && (
+                            <Controls
+                                video={this.state.videoElement}
+                                videoContainer={this.state.videoContainer}
+                            />
+                        )}
                 </div>
             </div>
         )

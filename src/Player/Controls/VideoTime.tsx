@@ -1,7 +1,7 @@
-import React, { PureComponent, RefObject } from 'react'
+import React, { PureComponent } from 'react'
 
 interface VideoTimeProps {
-    video: RefObject<HTMLVideoElement>
+    video: HTMLVideoElement
     className: string
 }
 
@@ -43,26 +43,20 @@ export class VideoTime extends PureComponent<VideoTimeProps, VideoTimeState> {
     }
 
     override componentDidMount() {
-        if (!this.video.current) return
-
-        this.video.current.addEventListener('canplay', () => {
-            if (!this.video.current) return
-
+        this.video.addEventListener('canplay', () => {
             this.setState({
                 videoTime: {
-                    duration: Math.floor(this.video.current.duration),
-                    currentTime: Math.floor(this.video.current.currentTime),
+                    duration: Math.floor(this.video.duration),
+                    currentTime: Math.floor(this.video.currentTime),
                 },
             })
         })
 
-        this.video.current.addEventListener('timeupdate', () => {
-            if (!this.video.current) return
-
+        this.video.addEventListener('timeupdate', () => {
             this.setState({
                 videoTime: {
-                    duration: Math.floor(this.video.current.duration),
-                    currentTime: Math.floor(this.video.current.currentTime),
+                    duration: Math.floor(this.video.duration),
+                    currentTime: Math.floor(this.video.currentTime),
                 },
             })
         })
