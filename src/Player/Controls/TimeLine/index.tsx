@@ -1,7 +1,7 @@
 import React, { PureComponent, ReactElement } from 'react'
 
 // components
-import Range from '../../Range'
+import Range from '../../../Range'
 
 // style
 import './sass/timeline.scss'
@@ -34,7 +34,6 @@ export class TimeLine extends PureComponent<TimeLineProps, TimeLineState> {
                 currentTime: this.video.currentTime,
                 duration: this.video.duration
             })
-            console.log(this.state);
         })
 
         this.video.addEventListener('timeupdate', () => {

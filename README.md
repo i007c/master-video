@@ -29,7 +29,7 @@ const App = () => {
 
 ## TODO's
 
-- [ ] make video timeline
+- [x] make video timeline
 - [ ] work with video sound amp(amplitude)
 - [ ] make fullscreen button
 - [ ] settings button
