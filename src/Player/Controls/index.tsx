@@ -7,6 +7,7 @@ import './sass/controls.scss'
 import Play from './Play'
 import Volume from './Volume'
 import VideoTime from './VideoTime'
+import TimeLine from './TimeLine'
 
 interface ControlsProps {
     video: HTMLVideoElement
@@ -149,6 +150,8 @@ class Controls extends PureComponent<ControlsProps, ControlsState> {
                         className='controler-section dc-time'
                     />
                 </div>
+
+                <TimeLine video={this.video} />
             </div>
         )
     }

@@ -45,7 +45,7 @@ class Player extends PureComponent<PlayerProps, PlayerState> {
                 ref={this.videoContainer}
                 role='master-video'
                 className={
-                    'video-player-container' +
+                    'master-video' +
                     (this.props.options.style &&
                     this.props.options.style.className
                         ? ' ' + this.props.options.style.className

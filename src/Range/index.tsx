@@ -14,6 +14,7 @@ interface RangeProps {
     style?: CSSProperties
     onChange?: (percentage: number) => void
     onHold?: (hold: boolean) => void
+    value?: number
 }
 
 interface RangeState {
@@ -39,6 +40,8 @@ class Range extends PureComponent<RangeProps, RangeState> {
         else if (percentage < 0) percentage = 0
 
         this.setState({ RangeValue: percentage, isHolding: true })
+
+        console.log(percentage);
 
         if (this.props.onChange)
             this.props.onChange(percentage)
@@ -76,6 +79,16 @@ class Range extends PureComponent<RangeProps, RangeState> {
     override componentDidUpdate() {
         if (this.props.onHold)
             this.props.onHold(this.state.isHolding)
+    }
+
+    static getDerivedStateFromProps(props: RangeProps, state: RangeState){
+        if (props.value && props.value !== state.RangeValue) {
+            return {
+                RangeValue: props.value
+            }
+        }
+
+        return null
     }
 
     override render(): ReactElement {
