@@ -3,7 +3,7 @@ import React, {
     PureComponent,
     createRef,
     ReactElement,
-    CSSProperties
+    CSSProperties,
 } from 'react'
 
 // style
@@ -41,13 +41,12 @@ class Range extends PureComponent<RangeProps, RangeState> {
 
         this.setState({ RangeValue: percentage })
 
-        if (this.props.onChange)
-            this.props.onChange(percentage)
+        if (this.props.onChange) this.props.onChange(percentage)
     }
 
     private HandleMouseDown(e: ReactMouseEvent<HTMLDivElement, MouseEvent>) {
         e.preventDefault()
-        
+
         this.setState({ isHolding: true })
         this.props.onHold && this.props.onHold(true)
 
@@ -79,10 +78,13 @@ class Range extends PureComponent<RangeProps, RangeState> {
     }
 
     override componentDidUpdate() {
-        if (this.props.value && this.props.value !== this.state.RangeValue && !this.state.isHolding) {
-            this.setState({RangeValue: this.props.value})
+        if (
+            this.props.value &&
+            this.props.value !== this.state.RangeValue &&
+            !this.state.isHolding
+        ) {
+            this.setState({ RangeValue: this.props.value })
         }
-        
     }
 
     // static getDerivedStateFromProps(props: RangeProps, state: RangeState){

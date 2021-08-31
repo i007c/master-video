@@ -30,7 +30,6 @@ export class TimeLine extends PureComponent<TimeLineProps, TimeLineState> {
         if (Math.floor(this.video.currentTime) !== floorTime) {
             this.video.currentTime = floorTime
         }
-        
     }
 
     override componentDidMount() {
@@ -54,7 +53,7 @@ export class TimeLine extends PureComponent<TimeLineProps, TimeLineState> {
                 <Range
                     defaultValue={this.video.currentTime}
                     onChange={this.HandleTimeLine.bind(this)}
-                    onHold={hold => this.setState({isHolding:hold})}
+                    onHold={hold => this.setState({ isHolding: hold })}
                     style={{ width: '100%', minWidth: '100%' }}
                     value={this.video.currentTime * (100 / this.video.duration)}
                 />
