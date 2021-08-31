@@ -39,9 +39,7 @@ class Range extends PureComponent<RangeProps, RangeState> {
         if (percentage > 100) percentage = 100
         else if (percentage < 0) percentage = 0
 
-        this.setState({ RangeValue: percentage, isHolding: true })
-
-        console.log(percentage);
+        this.setState({ RangeValue: percentage })
 
         if (this.props.onChange)
             this.props.onChange(percentage)
@@ -49,6 +47,9 @@ class Range extends PureComponent<RangeProps, RangeState> {
 
     private HandleMouseDown(e: ReactMouseEvent<HTMLDivElement, MouseEvent>) {
         e.preventDefault()
+        
+        this.setState({ isHolding: true })
+        this.props.onHold && this.props.onHold(true)
 
         const { left, width } = e.currentTarget.getBoundingClientRect()
         this.HandlePercentage((e.clientX - left) / width)
@@ -70,6 +71,7 @@ class Range extends PureComponent<RangeProps, RangeState> {
         document.removeEventListener('mousemove', this.HandleMouseMoveBind)
         document.removeEventListener('mouseup', this.HandleMouseUpBind)
         this.setState({ isHolding: false })
+        this.props.onHold && this.props.onHold(false)
     }
 
     override componentDidMount() {
@@ -77,19 +79,22 @@ class Range extends PureComponent<RangeProps, RangeState> {
     }
 
     override componentDidUpdate() {
-        if (this.props.onHold)
-            this.props.onHold(this.state.isHolding)
-    }
-
-    static getDerivedStateFromProps(props: RangeProps, state: RangeState){
-        if (props.value && props.value !== state.RangeValue) {
-            return {
-                RangeValue: props.value
-            }
+        if (this.props.value && this.props.value !== this.state.RangeValue && !this.state.isHolding) {
+            this.setState({RangeValue: this.props.value})
         }
-
-        return null
+        
     }
+
+    // static getDerivedStateFromProps(props: RangeProps, state: RangeState){
+    //     if (props.value && props.value !== state.RangeValue && !state.isHolding) {
+    //         console.log('bsdf')
+    //         return {
+    //             RangeValue: props.value
+    //         }
+    //     }
+
+    //     return state
+    // }
 
     override render(): ReactElement {
         return (

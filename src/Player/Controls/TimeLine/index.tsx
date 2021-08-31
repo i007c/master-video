@@ -13,31 +13,38 @@ interface TimeLineProps {
 interface TimeLineState {
     currentTime: number
     duration: number
+    isHolding: boolean
 }
 
 export class TimeLine extends PureComponent<TimeLineProps, TimeLineState> {
     override state: TimeLineState = {
         currentTime: 0,
         duration: 0,
+        isHolding: false,
     }
 
     private video = this.props.video
 
     private HandleTimeLine(percentage: number) {
-        console.log(percentage)
-        this.video.currentTime = (this.state.duration / 100) * percentage
+        let floorTime = Math.floor((this.state.duration / 100) * percentage)
+        if (Math.floor(this.video.currentTime) !== floorTime) {
+            this.video.currentTime = floorTime
+        }
+        
     }
 
     override componentDidMount() {
         this.video.addEventListener('loadeddata', () => {
             this.setState({
                 currentTime: this.video.currentTime,
-                duration: this.video.duration
+                duration: this.video.duration,
             })
         })
 
         this.video.addEventListener('timeupdate', () => {
-            this.setState({currentTime: this.video.currentTime})
+            if (!this.state.isHolding) {
+                this.setState({ currentTime: this.video.currentTime })
+            }
         })
     }
 
@@ -47,6 +54,7 @@ export class TimeLine extends PureComponent<TimeLineProps, TimeLineState> {
                 <Range
                     defaultValue={this.video.currentTime}
                     onChange={this.HandleTimeLine.bind(this)}
+                    onHold={hold => this.setState({isHolding:hold})}
                     style={{ width: '100%', minWidth: '100%' }}
                     value={this.video.currentTime * (100 / this.video.duration)}
                 />

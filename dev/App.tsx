@@ -5,8 +5,8 @@ import ReactDOM from 'react-dom'
 import MasterVideo, { Options } from '../lib/'
 
 // video file
-import videoFile from './videos/1.mp4'
-// const videoFile = 'https://cdn.discordapp.com/attachments/837976157609656323/842785794485780520/Shrek_1.mp4'
+// import videoFile from './videos/1.mp4'
+const videoFile = 'https://cdn.discordapp.com/attachments/837976157609656323/842785794485780520/Shrek_1.mp4'
 
 // style
 import './style.scss'
