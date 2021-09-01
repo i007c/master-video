@@ -29,18 +29,19 @@
 
             &:last-child {
                 flex-direction: row-reverse;
+
+                .controler-section:first-child {
+                    margin: 0;
+                }
             }
         }
 
         .controler-section {
-            margin-left: 10px;
-
-            &:first-child {
-                margin: 0;
-            }
+            margin-right: 10px;
         }
 
         .icon {
+            
             cursor: pointer;
             @include box(35px);
 

@@ -11,6 +11,7 @@ import VideoTime from './VideoTime'
 import TimeLine from './TimeLine'
 
 import FullScreen from './FullScreen'
+import Settings from './Settings'
 
 interface ControlsProps {
     video: HTMLVideoElement
@@ -170,6 +171,8 @@ class Controls extends PureComponent<ControlsProps, ControlsState> {
                             Container={this.Container}
                             className='controler-section icon fullscreen'
                         />
+
+                        <Settings video={this.video} className='controler-section icon settings' />
                     </div>
                 </div>
             </div>
