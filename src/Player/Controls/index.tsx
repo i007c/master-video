@@ -4,6 +4,9 @@ import React, { PureComponent, ReactElement } from 'react'
 import './sass/controls.scss'
 
 // components
+
+import HideMouse from './HideMouse'
+
 import Play from './Play'
 import Volume from './Volume'
 import VideoTime from './VideoTime'
@@ -19,137 +22,49 @@ interface ControlsProps {
 }
 
 interface ControlsState {
-    isPause: boolean
-    showControls: boolean
-    MouseOnControls: boolean
-    MouseOnVideo: boolean
-    timer: NodeJS.Timeout | null
-    passdTime: number
+    ControlsElement: HTMLDivElement | null
+    ControlsContainerElement: HTMLDivElement | null
 }
 
 class Controls extends PureComponent<ControlsProps, ControlsState> {
     override state: ControlsState = {
-        isPause: true,
-        showControls: true,
-        MouseOnControls: false,
-        MouseOnVideo: false,
-        timer: null,
-        passdTime: 0,
+        ControlsElement: null,
+        ControlsContainerElement: null,
     }
 
     private video = this.props.video
     private Container = this.props.videoContainer
 
-    private HandlePauseBind = this.HandlePause.bind(this)
-    private HandlePlayBind = this.HandlePlay.bind(this)
-    private HandleMaouseMoveBind = this.HandleMaouseMove.bind(this)
-
-    private HandlePause() {
-        this.setState({ isPause: true })
+    private ControlsElement = (node: HTMLDivElement) => {
+        this.setState({ ControlsElement: node })
     }
 
-    private HandlePlay() {
-        this.setState({ isPause: false })
+    private ControlsContainerElement = (node: HTMLDivElement) => {
+        this.setState({ ControlsContainerElement: node })
     }
 
-    private HandleMaouseMove() {
-        if (this.state.timer) {
-            clearTimeout(this.state.timer)
-            this.setState({
-                showControls: true,
-                timer: null,
-            })
-        } else {
-            this.setState({
-                showControls: true,
-            })
-        }
-    }
+    override componentDidMount() {}
 
-    override componentDidMount() {
-        this.video.addEventListener('pause', this.HandlePauseBind)
-        this.video.addEventListener('play', this.HandlePlayBind)
-
-        this.Container.addEventListener('mousemove', this.HandleMaouseMoveBind)
-
-        this.Container.addEventListener('mouseenter', () => {
-            this.setState({
-                MouseOnVideo: true,
-            })
-        })
-
-        this.Container.addEventListener('mouseleave', () => {
-            if (this.state.timer) {
-                clearTimeout(this.state.timer)
-                this.setState({
-                    MouseOnVideo: false,
-                    timer: null,
-                })
-            } else {
-                this.setState({
-                    MouseOnVideo: false,
-                })
-            }
-        })
-    }
-
-    override componentWillUnmount() {
-        this.video.removeEventListener('pause', this.HandlePauseBind)
-        this.video.removeEventListener('play', this.HandlePlayBind)
-    }
-
-    override componentDidUpdate() {
-        if (!this.state.showControls) {
-            this.Container.style.cursor = 'none'
-        } else {
-            this.Container.style.cursor = ''
-        }
-        if (
-            this.state.MouseOnVideo &&
-            !this.state.MouseOnControls &&
-            !this.state.isPause
-        ) {
-            if (this.state.showControls && !this.state.timer) {
-                let t = setTimeout(() => {
-                    if (
-                        this.state.MouseOnVideo &&
-                        !this.state.MouseOnControls &&
-                        !this.state.isPause
-                    ) {
-                        this.setState({ showControls: false, timer: null })
-                    } else {
-                        this.setState({ showControls: true, timer: null })
-                    }
-                }, 10000)
-
-                this.setState({ timer: t })
-            }
-        } else {
-            this.setState({ showControls: true })
-        }
-    }
+    override componentDidUpdate() {}
 
     override render(): ReactElement {
         return (
             <div
                 className='controls-container'
-                style={
-                    !this.state.showControls
-                        ? { transform: 'translateY(1500px)' }
-                        : {}
-                }
+                ref={this.ControlsContainerElement}
             >
                 <TimeLine video={this.video} />
+                {this.state.ControlsElement &&
+                    this.state.ControlsContainerElement && (
+                        <HideMouse
+                            video={this.video}
+                            Container={this.Container}
+                            Controls={this.state.ControlsElement}
+                            CCE={this.state.ControlsContainerElement}
+                        />
+                    )}
 
-                <div
-                    className='controls'
-                    onMouseEnter={() =>
-                        this.setState({ MouseOnControls: true })
-                    }
-                    onMouseLeave={() =>
-                        this.setState({ MouseOnControls: false })
-                    }
-                >
+                <div className='controls' ref={this.ControlsElement}>
                     <div className='section'>
                         <Play
                             video={this.video}
@@ -172,7 +87,10 @@ class Controls extends PureComponent<ControlsProps, ControlsState> {
                             className='controler-section icon fullscreen'
                         />
 
-                        <Settings video={this.video} className='controler-section icon settings' />
+                        <Settings
+                            video={this.video}
+                            className='controler-section icon settings'
+                        />
                     </div>
                 </div>
             </div>

@@ -87,17 +87,6 @@ class Range extends PureComponent<RangeProps, RangeState> {
         }
     }
 
-    // static getDerivedStateFromProps(props: RangeProps, state: RangeState){
-    //     if (props.value && props.value !== state.RangeValue && !state.isHolding) {
-    //         console.log('bsdf')
-    //         return {
-    //             RangeValue: props.value
-    //         }
-    //     }
-
-    //     return state
-    // }
-
     override render(): ReactElement {
         return (
             <div
