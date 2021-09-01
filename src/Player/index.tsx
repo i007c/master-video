@@ -25,7 +25,6 @@ interface PlayerState {
 }
 
 class Player extends PureComponent<PlayerProps, PlayerState> {
-
     override state: PlayerState = {
         videoElement: null,
         videoContainer: null,

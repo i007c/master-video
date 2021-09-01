@@ -41,6 +41,7 @@ class Controls extends PureComponent<ControlsProps, ControlsState> {
 
     private HandlePauseBind = this.HandlePause.bind(this)
     private HandlePlayBind = this.HandlePlay.bind(this)
+    private HandleMaouseMoveBind = this.HandleMaouseMove.bind(this)
 
     private HandlePause() {
         this.setState({ isPause: true })
@@ -50,23 +51,26 @@ class Controls extends PureComponent<ControlsProps, ControlsState> {
         this.setState({ isPause: false })
     }
 
+    private HandleMaouseMove() {
+        if (this.state.timer) {
+            clearTimeout(this.state.timer)
+            this.setState({
+                showControls: true,
+                timer: null,
+            })
+        } else {
+            this.setState({
+                showControls: true,
+            })
+        }
+    }
+
     override componentDidMount() {
         this.video.addEventListener('pause', this.HandlePauseBind)
         this.video.addEventListener('play', this.HandlePlayBind)
 
-        this.Container.addEventListener('mousemove', () => {
-            if (this.state.timer) {
-                clearTimeout(this.state.timer)
-                this.setState({
-                    showControls: true,
-                    timer: null,
-                })
-            } else {
-                this.setState({
-                    showControls: true,
-                })
-            }
-        })
+        this.Container.addEventListener('mousemove', this.HandleMaouseMoveBind)
+
         this.Container.addEventListener('mouseenter', () => {
             this.setState({
                 MouseOnVideo: true,
@@ -94,6 +98,11 @@ class Controls extends PureComponent<ControlsProps, ControlsState> {
     }
 
     override componentDidUpdate() {
+        if (!this.state.showControls) {
+            this.Container.style.cursor = 'none'
+        } else {
+            this.Container.style.cursor = ''
+        }
         if (
             this.state.MouseOnVideo &&
             !this.state.MouseOnControls &&
@@ -160,10 +169,6 @@ class Controls extends PureComponent<ControlsProps, ControlsState> {
                         <FullScreen
                             Container={this.Container}
                             className='controler-section icon fullscreen'
-                        />
-                        <Play
-                            video={this.video}
-                            className='controler-section icon play-pause'
                         />
                     </div>
                 </div>

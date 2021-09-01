@@ -12,19 +12,37 @@ interface FullScreenState {
     isFull: boolean
 }
 
-export class FullScreen extends PureComponent<FullScreenProps, FullScreenState> {
-
+export class FullScreen extends PureComponent<
+    FullScreenProps,
+    FullScreenState
+> {
     override state: FullScreenState = {
-        isFull: false
+        isFull: false,
     }
 
     private Container = this.props.Container
 
     private ToggleFullScreen() {
-        console.log(this.Container)
+        if (!document.fullscreenEnabled) return
+
+        if (document.fullscreenElement === this.Container) {
+            document.exitFullscreen()
+        } else {
+            this.Container.requestFullscreen()
+        }
     }
 
-    override render():ReactElement {
+    override componentDidMount() {
+        document.addEventListener('fullscreenchange', () => {
+            if (document.fullscreenElement === this.Container) {
+                this.setState({ isFull: true })
+            } else {
+                this.setState({ isFull: false })
+            }
+        })
+    }
+
+    override render(): ReactElement {
         return (
             <div
                 className={this.props.className}
@@ -34,7 +52,6 @@ export class FullScreen extends PureComponent<FullScreenProps, FullScreenState> 
             </div>
         )
     }
-
 }
 
 export default FullScreen

@@ -31,7 +31,7 @@ const App = () => {
 
 - [x] make video timeline
 - [ ] work with video sound amp(amplitude)
-- [ ] make fullscreen button
+- [x] make fullscreen button
 - [ ] settings button
 - [ ] settings for video speed
 - [ ] play video on click in video
