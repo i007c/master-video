@@ -10,6 +10,15 @@
         position: relative;
         @include box(inherit);
         overflow: hidden;
+
+        .play-section {
+            position: absolute;
+            width: 100%;
+            height: calc(100% - 80px);
+            left: 0;
+            top: 0;
+            z-index: 10;
+        }
     
         video {
             @include box(inherit);

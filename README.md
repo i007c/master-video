@@ -34,6 +34,6 @@ const App = () => {
 - [x] make fullscreen button
 - [ ] settings button
 - [ ] settings for video speed
-- [ ] play video on click in video
+- [x] play video on click in video
 - [ ] work with subtitles
 - [ ] add multi quality
