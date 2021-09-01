@@ -7,7 +7,10 @@ import './sass/controls.scss'
 import Play from './Play'
 import Volume from './Volume'
 import VideoTime from './VideoTime'
+
 import TimeLine from './TimeLine'
+
+import FullScreen from './FullScreen'
 
 interface ControlsProps {
     video: HTMLVideoElement
@@ -126,6 +129,8 @@ class Controls extends PureComponent<ControlsProps, ControlsState> {
                         : {}
                 }
             >
+                <TimeLine video={this.video} />
+
                 <div
                     className='controls'
                     onMouseEnter={() =>
@@ -135,23 +140,33 @@ class Controls extends PureComponent<ControlsProps, ControlsState> {
                         this.setState({ MouseOnControls: false })
                     }
                 >
-                    <Play
-                        video={this.video}
-                        className='controler-section icon play-pause'
-                    />
+                    <div className='section'>
+                        <Play
+                            video={this.video}
+                            className='controler-section icon play-pause'
+                        />
 
-                    <Volume
-                        video={this.video}
-                        className='controler-section icon volume'
-                    />
+                        <Volume
+                            video={this.video}
+                            className='controler-section icon volume'
+                        />
 
-                    <VideoTime
-                        video={this.video}
-                        className='controler-section dc-time'
-                    />
+                        <VideoTime
+                            video={this.video}
+                            className='controler-section dc-time'
+                        />
+                    </div>
+                    <div className='section'>
+                        <FullScreen
+                            Container={this.Container}
+                            className='controler-section icon fullscreen'
+                        />
+                        <Play
+                            video={this.video}
+                            className='controler-section icon play-pause'
+                        />
+                    </div>
                 </div>
-
-                <TimeLine video={this.video} />
             </div>
         )
     }
