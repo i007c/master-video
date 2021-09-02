@@ -89,7 +89,7 @@ class Controls extends PureComponent<ControlsProps, ControlsState> {
 
                         <Settings
                             video={this.video}
-                            className='controler-section icon settings'
+                            className='settings'
                         />
                     </div>
                 </div>
