@@ -8,25 +8,34 @@
         bottom: 55px;
         right: 56px;
         background-color: #000b;
-        border: 2px solid #FFF;
+        border: 2px solid #fff;
         border-radius: 5px;
         z-index: 15;
+        transition: all 500ms;
+        overflow: hidden;
 
-        ul {
-            list-style: none;
-            @include box(100%);
-            padding: 5px 0;
+        .settings-slide {
+            display: flex;
+            transition: transform 300ms cubic-bezier(1, 0, 0, 1);
+            transform: translateX(0);
 
-            .item {
-                cursor: pointer;
-                width: 100%;
-                @include Roboto(20px);
-                // background-color: red;
-                margin: 5px 0;
-                padding: 5px 10px;
+            ul {
+                list-style: none;
+                @include box(100%);
+                padding: 5px 0;
+                flex-shrink: 0;
 
-                &:hover {
-                    background-color: #FFF1;
+                .item {
+                    cursor: pointer;
+                    width: 100%;
+                    @include Roboto(20px);
+                    // background-color: red;
+                    margin: 5px 0;
+                    padding: 5px 10px;
+
+                    &:hover {
+                        background-color: #fff1;
+                    }
                 }
             }
         }
