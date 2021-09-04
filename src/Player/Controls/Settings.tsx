@@ -13,7 +13,8 @@ interface SettingsProps {
 
 interface SettingsState {
     showSettings: boolean
-    TabIndex: number
+    TabName: 'main' | 'speed' | 'quality' | 'cc'
+    SSNode: HTMLDivElement | null
 }
 
 const SpeedTab = [
@@ -21,6 +22,12 @@ const SpeedTab = [
     { label: '0.75', value: 0.75 },
     { label: '1', value: 1.0 },
     { label: '1.5', value: 1.5 },
+    { label: '1.6', value: 1.6 },
+    { label: '1.7', value: 1.7 },
+    { label: '1.8', value: 1.8 },
+    { label: '1.9', value: 1.9 },
+    { label: '2.0', value: 2.1 },
+    { label: '2.1', value: 2.1 },
 ]
 
 const SubtitleTab = [{ label: 'English', value: 'en' }]
@@ -30,22 +37,28 @@ const QualityTab = [{ label: '720p', value: '720p' }]
 export class Settings extends PureComponent<SettingsProps, SettingsState> {
     override state: SettingsState = {
         showSettings: true,
-        TabIndex: 0,
+        TabName: 'main',
+        SSNode: null,
     }
 
     private video = this.props.video
 
     private ToggleSettings() {
         this.setState({ showSettings: !this.state.showSettings })
+        this.ChangeTab('main')
     }
 
-    private ChangeTab(tab: 0 | 1 | 2 | 3) {
-        let ss = document.querySelector<HTMLDivElement>('.settings-slide')
+    private SettingsSlideNode = (node: HTMLDivElement) => {
+        this.setState({ SSNode: node })
+    }
 
-        if (ss) {
-            ss.style.transform = `translateX(${tab * -196}px)`
-            this.setState({ TabIndex: tab })
-        }
+    private ChangeTab(tab: 'main' | 'speed' | 'quality' | 'cc') {
+        if (!this.state.SSNode) return
+
+        this.state.SSNode.style.transform = `translateX(${
+            tab === 'main' ? 0 : -this.state.SSNode.offsetWidth
+        }px)`
+        this.setState({ TabName: tab })
     }
 
     private ChangeSpeed(value: number) {
@@ -73,9 +86,7 @@ export class Settings extends PureComponent<SettingsProps, SettingsState> {
     }
 
     private Back = (
-        <li className='item' onClick={() => this.ChangeTab(0)}>
-            Back
-        </li>
+        <li className='item back-btn'>&#60; {this.state.TabName}</li>
     )
 
     override render(): ReactElement {
@@ -86,93 +97,98 @@ export class Settings extends PureComponent<SettingsProps, SettingsState> {
                 </div>
                 {this.state.showSettings && (
                     <div className='settings-list'>
-                        <div className='settings-slide'>
-                            <ul
-                                style={
-                                    this.state.TabIndex === 0
-                                        ? {}
-                                        : { height: 0 }
-                                }
-                            >
-                                <li
-                                    className='item'
-                                    onClick={() => this.ChangeTab(1)}
+                        <div
+                            className='settings-slide'
+                            ref={this.SettingsSlideNode}
+                        >
+                            <div className='main-list'>
+                                {this.state.TabName === 'main' && (
+                                    <ul>
+                                        <li
+                                            className='item'
+                                            onClick={() =>
+                                                this.ChangeTab('speed')
+                                            }
+                                        >
+                                            Speed
+                                        </li>
+                                        <li
+                                            className='item'
+                                            onClick={() =>
+                                                this.ChangeTab('quality')
+                                            }
+                                        >
+                                            Quality
+                                        </li>
+                                        <li
+                                            className='item'
+                                            onClick={() => this.ChangeTab('cc')}
+                                        >
+                                            Subtitles/CC
+                                        </li>
+                                    </ul>
+                                )}
+                            </div>
+                            <div className='side-list'>
+                                <div
+                                    className='back-btn'
+                                    onClick={() => this.ChangeTab('main')}
                                 >
-                                    Speed
-                                </li>
-                                <li
-                                    className='item'
-                                    onClick={() => this.ChangeTab(2)}
-                                >
-                                    Quality
-                                </li>
-                                <li
-                                    className='item'
-                                    onClick={() => this.ChangeTab(3)}
-                                >
-                                    Subtitles/CC
-                                </li>
-                            </ul>
-                            <ul
-                                style={
-                                    this.state.TabIndex === 1
-                                        ? {}
-                                        : { height: 0 }
-                                }
-                            >
-                                {this.Back}
-                                {SpeedTab.map((item, index) => (
-                                    <li
-                                        key={index}
-                                        className='item'
-                                        onClick={() =>
-                                            this.ChangeSpeed(item.value)
-                                        }
-                                    >
-                                        {item.label}
-                                    </li>
-                                ))}
-                            </ul>
-                            <ul
-                                style={
-                                    this.state.TabIndex === 2
-                                        ? {}
-                                        : { height: 0 }
-                                }
-                            >
-                                {this.Back}
-                                {QualityTab.map((item, index) => (
-                                    <li
-                                        key={index}
-                                        className='item'
-                                        onClick={() =>
-                                            this.ChangeQuality(item.value)
-                                        }
-                                    >
-                                        {item.label}
-                                    </li>
-                                ))}
-                            </ul>
-                            <ul
-                                style={
-                                    this.state.TabIndex === 3
-                                        ? {}
-                                        : { height: 0 }
-                                }
-                            >
-                                {this.Back}
-                                {SubtitleTab.map((item, index) => (
-                                    <li
-                                        key={index}
-                                        className='item'
-                                        onClick={() =>
-                                            this.ChangeSubtitle(item.value)
-                                        }
-                                    >
-                                        {item.label}
-                                    </li>
-                                ))}
-                            </ul>
+                                    Back
+                                </div>
+                                {this.state.TabName === 'speed' && (
+                                    <ul>
+                                        {/* {this.Back} */}
+                                        {SpeedTab.map((item, index) => (
+                                            <li
+                                                key={index}
+                                                className='item'
+                                                onClick={() =>
+                                                    this.ChangeSpeed(item.value)
+                                                }
+                                            >
+                                                {item.label}
+                                            </li>
+                                        ))}
+                                    </ul>
+                                )}
+                                {this.state.TabName === 'quality' && (
+                                    <ul>
+                                        {this.Back}
+                                        {QualityTab.map((item, index) => (
+                                            <li
+                                                key={index}
+                                                className='item'
+                                                onClick={() =>
+                                                    this.ChangeQuality(
+                                                        item.value
+                                                    )
+                                                }
+                                            >
+                                                {item.label}
+                                            </li>
+                                        ))}
+                                    </ul>
+                                )}
+                                {this.state.TabName === 'cc' && (
+                                    <ul>
+                                        {this.Back}
+                                        {SubtitleTab.map((item, index) => (
+                                            <li
+                                                key={index}
+                                                className='item'
+                                                onClick={() =>
+                                                    this.ChangeSubtitle(
+                                                        item.value
+                                                    )
+                                                }
+                                            >
+                                                {item.label}
+                                            </li>
+                                        ))}
+                                    </ul>
+                                )}
+                            </div>
                         </div>
                     </div>
                 )}

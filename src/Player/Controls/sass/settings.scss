@@ -2,14 +2,14 @@
 
 .master-video .controls .settings {
     .settings-list {
-        width: 200px;
+        width: 250px;
         // height: 250px;
         position: absolute;
         bottom: 55px;
         right: 56px;
-        background-color: #000b;
-        border: 2px solid #fff;
-        border-radius: 5px;
+        background-color: #1c1c1ce6;
+        // border: 2px solid #fff;
+        // border-radius: 5px;
         z-index: 15;
         transition: all 500ms;
         overflow: hidden;
@@ -18,12 +18,53 @@
             display: flex;
             transition: transform 300ms cubic-bezier(1, 0, 0, 1);
             transform: translateX(0);
+            max-height: 366px;
+
+            .main-list {
+                width: 100%;
+                flex-shrink: 0;
+            }
+
+            .side-list {
+                width: 100%;
+                flex-shrink: 0;
+                display: flex;
+                flex-direction: column;
+
+                .back-btn {
+                    width: 100%;
+                    font-size: 20px;
+                    font-family: 'Roboto';
+                    padding: 10px 10px;
+                    position: relative;
+                    cursor: pointer;
+
+                    &::after {
+                        content: '';
+                        position: absolute;
+                        @include box(100%, 2px);
+                        bottom: 0;
+                        left: 0;
+                        background-color: #FFF;
+                    }
+                }
+            }
 
             ul {
                 list-style: none;
                 @include box(100%);
-                padding: 5px 0;
-                flex-shrink: 0;
+                // padding: 5px 0;
+                overflow-y: auto;
+
+                &::-webkit-scrollbar {
+                    width: 10px;
+                }
+
+                &::-webkit-scrollbar-thumb {
+                    background-color: #8e8e8e;
+                    border-radius: 5px;
+                    border: 1px solid #111;
+                }
 
                 .item {
                     cursor: pointer;
@@ -35,6 +76,12 @@
 
                     &:hover {
                         background-color: #fff1;
+                    }
+
+                    &.back-btn {
+                        &::after {
+                            content: '';
+                        }
                     }
                 }
             }
