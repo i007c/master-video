@@ -38,15 +38,19 @@ class Player extends PureComponent<PlayerProps, PlayerState> {
         this.setState({ videoContainer: node })
     }
 
-    // private TogglePlay(): void {
-    //     if (!this.state.videoElement) return
+    private TogglePlay(): void {
+        if (!this.state.videoElement) return
         
-    //     if (this.state.videoElement.paused) {
-    //         this.state.videoElement.play()
-    //     } else {
-    //         this.state.videoElement.pause()
-    //     }
-    // }
+        if (this.state.videoElement.paused) {
+            this.state.videoElement.play()
+        } else {
+            this.state.videoElement.pause()
+        }
+    }
+
+    override componentDidMount() {
+        console.log(this.props.children)
+    }
 
     override render(): ReactElement {
         return (
@@ -62,7 +66,7 @@ class Player extends PureComponent<PlayerProps, PlayerState> {
                 }
             >
                 <div className='video-player'>
-                    {/* <div className='play-section' onClick={() => this.TogglePlay()}></div> */}
+                    <div className='play-section' onClick={() => this.TogglePlay()}></div>
                     <video
                         ref={this.videoElement}
                         loop={this.props.options.loop}

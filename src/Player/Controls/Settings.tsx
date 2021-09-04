@@ -36,7 +36,7 @@ const QualityTab = [{ label: '720p', value: '720p' }]
 
 export class Settings extends PureComponent<SettingsProps, SettingsState> {
     override state: SettingsState = {
-        showSettings: true,
+        showSettings: false,
         TabName: 'main',
         SSNode: null,
     }
@@ -85,10 +85,6 @@ export class Settings extends PureComponent<SettingsProps, SettingsState> {
         }
     }
 
-    private Back = (
-        <li className='item back-btn'>&#60; {this.state.TabName}</li>
-    )
-
     override render(): ReactElement {
         return (
             <div className={this.props.className + ' controler-section'}>
@@ -129,16 +125,23 @@ export class Settings extends PureComponent<SettingsProps, SettingsState> {
                                     </ul>
                                 )}
                             </div>
-                            <div className='side-list'>
+                            <div
+                                className='side-list'
+                                style={
+                                    this.state.TabName === 'main'
+                                        ? { maxHeight: 0 }
+                                        : {}
+                                }
+                            >
                                 <div
                                     className='back-btn'
                                     onClick={() => this.ChangeTab('main')}
                                 >
                                     Back
                                 </div>
+
                                 {this.state.TabName === 'speed' && (
                                     <ul>
-                                        {/* {this.Back} */}
                                         {SpeedTab.map((item, index) => (
                                             <li
                                                 key={index}
@@ -154,7 +157,6 @@ export class Settings extends PureComponent<SettingsProps, SettingsState> {
                                 )}
                                 {this.state.TabName === 'quality' && (
                                     <ul>
-                                        {this.Back}
                                         {QualityTab.map((item, index) => (
                                             <li
                                                 key={index}
@@ -172,7 +174,6 @@ export class Settings extends PureComponent<SettingsProps, SettingsState> {
                                 )}
                                 {this.state.TabName === 'cc' && (
                                     <ul>
-                                        {this.Back}
                                         {SubtitleTab.map((item, index) => (
                                             <li
                                                 key={index}
