@@ -48,10 +48,6 @@ class Player extends PureComponent<PlayerProps, PlayerState> {
         }
     }
 
-    override componentDidMount() {
-        console.log(this.props.children)
-    }
-
     override render(): ReactElement {
         return (
             <div
