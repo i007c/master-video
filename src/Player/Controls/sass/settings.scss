@@ -4,17 +4,7 @@ $settingMaxHeight: 366px;
 
 .master-video .controls .settings {
     .settings-list {
-        width: 250px;
-        // height: 250px;
-        position: absolute;
-        bottom: 55px;
-        right: 56px;
-        background-color: #1c1c1ce6;
-        // border: 2px solid #fff;
-        // border-radius: 5px;
-        z-index: 15;
-        transition: all 500ms;
-        overflow: hidden;
+        
 
         .settings-slide {
             display: flex;
@@ -36,23 +26,7 @@ $settingMaxHeight: 366px;
                 max-height: $settingMaxHeight;
                 transition: max-height 300ms cubic-bezier(0, 0, 0, 1);
 
-                .back-btn {
-                    width: 100%;
-                    font-size: 20px;
-                    font-family: 'Roboto';
-                    padding: 10px 10px;
-                    position: relative;
-                    cursor: pointer;
-
-                    &::after {
-                        content: '';
-                        position: absolute;
-                        @include box(100%, 2px);
-                        bottom: 0;
-                        left: 0;
-                        background-color: #fff;
-                    }
-                }
+                
             }
 
             ul {
@@ -72,24 +46,7 @@ $settingMaxHeight: 366px;
                     border: 1px solid #111;
                 }
 
-                .item {
-                    cursor: pointer;
-                    width: 100%;
-                    @include Roboto(20px);
-                    // background-color: red;
-                    margin: 5px 0;
-                    padding: 5px 10px;
 
-                    &:hover {
-                        background-color: #fff1;
-                    }
-
-                    &.back-btn {
-                        &::after {
-                            content: '';
-                        }
-                    }
-                }
             }
         }
     }
