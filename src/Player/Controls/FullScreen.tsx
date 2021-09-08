@@ -40,6 +40,12 @@ export class FullScreen extends PureComponent<
                 this.setState({ isFull: false })
             }
         })
+
+        document.addEventListener('keydown', (e) => {
+            if (e.code === 'KeyF' && !e.altKey && !e.ctrlKey && !e.shiftKey) {
+                this.ToggleFullScreen()
+            }
+        })
     }
 
     override render(): ReactElement {

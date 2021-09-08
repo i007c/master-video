@@ -95,6 +95,14 @@ export class Settings extends PureComponent<SettingsProps, SettingsState> {
         }
     }
 
+    override componentDidMount() {
+        document.addEventListener('keydown', (e) => {
+            if (e.code === 'KeyS' && !e.altKey && !e.ctrlKey && !e.shiftKey) {
+                this.setState({showSettings: !this.state.showSettings})
+            }
+        })
+    }
+
     override render(): ReactElement {
         return (
             <div className={this.props.className + ' controler-section'}>

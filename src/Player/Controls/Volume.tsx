@@ -54,6 +54,17 @@ export class Volume extends PureComponent<VolumeProps, VolumeState> {
                 videoVolume: this.video.volume * 100,
             })
         })
+
+        document.addEventListener('keydown', e => {
+            if (
+                e.code === 'KeyM' &&
+                !e.altKey &&
+                !e.ctrlKey &&
+                !e.shiftKey
+            ) {
+                this.Togglemute()
+            }
+        })
     }
 
     override componentDidUpdate() {

@@ -35,6 +35,17 @@ class Play extends PureComponent<PlayProps, PlayState> {
         this.video.addEventListener('loadeddata', () => {
             this.setState({ isPlaying: !this.video.paused })
         })
+
+        document.addEventListener('keydown', e => {
+            if (
+                (e.code === 'KeyP' || e.code === 'Space') &&
+                !e.altKey &&
+                !e.ctrlKey &&
+                !e.shiftKey
+            ) {
+                this.TogglePlay()
+            }
+        })
     }
 
     private TogglePlay(): void {
