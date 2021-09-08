@@ -59,6 +59,7 @@ export class Settings extends PureComponent<SettingsProps, SettingsState> {
         sourcethisElement.src = value
         this.video.load()
         this.video.currentTime = oldTime
+        this.video.play()
     }
 
     private MenuList: MenuObject[] = [

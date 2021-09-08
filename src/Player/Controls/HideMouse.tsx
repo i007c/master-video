@@ -175,7 +175,7 @@ export class HideMouse extends PureComponent<HideMouseProps, HideMouseState> {
                     } else {
                         this.setState({ showControls: true, timer: null })
                     }
-                }, 10000)
+                }, 5000)
 
                 this.setState({ timer: t })
             }
