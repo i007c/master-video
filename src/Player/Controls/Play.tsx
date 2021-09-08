@@ -31,6 +31,10 @@ class Play extends PureComponent<PlayProps, PlayState> {
         this.video.addEventListener('pause', () => {
             this.setState({ isPlaying: false })
         })
+
+        this.video.addEventListener('loadeddata', () => {
+            this.setState({ isPlaying: !this.video.paused })
+        })
     }
 
     private TogglePlay(): void {

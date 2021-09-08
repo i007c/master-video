@@ -79,7 +79,8 @@ class Range extends PureComponent<RangeProps, RangeState> {
 
     override componentDidUpdate() {
         if (
-            this.props.value &&
+            typeof this.props.value === 'number' &&
+            !isNaN(this.props.value) &&
             this.props.value !== this.state.RangeValue &&
             !this.state.isHolding
         ) {

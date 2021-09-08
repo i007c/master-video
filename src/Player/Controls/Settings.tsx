@@ -1,5 +1,8 @@
 import React, { PureComponent, ReactElement } from 'react'
 
+// context
+import { PlayerContext } from '../../Contexts/Player.Context'
+
 // icons
 import { Tool } from '../components/icons'
 
@@ -10,7 +13,6 @@ import { Menu, MenuObject } from '../../Menu'
 import './sass/settings.scss'
 
 interface SettingsProps {
-    video: HTMLVideoElement
     className?: string
 }
 
@@ -34,7 +36,11 @@ export class Settings extends PureComponent<SettingsProps, SettingsState> {
         showSettings: false,
     }
 
-    private video = this.props.video
+    // context setup
+    static override contextType = PlayerContext
+    declare context: React.ContextType<typeof PlayerContext>
+
+    private video = this.context.video
 
     private ToggleSettings() {
         this.setState({ showSettings: !this.state.showSettings })
@@ -42,6 +48,17 @@ export class Settings extends PureComponent<SettingsProps, SettingsState> {
 
     private ChangeSpeed(value: number) {
         this.video.playbackRate = value
+    }
+
+    private ChangeSource(value: string) {
+        let sourcethisElement = this.video.querySelector('source')
+        if (!sourcethisElement) return
+
+        let oldTime = this.video.currentTime
+
+        sourcethisElement.src = value
+        this.video.load()
+        this.video.currentTime = oldTime
     }
 
     private MenuList: MenuObject[] = [
@@ -55,8 +72,13 @@ export class Settings extends PureComponent<SettingsProps, SettingsState> {
             }),
         },
         {
-            label: 'Quality',
-            job: [],
+            label: 'Sources',
+            job: this.context.Sources.map(item => {
+                return {
+                    label: item.label,
+                    job: () => this.ChangeSource(item.url),
+                }
+            }),
         },
     ]
 

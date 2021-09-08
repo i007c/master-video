@@ -87,10 +87,7 @@ class Controls extends PureComponent<ControlsProps, ControlsState> {
                             className='controler-section icon fullscreen'
                         />
 
-                        <Settings
-                            video={this.video}
-                            className='settings'
-                        />
+                        <Settings className='settings' />
                     </div>
                 </div>
             </div>

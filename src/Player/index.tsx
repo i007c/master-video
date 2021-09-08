@@ -1,13 +1,21 @@
 import React, { ReactElement, PureComponent } from 'react'
 
+// contexts
+import { PlayerContext } from '../Contexts/Player.Context'
+
 // components
 import Controls from './Controls'
 
 // style
 import './sass/player.scss'
 
+interface SourceObject {
+    url: string
+    label: string
+}
+
 export interface Options {
-    source: string
+    source: [SourceObject, ...SourceObject[]]
     loop?: boolean
     controls?: boolean
     style?: {
@@ -24,11 +32,15 @@ interface PlayerState {
     videoContainer: HTMLDivElement | null
 }
 
+// context
+
 class Player extends PureComponent<PlayerProps, PlayerState> {
     override state: PlayerState = {
         videoElement: null,
         videoContainer: null,
     }
+
+    private source = this.props.options.source
 
     private videoElement = (node: HTMLVideoElement) => {
         this.setState({ videoElement: node })
@@ -40,7 +52,7 @@ class Player extends PureComponent<PlayerProps, PlayerState> {
 
     private TogglePlay(): void {
         if (!this.state.videoElement) return
-        
+
         if (this.state.videoElement.paused) {
             this.state.videoElement.play()
         } else {
@@ -62,20 +74,31 @@ class Player extends PureComponent<PlayerProps, PlayerState> {
                 }
             >
                 <div className='video-player'>
-                    <div className='play-section' onClick={() => this.TogglePlay()}></div>
+                    <div
+                        className='play-section'
+                        onClick={() => this.TogglePlay()}
+                    ></div>
                     <video
                         ref={this.videoElement}
                         loop={this.props.options.loop}
                     >
-                        <source src={this.props.options.source} />
+                        <source src={this.source[0].url} />
                     </video>
                     {this.props.options.controls &&
                         this.state.videoElement &&
                         this.state.videoContainer && (
-                            <Controls
-                                video={this.state.videoElement}
-                                videoContainer={this.state.videoContainer}
-                            />
+                            <PlayerContext.Provider
+                                value={{
+                                    video: this.state.videoElement,
+                                    Container: this.state.videoContainer,
+                                    Sources: this.source,
+                                }}
+                            >
+                                <Controls
+                                    video={this.state.videoElement}
+                                    videoContainer={this.state.videoContainer}
+                                />
+                            </PlayerContext.Provider>
                         )}
                 </div>
             </div>
