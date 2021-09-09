@@ -7,8 +7,7 @@
         "build": "webpack",
         "build:watch": "webpack -w",
         "start": "webpack serve --config webpack.dev.config.js",
-        "test": "jest",
-        "prepare:husky": "husky install"
+        "test": "jest"
     },
     "repository": {
         "type": "git",
