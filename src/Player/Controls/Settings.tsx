@@ -72,15 +72,6 @@ export class Settings extends PureComponent<SettingsProps, SettingsState> {
                 }
             }),
         },
-        {
-            label: 'Sources',
-            job: this.context.Sources.map(item => {
-                return {
-                    label: item.label,
-                    job: () => this.ChangeSource(item.url),
-                }
-            }),
-        },
     ]
 
     override componentDidUpdate() {
@@ -96,9 +87,39 @@ export class Settings extends PureComponent<SettingsProps, SettingsState> {
     }
 
     override componentDidMount() {
+        if (this.context.Sources.length > 1) {
+            this.MenuList.push({
+                label: 'Sources',
+                job: this.context.Sources.map(item => {
+                    return {
+                        label: item.label,
+                        job: () => this.ChangeSource(item.url),
+                    }
+                }),
+            })
+        }
+
+        document.addEventListener('click', e => {
+            e.preventDefault()
+
+            if (e.target)
+                if (
+                    !(e.target as HTMLElement).closest('.settings') &&
+                    !(e.target as HTMLElement).closest('.menu-item') &&
+                    !(e.target as HTMLElement).closest('.back-btn')
+                )
+                    this.setState({ showSettings: false })
+        })
+
         document.addEventListener('keydown', e => {
+            e.preventDefault()
+
             if (e.code === 'KeyS' && !e.altKey && !e.ctrlKey && !e.shiftKey) {
                 this.setState({ showSettings: !this.state.showSettings })
+            }
+
+            if (e.code === 'Escape' && !e.altKey && !e.ctrlKey && !e.shiftKey) {
+                this.setState({ showSettings: false })
             }
         })
     }
@@ -106,7 +127,7 @@ export class Settings extends PureComponent<SettingsProps, SettingsState> {
     override render(): ReactElement {
         return (
             <div className={this.props.className + ' controler-section'}>
-                <div className={'icon'} onClick={() => this.ToggleSettings()}>
+                <div className='icon' onClick={() => this.ToggleSettings()}>
                     <Tool />
                 </div>
                 {this.state.showSettings && (

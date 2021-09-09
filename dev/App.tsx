@@ -19,7 +19,6 @@ const PlayerOptions: Options = {
         { label: '1', url: videoFile1 },
         { label: '2', url: videoFile2 },
     ],
-    // source: [],
     controls: true,
     style: { className: 'custom-video-player' },
 }
