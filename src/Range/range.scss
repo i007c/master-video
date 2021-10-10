@@ -39,12 +39,14 @@
 
         .thumb {
             @include box(12px);
+            opacity: 0;
             cursor: pointer;
             display: flex;
             outline: 0;
             position: absolute;
             margin-top: -5px;
-            transition: box-shadow 150ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
+            // transition: opacity 300ms;
+            // transition: opacity 150ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
             align-items: center;
             margin-left: -6px;
             border-radius: 50%;
@@ -54,7 +56,9 @@
             left: 0;
 
             &.hold {
-                box-shadow: 0px 0px 0px 8px #FFFFFF29;
+                // box-shadow: 0px 0px 0px 8px #FFFFFF29;
+                // @include box(12px);
+                opacity: 1;
             }
         }
     }

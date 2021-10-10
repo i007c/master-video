@@ -15,6 +15,7 @@ interface RangeProps {
     onChange?: (percentage: number) => void
     onHold?: (hold: boolean) => void
     value?: number
+    thumb?: 'show' | 'hide'
 }
 
 interface RangeState {
@@ -106,7 +107,12 @@ class Range extends PureComponent<RangeProps, RangeState> {
                         className={
                             'thumb' + (this.state.isHolding ? ' hold' : '')
                         }
-                        style={{ left: `${this.state.RangeValue}%` }}
+                        style={{
+                            ...(this.props.thumb && {
+                                opacity: this.props.thumb === 'show' ? 1 : 0,
+                            }),
+                            left: `${this.state.RangeValue}%`,
+                        }}
                     ></span>
                 </span>
             </div>
