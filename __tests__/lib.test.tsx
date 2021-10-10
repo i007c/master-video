@@ -10,6 +10,10 @@ test('Rnder Master Video', () => {
             options={{
                 source: [{ label: 'source 1', url: video }],
                 controls: true,
+                style: {
+                    className: 'test-class',
+                    timelineColor: 'black'
+                },
             }}
         />
     )
