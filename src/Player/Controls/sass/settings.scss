@@ -4,8 +4,6 @@ $settingMaxHeight: 366px;
 
 .master-video .controls .settings {
     .settings-list {
-        
-
         .settings-slide {
             display: flex;
             transition: transform 300ms cubic-bezier(1, 0, 0, 1);
@@ -25,8 +23,6 @@ $settingMaxHeight: 366px;
                 flex-direction: column;
                 max-height: $settingMaxHeight;
                 transition: max-height 300ms cubic-bezier(0, 0, 0, 1);
-
-                
             }
 
             ul {
@@ -45,8 +41,6 @@ $settingMaxHeight: 366px;
                     border-radius: 5px;
                     border: 1px solid #111;
                 }
-
-
             }
         }
     }
