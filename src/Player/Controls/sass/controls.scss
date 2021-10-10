@@ -41,7 +41,8 @@
         }
 
         .icon {
-            
+            display: grid;
+            place-items: center;
             cursor: pointer;
             @include box(35px);
 
@@ -55,6 +56,10 @@
             }
         }
 
+        .settings svg {
+            @include box(30px);
+        }
+
         .volume {
             display: flex;
             align-items: center;
@@ -64,7 +69,7 @@
             transition: width 540ms;
 
             svg {
-                width: 35px;
+                @include box(30px);
                 flex-shrink: 0;
                 cursor: pointer;
             }
