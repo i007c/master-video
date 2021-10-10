@@ -37,12 +37,8 @@ class Play extends PureComponent<PlayProps, PlayState> {
         })
 
         document.addEventListener('keydown', e => {
-            if (
-                (e.code === 'KeyP' || e.code === 'Space') &&
-                !e.altKey &&
-                !e.ctrlKey &&
-                !e.shiftKey
-            ) {
+            if (e.altKey || e.ctrlKey || e.shiftKey) return
+            if (e.code === 'KeyP' || e.code === 'Space') {
                 this.TogglePlay()
             }
         })

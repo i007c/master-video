@@ -41,8 +41,9 @@ export class FullScreen extends PureComponent<
             }
         })
 
-        document.addEventListener('keydown', (e) => {
-            if (e.code === 'KeyF' && !e.altKey && !e.ctrlKey && !e.shiftKey) {
+        document.addEventListener('keydown', e => {
+            if (e.altKey || e.ctrlKey || e.shiftKey) return
+            if (e.code === 'KeyF') {
                 this.ToggleFullScreen()
             }
         })

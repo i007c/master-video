@@ -56,12 +56,8 @@ export class Volume extends PureComponent<VolumeProps, VolumeState> {
         })
 
         document.addEventListener('keydown', e => {
-            if (
-                e.code === 'KeyM' &&
-                !e.altKey &&
-                !e.ctrlKey &&
-                !e.shiftKey
-            ) {
+            if (e.altKey || e.ctrlKey || e.shiftKey) return
+            if (e.code === 'KeyM') {
                 this.Togglemute()
             }
         })

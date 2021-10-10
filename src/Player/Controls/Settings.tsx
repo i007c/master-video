@@ -112,13 +112,13 @@ export class Settings extends PureComponent<SettingsProps, SettingsState> {
         })
 
         document.addEventListener('keydown', e => {
-            e.preventDefault()
+            if (e.altKey || e.ctrlKey || e.shiftKey) return
 
-            if (e.code === 'KeyS' && !e.altKey && !e.ctrlKey && !e.shiftKey) {
+            if (e.code === 'KeyS') {
                 this.setState({ showSettings: !this.state.showSettings })
             }
 
-            if (e.code === 'Escape' && !e.altKey && !e.ctrlKey && !e.shiftKey) {
+            if (e.code === 'Escape') {
                 this.setState({ showSettings: false })
             }
         })
