@@ -20,7 +20,10 @@ const PlayerOptions: Options = {
         { label: '2', url: videoFile2 },
     ],
     controls: true,
-    style: { className: 'custom-video-player' },
+    style: {
+        className: 'custom-video-player',
+        timelineColor: '#F00',
+    },
 }
 
 const App = () => {

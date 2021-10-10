@@ -3,8 +3,10 @@ import React, { PureComponent, ReactElement } from 'react'
 // style
 import './sass/controls.scss'
 
-// components
+// context
+import { PlayerContext } from '../../Contexts/Player.Context'
 
+// components
 import HideMouse from './HideMouse'
 
 import Play from './Play'
@@ -16,10 +18,7 @@ import TimeLine from './TimeLine'
 import FullScreen from './FullScreen'
 import Settings from './Settings'
 
-interface ControlsProps {
-    video: HTMLVideoElement
-    videoContainer: HTMLDivElement
-}
+interface ControlsProps {}
 
 interface ControlsState {
     ControlsElement: HTMLDivElement | null
@@ -32,8 +31,12 @@ class Controls extends PureComponent<ControlsProps, ControlsState> {
         ControlsContainerElement: null,
     }
 
-    private video = this.props.video
-    private Container = this.props.videoContainer
+    // context setup
+    static override contextType = PlayerContext
+    declare context: React.ContextType<typeof PlayerContext>
+
+    private video = this.context.video
+    private Container = this.context.Container
 
     private ControlsElement = (node: HTMLDivElement) => {
         this.setState({ ControlsElement: node })

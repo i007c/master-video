@@ -20,6 +20,7 @@ export interface Options {
     controls?: boolean
     style?: {
         className?: string
+        timelineColor?: string
     }
 }
 
@@ -40,7 +41,9 @@ class Player extends PureComponent<PlayerProps, PlayerState> {
         videoContainer: null,
     }
 
-    private source = this.props.options.source
+    private opt = this.props.options
+
+    private source = this.opt.source
 
     private videoElement = (node: HTMLVideoElement) => {
         this.setState({ videoElement: node })
@@ -67,9 +70,8 @@ class Player extends PureComponent<PlayerProps, PlayerState> {
                 role='master-video'
                 className={
                     'master-video' +
-                    (this.props.options.style &&
-                    this.props.options.style.className
-                        ? ' ' + this.props.options.style.className
+                    (this.opt.style && this.opt.style.className
+                        ? ' ' + this.opt.style.className
                         : '')
                 }
             >
@@ -78,13 +80,10 @@ class Player extends PureComponent<PlayerProps, PlayerState> {
                         className='play-section'
                         onClick={() => this.TogglePlay()}
                     ></div>
-                    <video
-                        ref={this.videoElement}
-                        loop={this.props.options.loop}
-                    >
+                    <video ref={this.videoElement} loop={this.opt.loop}>
                         <source src={this.source[0].url} />
                     </video>
-                    {this.props.options.controls &&
+                    {this.opt.controls &&
                         this.state.videoElement &&
                         this.state.videoContainer && (
                             <PlayerContext.Provider
@@ -92,12 +91,13 @@ class Player extends PureComponent<PlayerProps, PlayerState> {
                                     video: this.state.videoElement,
                                     Container: this.state.videoContainer,
                                     Sources: this.source,
+                                    ...(this.opt.style && {
+                                        timelineColor:
+                                            this.opt.style.timelineColor,
+                                    }),
                                 }}
                             >
-                                <Controls
-                                    video={this.state.videoElement}
-                                    videoContainer={this.state.videoContainer}
-                                />
+                                <Controls />
                             </PlayerContext.Provider>
                         )}
                 </div>

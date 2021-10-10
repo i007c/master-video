@@ -9,6 +9,7 @@ export interface PlayerContextType {
     video: HTMLVideoElement
     Container: HTMLDivElement
     Sources: [SourceObject, ...SourceObject[]]
+    timelineColor?: string
 }
 
 
