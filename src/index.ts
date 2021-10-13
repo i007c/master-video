@@ -1,3 +1,5 @@
-import Player from './Player'
-export * from './Player'
-export default Player
+export * from './Main'
+export * from './interfaces'
+
+import MasterVideo from './Main'
+export default MasterVideo

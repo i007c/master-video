@@ -1,0 +1,15 @@
+@use './mixins.sass' as *;
+
+.master-video {
+    @include box(100%);
+    position: relative;
+
+    video {
+        @include box(inherit);
+    }
+
+    .overlay-container {
+        position: absolute;
+        inset: 0;
+    }
+}
