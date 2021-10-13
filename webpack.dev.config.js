@@ -30,8 +30,8 @@ module.exports = {
                 test: /\.(mp4|ico)$/i,
                 use: [
                     {
-                        loader: 'file-loader'
-                    }
+                        loader: 'file-loader',
+                    },
                 ],
             },
         ],
@@ -54,6 +54,9 @@ module.exports = {
         open: false,
         devMiddleware: {
             writeToDisk: false,
+        },
+        client: {
+            logging: 'none',
         },
     },
 }

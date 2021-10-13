@@ -32,7 +32,7 @@
 
     "moduleResolution": "node",                  /* Specify module resolution strategy: 'node' (Node.js) or 'classic' (TypeScript pre-1.6). */
     "baseUrl": "./",                             /* Base directory to resolve non-absolute module names. */
-    "typeRoots": ["node_modules/@types", "src/@types"],                             /* List of folders to include type definitions from. */
+    "typeRoots": ["node_modules/@types", "src/interfaces"],                             /* List of folders to include type definitions from. */
     "allowSyntheticDefaultImports": true,        /* Allow default imports from modules with no default export. This does not affect code emit, just typechecking. */
     "esModuleInterop": true,                        /* Enables emit interoperability between CommonJS and ES Modules via creation of namespace objects for all imports. Implies 'allowSyntheticDefaultImports'. */
     "experimentalDecorators": true,              /* Enables experimental support for ES7 decorators. */
