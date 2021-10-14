@@ -1,6 +1,7 @@
 # Master Video
 
-![npm](https://img.shields.io/npm/v/master-video?color=222&label=npm&labelColor=E20338)\
+[![npm](https://img.shields.io/npm/v/master-video?color=222&label=npm&labelColor=E20338)](https://www.npmjs.com/package/master-video)
+
 a React Video Player
 
 ## Install
@@ -11,29 +12,89 @@ npm install --save master-video
 
 ## Useage
 
-example:
+JavaScript:
 
 ```js
-import MasterVideo from 'master-video'
+import MasterVideo, { DefaultOverlay } from 'master-video'
 
-import video from 'video.mp4'
+import video1 from 'video.mp4'
+const video2 = 'https://example.com/video.mp4'
+
+const Options = {
+    source: [
+        { label: 'video 1', url: video1 },
+        { label: 'video 2', url: video2 },
+    ],
+}
 
 const App = () => {
     return (
         <div className='app'>
-            <MasterVideo options={{ source: video, controls: true }} />
+            <MasterVideo 
+                Options={Options} 
+                Overlay={DefaultOverlay}
+            />
         </div>
     )
 }
 ```
 
-## TODO's
+TypeScript:
 
-- [x] make video timeline
-- [ ] work with video sound amp(amplitude)
-- [x] make fullscreen button
-- [ ] settings button
-- [ ] settings for video speed
-- [x] play video on click in video
-- [ ] work with subtitles
-- [ ] add multi quality
+```tsx
+import MasterVideo, { DefaultOverlay, VideoOptions } from 'master-video'
+
+const video1 = 'https://example.com/video.mp4'
+
+const Options: VideoOptions = {
+    source: [
+        { label: 'video 1', url: video1 },
+    ],
+}
+
+const App = () => {
+    return (
+        <div className='app'>
+            <MasterVideo 
+                Options={Options} 
+                Overlay={DefaultOverlay}
+            />
+        </div>
+    )
+}
+```
+
+Custom Overlay:
+
+```tsx
+import MasterVideo, { VideoOptions, OverlayProps } from 'master-video'
+
+const CustomOverlay = ({ TogglePlay }: OverlayProps) => {
+    return (
+        <div className='overlay' style={{ background: 'rgba(0,0,0,.7)' }}>
+            <button onClick={() => TogglePlay()}>
+                Toggle Play
+            </button>
+        </div>
+    )
+}
+
+const video1 = 'https://example.com/video.mp4'
+
+const Options: VideoOptions = {
+    source: [
+        { label: 'video 1', url: video1 },
+    ],
+}
+
+const App = () => {
+    return (
+        <div className='app'>
+            <MasterVideo 
+                Options={Options} 
+                Overlay={CustomOverlay}
+            />
+        </div>
+    )
+}
+```
