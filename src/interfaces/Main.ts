@@ -1,3 +1,5 @@
+import { FC } from 'react'
+
 export type TogglePlay = 'play' | 'pause'
 export type ToggleMute = 'mute' | 'unmute'
 
@@ -12,11 +14,12 @@ export interface OverlayProps {
     ToggleMute: (type?: ToggleMute) => void
     ChangeVolume: (volume?: number) => void
     // jsx
-    Time: (props: TimeProps) => JSX.Element
+    Time: FC<TimeProps> // (props: TimeProps) => JSX.Element
     // propertise
     isPlaying: boolean
     isMuted: boolean
     volume: number
+    TimeValue: { percentage: number; currentTime: number; duration: number }
 }
 
 interface VideoSource {

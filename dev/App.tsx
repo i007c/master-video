@@ -6,6 +6,7 @@ import MasterVideo, { OverlayProps, VideoOptions } from '../lib/'
 
 // video file
 import videoFile1 from './videos/1.mp4'
+
 // const videoFile2 =
 //     'https://cdn.discordapp.com/attachments/837976157609656323/842785794485780520/Shrek_1.mp4'
 
@@ -34,9 +35,12 @@ const TestOverlay = ({
     isPlaying,
     isMuted,
     volume,
+    TimeValue,
 }: OverlayProps) => {
     console.log(
-        `is playing: ${isPlaying}\nis muted: ${isMuted}\nVol: ${volume}`
+        `is playing: ${isPlaying}\nis muted: ${isMuted}\n
+        Vol: ${volume}\n\n${TimeValue.currentTime}\n
+        ${TimeValue.duration}\n${TimeValue.percentage}`
     )
 
     return (
@@ -53,6 +57,7 @@ const TestOverlay = ({
             <span>
                 <Time type='played' />
             </span>
+            <span>{isMuted ? 'muted' : 'not muted'}</span>
         </div>
     )
 }

@@ -74,6 +74,12 @@ export class OM extends PureComponent<OMProps, OMState> {
                 isPlaying={this.state.isPlaying}
                 isMuted={this.state.isMuted}
                 volume={this.state.volume}
+                TimeValue={{
+                    duration: this.video.duration,
+                    currentTime: this.video.currentTime,
+                    percentage:
+                        (100 / this.video.duration) * this.video.currentTime,
+                }}
             />
         )
     }
