@@ -21,7 +21,18 @@ export class Controls extends PureComponent<ControlsProps, ControlsState> {
     }
 
     override render(): ReactElement {
-        return <div className='controls-container'>Controls</div>
+        return (
+            <div className='controls-container'>
+                <div className='controls'>
+                    <section className='left'>
+                        <div className='play-btn'></div>
+                    </section>
+                    <section className='right'>
+                        <div className='fullscreen'></div>
+                    </section>
+                </div>
+            </div>
+        )
     }
 }
 

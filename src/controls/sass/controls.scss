@@ -1,4 +1,29 @@
+@use '../../sass/mixins.sass' as *;
+
 .controls-container {
     position: absolute;
     inset: 0;
+    display: flex;
+    flex-direction: column-reverse;
+
+    .controls {
+        display: flex;
+        @include box(100%, clamp(1.4rem, 20%, 3rem));
+        border: 1px solid pink;
+
+        section {
+            @include box(100%);
+            display: flex;
+
+            &.right {
+                flex-direction: row-reverse;
+            }
+
+            .play-btn {
+                height: 100%;
+                aspect-ratio: 1;
+                background-color: red;
+            }
+        }
+    }
 }
