@@ -3,13 +3,9 @@
 .master-video {
     @include box(100%);
     position: relative;
+    border: 1px solid red;
 
     video {
         @include box(inherit);
-    }
-
-    .overlay-container {
-        position: absolute;
-        inset: 0;
     }
 }

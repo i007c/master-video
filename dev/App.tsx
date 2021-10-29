@@ -2,7 +2,7 @@ import React, { useEffect } from 'react'
 import ReactDOM from 'react-dom'
 
 // master video
-import MasterVideo, { OverlayProps, VideoOptions } from '../lib/'
+import MasterVideo from '../lib'
 
 // video file
 import videoFile1 from './videos/1.mp4'
@@ -15,62 +15,6 @@ import './style.scss'
 
 import favicon from './favicon.ico'
 
-// const PlayerOptions: Options = {
-//     source: [
-//         { label: '1', url: videoFile1 },
-//         { label: '2', url: videoFile2 },
-//     ],
-//     controls: true,
-//     style: {
-//         className: 'custom-video-player',
-//         timelineColor: '#F00',
-//     },
-// }
-
-const TestOverlay = ({
-    TogglePlay,
-    Time,
-    ChangeVolume,
-    ToggleMute,
-    isPlaying,
-    isMuted,
-    volume,
-    TimeValue,
-}: OverlayProps) => {
-    console.log(
-        `is playing: ${isPlaying}\nis muted: ${isMuted}\n
-        Vol: ${volume}\n\n${TimeValue.currentTime}\n
-        ${TimeValue.duration}\n${TimeValue.percentage}`
-    )
-
-    return (
-        <div className='overlay' style={{ background: 'rgba(0,0,0,.7)' }}>
-            <button onClick={() => TogglePlay()}>Toggle Play</button>
-            <button onClick={() => ToggleMute()}>Toggle Mute</button>
-            <input
-                type='range'
-                onChange={e => ChangeVolume(+e.target.value)}
-                max='100'
-                min='0'
-                step='1'
-            />
-            <span>
-                <Time type='played' />
-            </span>
-            <span>{isMuted ? 'muted' : 'not muted'}</span>
-        </div>
-    )
-}
-
-const Options: VideoOptions = {
-    source: [
-        {
-            label: 'test',
-            url: videoFile1,
-        },
-    ],
-}
-
 const App = () => {
     useEffect(() => {
         document.head.insertAdjacentHTML(
@@ -80,7 +24,7 @@ const App = () => {
     }, [])
     return (
         <div className='app'>
-            <MasterVideo Options={Options} Overlay={TestOverlay} />
+            <MasterVideo source={videoFile1} />
         </div>
     )
 }
