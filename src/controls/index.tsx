@@ -9,6 +9,7 @@ import TimeConvert from '../utils/TimeConvert'
 // components
 import CTime from './CTime'
 import FullScreen from './icons/FullScreen'
+import TimeLine from './TimeLine'
 // icons
 import Play from './icons/Play'
 import Volume from './icons/Volume'
@@ -65,7 +66,9 @@ export class Controls extends PureComponent<ControlsProps, ControlsState> {
                     <div className='timestamp'>
                         <CTime /> / {this.state.duration}
                     </div>
-                    <div className='timeline'></div>
+                    <div className='timeline'>
+                        <TimeLine />
+                    </div>
                     <div
                         className='btn volume'
                         onClick={() => (this.video.muted = !this.video.muted)}
