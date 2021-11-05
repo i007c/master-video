@@ -4,26 +4,36 @@
     position: absolute;
     inset: 0;
     display: flex;
-    flex-direction: column-reverse;
+    flex-direction: column;
+
+    .toggle-play {
+        @include box(100%);
+    }
 
     .controls {
         display: flex;
         @include box(100%, clamp(1.4rem, 20%, 3rem));
-        border: 1px solid pink;
+        background-color: #0005;
 
-        section {
+        display: flex;
+
+        .btn {
+            height: 100%;
+            aspect-ratio: 1;
+            flex-shrink: 0;
+        }
+
+        .timestamp {
+            height: 100%;
+            width: max-content;
+            display: grid;
+            place-items: center;
+            padding: 0 0.3rem;
+            flex-shrink: 0;
+        }
+
+        .timeline {
             @include box(100%);
-            display: flex;
-
-            &.right {
-                flex-direction: row-reverse;
-            }
-
-            .play-btn {
-                height: 100%;
-                aspect-ratio: 1;
-                background-color: red;
-            }
         }
     }
 }
