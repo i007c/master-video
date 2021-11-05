@@ -1,5 +1,7 @@
 @use './mixins.sass' as *;
 
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans&display=swap');
+
 .master-video {
     @include box(100%);
     position: relative;
