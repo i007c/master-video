@@ -8,10 +8,12 @@ body {
     overflow: hidden;
     background-color: #000;
     color: #fff;
+    display: grid;
+    place-items: center;
 }
 
 .app {
-    width: 100vw;
+    width: 90vw;
     aspect-ratio: 16/9;
     padding: 100px;
 }
