@@ -1,8 +1,8 @@
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
+// * {
+//     margin: 0;
+//     padding: 0;
+//     box-sizing: border-box;
+// }
 
 body {
     overflow: hidden;
@@ -13,9 +13,12 @@ body {
 }
 
 .app {
-    width: 90vw;
-    aspect-ratio: 16/9;
-    padding: 100px;
+    font-family: sans-serif;
+    text-align: center;
+    color: #fff;
+    width: 40vw;
+    border: 3px solid #00f;
+    margin: 100px auto 0;
 
     .gg {
         border: 1px solid red;

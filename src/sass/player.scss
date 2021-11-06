@@ -5,6 +5,11 @@
 .master-video {
     @include box(100%);
     position: relative;
+    box-sizing: border-box;
+
+    * {
+        box-sizing: border-box;
+    }
 
     -webkit-touch-callout: none;
     -webkit-user-select: none;
