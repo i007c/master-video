@@ -57,9 +57,11 @@ export class Volume extends BaseComponent<VolumeProps, VolumeState> {
     override render(): ReactElement {
         return (
             <svg
-                stroke='currentColor'
-                fill='currentColor'
-                strokeWidth='0'
+                fill={
+                    this.options?.volumeIconColor ||
+                    this.options?.iconsColor ||
+                    'currentColor'
+                }
                 viewBox='0 0 24 24'
                 xmlns='http://www.w3.org/2000/svg'
             >

@@ -16,8 +16,22 @@ import './style.scss'
 import favicon from './favicon.ico'
 
 const OPT: Options = {
-    loop: false,
+    // loop: false,
     masterClass: 'gg',
+    // iconsColor: '#0f0',
+    // playIconColor: '#0ff',
+    // fullscreenIconColor: '#ff0',
+    // volumeIconColor: '#fff',
+    // timeLine: {
+    //     track: '#f00',
+    //     thumb: '#0f0',
+    //     rail: '#00f',
+    // },
+    // volume: {
+    //     rail: '#FFF',
+    //     thumb: '#f00',
+    //     track: '#00f',
+    // },
 }
 
 const App = () => {

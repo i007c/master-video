@@ -89,10 +89,21 @@ export class TimeLine extends BaseComponent<{}, TimeLineState> {
                     onMouseDown={this.HandleMouseDown.bind(this)}
                     ref={this.TimeLineRef.bind(this)}
                 >
-                    <span className='rail'>
+                    <span
+                        className='rail'
+                        style={{
+                            backgroundColor:
+                                this.options?.timeLine?.rail || '#fff4',
+                        }}
+                    >
                         <span
                             className='track'
-                            style={{ width: `${this.state.percentage}%` }}
+                            style={{
+                                width: `${this.state.percentage}%`,
+                                backgroundColor:
+                                    this.options?.timeLine?.track ||
+                                    'currentcolor',
+                            }}
                         ></span>
                     </span>
 
@@ -104,6 +115,8 @@ export class TimeLine extends BaseComponent<{}, TimeLineState> {
                         }`}
                         style={{
                             left: `${this.state.percentage}%`,
+                            backgroundColor:
+                                this.options?.timeLine?.thumb || 'currentcolor',
                         }}
                     ></span>
                 </span>

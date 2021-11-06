@@ -18,7 +18,7 @@ interface VolumeState {
 
 export class Volume extends BaseComponent<VolumeProps, VolumeState> {
     override state: VolumeState = {
-        showRange: false,
+        showRange: true,
         isHover: false,
         isMouseDown: false,
         percentage: 0,
@@ -134,11 +134,21 @@ export class Volume extends BaseComponent<VolumeProps, VolumeState> {
                                 onMouseDown={this.HandleMouseDownBind}
                                 ref={this.TimeLineRef.bind(this)}
                             >
-                                <span className='rail'>
+                                <span
+                                    className='rail'
+                                    style={{
+                                        backgroundColor:
+                                            this.options?.volume?.rail ||
+                                            '#fff4',
+                                    }}
+                                >
                                     <span
                                         className='track'
                                         style={{
                                             height: `${this.state.percentage}%`,
+                                            backgroundColor:
+                                                this.options?.volume?.track ||
+                                                'currentcolor',
                                         }}
                                     ></span>
                                 </span>
@@ -151,6 +161,9 @@ export class Volume extends BaseComponent<VolumeProps, VolumeState> {
                                     }`}
                                     style={{
                                         bottom: `${this.state.percentage}%`,
+                                        backgroundColor:
+                                            this.options?.volume?.thumb ||
+                                            'currentcolor',
                                     }}
                                 ></span>
                             </span>

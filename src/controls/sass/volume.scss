@@ -11,8 +11,9 @@
 
     .range-container {
         position: absolute;
-        @include box(30px, 120px);
+        @include box(100%, 5rem);
         cursor: default;
+
         bottom: 120%;
 
         .volume-range {
