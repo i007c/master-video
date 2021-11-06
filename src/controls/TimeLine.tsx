@@ -1,6 +1,5 @@
-import React, { PureComponent, ReactElement } from 'react'
-
-import { PlayerContext } from '../context'
+import React, { ReactElement } from 'react'
+import BaseComponent from './BaseComponent'
 
 import './sass/timeline.scss'
 
@@ -11,18 +10,12 @@ interface TimeLineState {
     timeline?: HTMLSpanElement
 }
 
-export class TimeLine extends PureComponent<{}, TimeLineState> {
+export class TimeLine extends BaseComponent<{}, TimeLineState> {
     override state: TimeLineState = {
         isHover: false,
         isMouseDown: false,
         percentage: 0,
     }
-
-    // context setup
-    static override contextType = PlayerContext
-    declare context: React.ContextType<typeof PlayerContext>
-
-    private video = this.context.video
 
     private TimeLineRef(node: HTMLSpanElement) {
         this.setState({ timeline: node })

@@ -1,9 +1,9 @@
 import React, { PureComponent } from 'react'
 
 // context
-import { PlayerContext } from '../../context'
+import { PlayerContext } from '../context'
 
-export default class BaseIcon<P = {}, S = {}> extends PureComponent<P, S> {
+export default class BaseComponent<P = {}, S = {}> extends PureComponent<P, S> {
     // context setup
     static override contextType = PlayerContext
     declare context: React.ContextType<typeof PlayerContext>

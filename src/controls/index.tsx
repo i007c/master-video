@@ -1,6 +1,5 @@
-import React, { PureComponent, ReactElement } from 'react'
-
-import { PlayerContext } from '../context'
+import React, { ReactElement } from 'react'
+import BaseComponent from './BaseComponent'
 
 // utils
 import { togglePlay, toggleFullScreen } from '../utils'
@@ -10,9 +9,9 @@ import TimeConvert from '../utils/TimeConvert'
 import CTime from './CTime'
 import FullScreen from './icons/FullScreen'
 import TimeLine from './TimeLine'
+import Volume from './Volume'
 // icons
 import Play from './icons/Play'
-import Volume from './icons/Volume'
 
 import './sass/controls.scss'
 
@@ -34,14 +33,8 @@ const defaultState: ControlsState = {
     duration: '0:00',
 }
 
-export class Controls extends PureComponent<ControlsProps, ControlsState> {
+export class Controls extends BaseComponent<ControlsProps, ControlsState> {
     override state = defaultState
-    // context setup
-    static override contextType = PlayerContext
-    declare context: React.ContextType<typeof PlayerContext>
-
-    private video = this.context.video
-    private master = this.context.master
 
     override componentDidMount() {
         this.video.addEventListener('canplay', () =>
@@ -69,12 +62,7 @@ export class Controls extends PureComponent<ControlsProps, ControlsState> {
                     <div className='timeline'>
                         <TimeLine />
                     </div>
-                    <div
-                        className='btn volume'
-                        onClick={() => (this.video.muted = !this.video.muted)}
-                    >
-                        <Volume />
-                    </div>
+                    <Volume />
                     <div
                         className='btn fullscreen'
                         onClick={() => toggleFullScreen(this.master)}

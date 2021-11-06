@@ -1,11 +1,11 @@
 import React, { ReactElement } from 'react'
-import BaseIcon from './BaseIcon'
+import BaseComponent from '../BaseComponent'
 
 interface FullScreenState {
     isFullScreen: boolean
 }
 
-export class FullScreen extends BaseIcon<{}, FullScreenState> {
+export class FullScreen extends BaseComponent<{}, FullScreenState> {
     override state: FullScreenState = {
         isFullScreen: false,
     }

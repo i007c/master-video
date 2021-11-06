@@ -1,11 +1,11 @@
 import React, { ReactElement } from 'react'
-import BaseIcon from './BaseIcon'
+import BaseComponent from '../BaseComponent'
 
 interface PlayState {
     isPlaying: boolean
 }
 
-export class Play extends BaseIcon<{}, PlayState> {
+export class Play extends BaseComponent<{}, PlayState> {
     override state: PlayState = {
         isPlaying: false,
     }

@@ -1,5 +1,5 @@
 import React, { ReactElement } from 'react'
-import BaseIcon from './BaseIcon'
+import BaseComponent from '../BaseComponent'
 
 interface VolumeProps {}
 
@@ -8,7 +8,7 @@ interface VolumeState {
     muted: boolean
 }
 
-export class Volume extends BaseIcon<VolumeProps, VolumeState> {
+export class Volume extends BaseComponent<VolumeProps, VolumeState> {
     override state: VolumeState = {
         percentage: 100,
         muted: false,
