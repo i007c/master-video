@@ -112,7 +112,10 @@ export class Volume extends BaseComponent<VolumeProps, VolumeState> {
                     }, 200)
                 }}
             >
-                <div onClick={() => (this.video.muted = !this.video.muted)}>
+                <div
+                    className='icon-container'
+                    onClick={() => (this.video.muted = !this.video.muted)}
+                >
                     <VolumeIcon />
                 </div>
                 {this.state.showRange && (

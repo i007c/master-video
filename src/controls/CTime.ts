@@ -8,13 +8,14 @@ interface TimeStampState {
 
 export class TimeStamp extends BaseComponent<{}, TimeStampState> {
     override state: TimeStampState = {
-        time: '',
+        time: '0:00',
     }
     private UpdateCTimeBind = this.UpdateCTime.bind(this)
 
     override componentDidMount() {
         this.video.addEventListener('canplay', this.UpdateCTimeBind)
         this.video.addEventListener('timeupdate', this.UpdateCTimeBind)
+        this.UpdateCTime()
     }
     override componentWillUnmount() {
         this.video.removeEventListener('canplay', this.UpdateCTimeBind)

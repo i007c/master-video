@@ -2,18 +2,23 @@ import React, { useEffect } from 'react'
 import ReactDOM from 'react-dom'
 
 // master video
-import MasterVideo from '../lib'
+import MasterVideo, { Options } from '../lib'
 
 // video file
-import videoFile1 from './videos/1.mp4'
+// import videoFile1 from './videos/1.mp4'
 
-// const videoFile1 =
-//     'https://cdn.discordapp.com/attachments/837976157609656323/842785794485780520/Shrek_1.mp4'
+const videoFile1 =
+    'https://cdn.discordapp.com/attachments/837976157609656323/842785794485780520/Shrek_1.mp4'
 
 // style
 import './style.scss'
 
 import favicon from './favicon.ico'
+
+const OPT: Options = {
+    loop: false,
+    masterClass: 'gg',
+}
 
 const App = () => {
     useEffect(() => {
@@ -24,7 +29,7 @@ const App = () => {
     }, [])
     return (
         <div className='app'>
-            <MasterVideo source={videoFile1} />
+            <MasterVideo source={videoFile1} options={OPT} />
         </div>
     )
 }

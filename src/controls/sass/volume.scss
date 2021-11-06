@@ -1,7 +1,13 @@
 @use '../../sass/mixins.sass' as *;
+@use 'sass:math';
 
 .controls-container .controls .volume {
     position: relative;
+
+    .icon-container {
+        display: grid;
+        place-items: center;
+    }
 
     .range-container {
         position: absolute;
@@ -10,13 +16,14 @@
         bottom: 120%;
 
         .volume-range {
+            $size: 8px;
             @include box(100%);
             display: grid;
             place-items: center;
 
             .range {
                 color: currentColor;
-                @include box(10px, 100%);
+                @include box($size, 100%);
 
                 touch-action: none;
                 display: flex;
@@ -25,7 +32,7 @@
 
                 .rail {
                     cursor: pointer;
-                    @include box(10px, 100%);
+                    @include box($size, 100%);
                     // opacity: 0.38;
                     position: absolute;
                     background-color: #fff4;
@@ -36,7 +43,7 @@
 
                     .track {
                         cursor: pointer;
-                        @include box(10px, 10%);
+                        @include box($size, 0%);
                         position: absolute;
                         border-radius: 1px;
                         background-color: currentColor;
@@ -44,7 +51,7 @@
                     }
                 }
                 .thumb {
-                    @include box(12px);
+                    @include box($size + 2);
                     opacity: 0;
                     cursor: pointer;
                     display: flex;
@@ -56,7 +63,7 @@
                     border-radius: 50%;
                     background-color: currentColor;
                     bottom: 10%;
-                    margin-bottom: -6px;
+                    margin-bottom: math.div($size + 2, -2);
                     box-shadow: 0 1px 3px #000;
 
                     &.hold {
