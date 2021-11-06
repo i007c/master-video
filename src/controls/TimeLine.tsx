@@ -89,21 +89,23 @@ export class TimeLine extends BaseComponent<{}, TimeLineState> {
                     onMouseDown={this.HandleMouseDown.bind(this)}
                     ref={this.TimeLineRef.bind(this)}
                 >
-                    <span className='rail'></span>
-                    <span
-                        className='track'
-                        style={{ width: `${this.state.percentage}%` }}
-                    ></span>
-                    {(this.state.isHover || this.state.isMouseDown) && (
+                    <span className='rail'>
                         <span
-                            className={
-                                'thumb' + (this.state.isHover ? ' hold' : '')
-                            }
-                            style={{
-                                left: `${this.state.percentage}%`,
-                            }}
+                            className='track'
+                            style={{ width: `${this.state.percentage}%` }}
                         ></span>
-                    )}
+                    </span>
+
+                    <span
+                        className={`thumb ${
+                            this.state.isHover || this.state.isMouseDown
+                                ? 'hold'
+                                : ''
+                        }`}
+                        style={{
+                            left: `${this.state.percentage}%`,
+                        }}
+                    ></span>
                 </span>
             </div>
         )
