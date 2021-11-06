@@ -18,7 +18,7 @@ interface VolumeState {
 
 export class Volume extends BaseComponent<VolumeProps, VolumeState> {
     override state: VolumeState = {
-        showRange: true,
+        showRange: false,
         isHover: false,
         isMouseDown: false,
         percentage: 0,
