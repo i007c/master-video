@@ -1,6 +1,6 @@
 # Master Video
 
-[![npm](https://img.shields.io/npm/v/master-video?color=222&label=npm&labelColor=E20338)](https://www.npmjs.com/package/master-video)
+[![npm](https://img.shields.io/npm/v/master-video?color=E20338&label=npm&labelColor=2c2f33)](https://www.npmjs.com/package/master-video) [![Discord](https://img.shields.io/badge/-Discord-7289da?style=flat&logo=Discord&logoColor=FFFFFF&labelColor=2c2f33&color=E20338)](https://discord.gg/Z6vgXHU2xQ)
 
 a React Video Player
 
@@ -15,24 +15,36 @@ npm install --save master-video
 JavaScript:
 
 ```js
-import MasterVideo, { DefaultOverlay } from 'master-video'
+import MasterVideo from 'master-video'
 
-import video1 from 'video.mp4'
-const video2 = 'https://example.com/video.mp4'
+import video from 'video.mp4'
 
-const Options = {
-    source: [
-        { label: 'video 1', url: video1 },
-        { label: 'video 2', url: video2 },
-    ],
+
+const Options = { 
+    loop: true,
+    masterClass: 'custom-class-name',
+    iconsColor: '#0f0',
+    playIconColor: '#0ff',
+    fullscreenIconColor: '#ff0',
+    volumeIconColor: '#fff',
+    timeLine: {
+        track: '#f00',
+        thumb: '#0f0',
+        rail: '#00f',
+    },
+    volume: {
+        rail: '#FFF',
+        thumb: '#f00',
+        track: '#00f',
+    },
 }
 
 const App = () => {
     return (
         <div className='app'>
             <MasterVideo 
-                Options={Options} 
-                Overlay={DefaultOverlay}
+                options={Options} 
+                source={video} 
             />
         </div>
     )
@@ -42,58 +54,19 @@ const App = () => {
 TypeScript:
 
 ```tsx
-import MasterVideo, { DefaultOverlay, VideoOptions } from 'master-video'
+import MasterVideo, { Options } from 'master-video'
 
-const video1 = 'https://example.com/video.mp4'
+const video = 'https://example.com/video.mp4'
 
-const Options: VideoOptions = {
-    source: [
-        { label: 'video 1', url: video1 },
-    ],
+const Options: Options = {
+    loop: true
 }
 
 const App = () => {
     return (
         <div className='app'>
-            <MasterVideo 
-                Options={Options} 
-                Overlay={DefaultOverlay}
-            />
-        </div>
-    )
-}
-```
-
-Custom Overlay:
-
-```tsx
-import MasterVideo, { VideoOptions, OverlayProps } from 'master-video'
-
-const CustomOverlay = ({ TogglePlay }: OverlayProps) => {
-    return (
-        <div className='overlay' style={{ background: 'rgba(0,0,0,.7)' }}>
-            <button onClick={() => TogglePlay()}>
-                Toggle Play
-            </button>
-        </div>
-    )
-}
-
-const video1 = 'https://example.com/video.mp4'
-
-const Options: VideoOptions = {
-    source: [
-        { label: 'video 1', url: video1 },
-    ],
-}
-
-const App = () => {
-    return (
-        <div className='app'>
-            <MasterVideo 
-                Options={Options} 
-                Overlay={CustomOverlay}
-            />
+            
+            <MasterVideo source={video} options={Options} />
         </div>
     )
 }
