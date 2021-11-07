@@ -36,11 +36,12 @@
                     @include box($size, 100%);
                     // opacity: 0.38;
                     position: absolute;
-                    background-color: #fff4;
+                    background-color: #777;
                     display: flex;
                     align-items: flex-end;
                     overflow: hidden;
                     border-radius: 7px;
+                    box-shadow: 0 0 0 3px #000;
 
                     .track {
                         cursor: pointer;
@@ -53,7 +54,7 @@
                 }
                 .thumb {
                     @include box($size + 2);
-                    opacity: 0;
+                    opacity: 1;
                     cursor: pointer;
                     display: flex;
                     position: absolute;

@@ -5,6 +5,8 @@ import VolumeIcon from './icons/Volume'
 
 import './sass/volume.scss'
 
+import { VolumeThumb } from '../utils'
+
 interface VolumeProps {}
 
 interface VolumeState {
@@ -18,7 +20,7 @@ interface VolumeState {
 
 export class Volume extends BaseComponent<VolumeProps, VolumeState> {
     override state: VolumeState = {
-        showRange: false,
+        showRange: true,
         isHover: false,
         isMouseDown: false,
         percentage: 0,
@@ -139,7 +141,7 @@ export class Volume extends BaseComponent<VolumeProps, VolumeState> {
                                     style={{
                                         backgroundColor:
                                             this.options?.volume?.rail ||
-                                            '#fff4',
+                                            '#777',
                                     }}
                                 >
                                     <span
@@ -160,7 +162,9 @@ export class Volume extends BaseComponent<VolumeProps, VolumeState> {
                                             : ''
                                     }`}
                                     style={{
-                                        bottom: `${this.state.percentage}%`,
+                                        bottom: `${VolumeThumb(
+                                            this.state.percentage
+                                        )}%`,
                                         backgroundColor:
                                             this.options?.volume?.thumb ||
                                             'currentcolor',

@@ -13,7 +13,7 @@
     .controls {
         display: flex;
         @include box(100%, clamp(1.5rem, 10%, 2.5rem));
-        background-color: #0004;
+        background-color: #0006;
 
         .btn {
             height: 100%;
