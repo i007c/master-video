@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import ReactDOM from 'react-dom'
 
 // master video
-import MasterVideo, { Options } from '../src'
+import MasterVideo, { Options } from '../lib'
 
 // video file
 import videoFile1 from './videos/3.mp4'
