@@ -9,15 +9,23 @@ export class FullScreen extends BaseComponent<{}, FullScreenState> {
     override state: FullScreenState = {
         isFullScreen: false,
     }
+    private FullScreenChangeBind = this.FullScreenChange.bind(this)
+    private FullScreenChange() {
+        if (document.fullscreenElement === this.master) {
+            this.setState({ isFullScreen: true })
+        } else {
+            this.setState({ isFullScreen: false })
+        }
+    }
 
     override componentDidMount() {
-        document.addEventListener('fullscreenchange', () => {
-            if (document.fullscreenElement === this.master) {
-                this.setState({ isFullScreen: true })
-            } else {
-                this.setState({ isFullScreen: false })
-            }
-        })
+        document.addEventListener('fullscreenchange', this.FullScreenChangeBind)
+    }
+    override componentWillUnmount() {
+        document.removeEventListener(
+            'fullscreenchange',
+            this.FullScreenChangeBind
+        )
     }
 
     override render(): ReactElement {

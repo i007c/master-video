@@ -10,16 +10,20 @@ export class Play extends BaseComponent<{}, PlayState> {
         isPlaying: false,
     }
 
+    private PausePlayBind = this.PausePlay.bind(this)
+    private PausePlay() {
+        this.setState({ isPlaying: !this.video.paused })
+    }
+
     override componentDidMount() {
-        this.video.addEventListener('pause', () =>
-            this.setState({ isPlaying: !this.video.paused })
-        )
-        this.video.addEventListener('play', () =>
-            this.setState({ isPlaying: !this.video.paused })
-        )
-        this.video.addEventListener('canplay', () =>
-            this.setState({ isPlaying: !this.video.paused })
-        )
+        this.video.addEventListener('pause', this.PausePlayBind)
+        this.video.addEventListener('play', this.PausePlayBind)
+        this.video.addEventListener('canplay', this.PausePlayBind)
+    }
+    override componentWillUnmount() {
+        this.video.removeEventListener('pause', this.PausePlayBind)
+        this.video.removeEventListener('play', this.PausePlayBind)
+        this.video.removeEventListener('canplay', this.PausePlayBind)
     }
 
     override render(): ReactElement {

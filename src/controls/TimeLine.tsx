@@ -75,6 +75,9 @@ export class TimeLine extends BaseComponent<{}, TimeLineState> {
     }
     override componentWillUnmount() {
         this.video.removeEventListener('timeupdate', this.HandleTimeBind)
+
+        document.removeEventListener('mousemove', this.HandleMouseMoveBind)
+        document.removeEventListener('mouseup', this.HandleMouseUpBind)
     }
 
     override render(): ReactElement {

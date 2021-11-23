@@ -93,6 +93,9 @@ export class Volume extends BaseComponent<VolumeProps, VolumeState> {
     override componentWillUnmount() {
         this.video.removeEventListener('canplay', this.HandleVolumeBind)
         this.video.removeEventListener('volumechange', this.HandleVolumeBind)
+
+        document.removeEventListener('mousemove', this.HandleMouseMoveBind)
+        document.removeEventListener('mouseup', this.HandleMouseUpBind)
     }
 
     override render(): ReactElement {

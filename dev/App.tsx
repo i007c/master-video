@@ -1,8 +1,8 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import ReactDOM from 'react-dom'
 
 // master video
-import MasterVideo, { Options } from '../lib'
+import MasterVideo, { Options } from '../src'
 
 // video file
 import videoFile1 from './videos/3.mp4'
@@ -37,6 +37,7 @@ const OPT: Options = {
 }
 
 const App = () => {
+    const [see, setSee] = useState(true)
     useEffect(() => {
         document.head.insertAdjacentHTML(
             'beforeend',
@@ -45,7 +46,8 @@ const App = () => {
     }, [])
     return (
         <div className='app'>
-            <MasterVideo source={videoFile1} options={OPT} />
+            {see && <MasterVideo source={videoFile1} options={OPT} />}
+            <button onClick={() => setSee(!see)}>Toggle Video</button>
         </div>
     )
 }

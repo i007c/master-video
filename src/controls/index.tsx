@@ -40,10 +40,20 @@ const defaultState: ControlsState = {
 export class Controls extends BaseComponent<ControlsProps, ControlsState> {
     override state = defaultState
 
+    private CanPlayEventBind = this.CanPlayEvent.bind(this)
+    private CanPlayEvent() {
+        this.setState({ duration: TimeConvert(this.video.duration) })
+    }
+
     override componentDidMount() {
-        this.video.addEventListener('canplay', () =>
-            this.setState({ duration: TimeConvert(this.video.duration) })
-        )
+        this.video.addEventListener('canplay', this.CanPlayEventBind)
+    }
+
+    override componentWillUnmount() {
+        this.video.removeEventListener('canplay', this.CanPlayEventBind)
+        if (this.state.ctrlObserver) {
+            this.state.ctrlObserver.disconnect()
+        }
     }
 
     private HandleSizeBind = this.HandleSize.bind(this)
