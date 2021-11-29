@@ -3,11 +3,13 @@ import BaseComponent from './BaseComponent'
 
 import './sass/timeline.scss'
 
+type TimeLineElement = HTMLDivElement
+
 interface TimeLineState {
     isHover: boolean
     isMouseDown: boolean
     percentage: number
-    timeline?: HTMLSpanElement
+    timeline?: TimeLineElement
 }
 
 export class TimeLine extends BaseComponent<{}, TimeLineState> {
@@ -17,12 +19,20 @@ export class TimeLine extends BaseComponent<{}, TimeLineState> {
         percentage: 0,
     }
 
-    private TimeLineRef(node: HTMLSpanElement) {
+    private TimeLineRef(node: TimeLineElement) {
         this.setState({ timeline: node })
     }
 
+    // mouse
+    private HandleMouseDownBind = this.HandleMouseDown.bind(this)
     private HandleMouseMoveBind = this.HandleMouseMove.bind(this)
     private HandleMouseUpBind = this.HandleMouseUp.bind(this)
+
+    // touch
+    private HandleTouchStartBind = this.HandleTouchStart.bind(this)
+    private HandleTouchMoveBind = this.HandleTouchMove.bind(this)
+    private HandleTouchEndBind = this.HandleTouchEnd.bind(this)
+
     private HandleTimeBind = this.HandleTime.bind(this)
 
     private HandlePercentage(percentage: number) {
@@ -43,7 +53,7 @@ export class TimeLine extends BaseComponent<{}, TimeLineState> {
         else this.setState({ percentage: time })
     }
 
-    private HandleMouseDown(e: React.MouseEvent<HTMLDivElement, MouseEvent>) {
+    private HandleMouseDown(e: React.MouseEvent<TimeLineElement, MouseEvent>) {
         e.preventDefault()
 
         this.setState({ isMouseDown: true })
@@ -70,6 +80,34 @@ export class TimeLine extends BaseComponent<{}, TimeLineState> {
         this.setState({ isMouseDown: false })
     }
 
+    // touchs
+    private HandleTouchStart(e: React.TouchEvent<TimeLineElement>) {
+        if (e.touches.length <= 0 || !e.touches[0]) return
+
+        this.setState({ isMouseDown: true })
+
+        const { left, width } = e.currentTarget.getBoundingClientRect()
+        this.HandlePercentage((e.touches[0].clientX - left) / width)
+
+        document.addEventListener('touchmove', this.HandleTouchMoveBind)
+        document.addEventListener('touchend', this.HandleTouchEndBind)
+    }
+
+    public HandleTouchMove(e: TouchEvent) {
+        if (!this.state.timeline) return
+
+        if (e.touches.length <= 0 || !e.touches[0]) return
+
+        const { left, width } = this.state.timeline.getBoundingClientRect()
+        this.HandlePercentage((e.touches[0].clientX - left) / width)
+    }
+
+    private HandleTouchEnd() {
+        document.removeEventListener('touchmove', this.HandleTouchMoveBind)
+        document.removeEventListener('touchend', this.HandleTouchEndBind)
+        this.setState({ isMouseDown: false })
+    }
+
     override componentDidMount() {
         this.video.addEventListener('timeupdate', this.HandleTimeBind)
     }
@@ -86,12 +124,11 @@ export class TimeLine extends BaseComponent<{}, TimeLineState> {
                 className='timeline-range'
                 onMouseEnter={() => this.setState({ isHover: true })}
                 onMouseLeave={() => this.setState({ isHover: false })}
+                onMouseDown={this.HandleMouseDownBind}
+                onTouchStart={this.HandleTouchStartBind}
+                ref={this.TimeLineRef.bind(this)}
             >
-                <span
-                    className='range'
-                    onMouseDown={this.HandleMouseDown.bind(this)}
-                    ref={this.TimeLineRef.bind(this)}
-                >
+                <span className='range'>
                     <span
                         className='rail'
                         style={{
