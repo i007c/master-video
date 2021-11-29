@@ -5,10 +5,10 @@ import ReactDOM from 'react-dom'
 import MasterVideo, { Options } from '../lib'
 
 // video file
-import videoFile1 from './videos/3.mp4'
+// import videoFile1 from './videos/3.mp4'
 
-// const videoFile1 =
-//     'https://cdn.discordapp.com/attachments/849749181735501824/905656394378780692/237135009_4012155565580090_8467516022250211201_n.mp4'
+const videoFile1 =
+    'https://cdn.discordapp.com/attachments/849749181735501824/905656394378780692/237135009_4012155565580090_8467516022250211201_n.mp4'
 // const videoFile1 =
 //     'https://cdn.discordapp.com/attachments/837976157609656323/842785794485780520/Shrek_1.mp4'
 

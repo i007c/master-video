@@ -7,6 +7,8 @@ import './sass/volume.scss'
 
 import { VolumeThumb } from '../utils'
 
+type TimeLineElement = HTMLDivElement
+
 interface VolumeProps {}
 
 interface VolumeState {
@@ -15,7 +17,7 @@ interface VolumeState {
     isMouseDown: boolean
     isIconHover: boolean
     percentage: number
-    timeline?: HTMLSpanElement
+    timeline?: TimeLineElement
 }
 
 export class Volume extends BaseComponent<VolumeProps, VolumeState> {
@@ -27,13 +29,19 @@ export class Volume extends BaseComponent<VolumeProps, VolumeState> {
         isIconHover: false,
     }
 
-    private TimeLineRef(node: HTMLSpanElement) {
+    private TimeLineRef(node: HTMLDivElement) {
         this.setState({ timeline: node })
     }
 
     private HandleMouseMoveBind = this.HandleMouseMove.bind(this)
     private HandleMouseDownBind = this.HandleMouseDown.bind(this)
     private HandleMouseUpBind = this.HandleMouseUp.bind(this)
+
+    // touch
+    private HandleTouchStartBind = this.HandleTouchStart.bind(this)
+    private HandleTouchMoveBind = this.HandleTouchMove.bind(this)
+    private HandleTouchEndBind = this.HandleTouchEnd.bind(this)
+
     private HandleVolumeBind = this.HandleVolume.bind(this)
 
     private HandlePercentage(percentage: number) {
@@ -78,6 +86,39 @@ export class Volume extends BaseComponent<VolumeProps, VolumeState> {
     private HandleMouseUp() {
         document.removeEventListener('mousemove', this.HandleMouseMoveBind)
         document.removeEventListener('mouseup', this.HandleMouseUpBind)
+
+        if (!this.state.isHover && !this.state.isIconHover) {
+            this.setState({ showRange: false, isMouseDown: false })
+        } else {
+            this.setState({ isMouseDown: false })
+        }
+    }
+
+    // touch
+    private HandleTouchStart(e: React.TouchEvent<TimeLineElement>) {
+        if (e.touches.length <= 0 || !e.touches[0]) return
+
+        this.setState({ isMouseDown: true })
+
+        const { bottom, height } = e.currentTarget.getBoundingClientRect()
+        this.HandlePercentage((bottom - e.touches[0].clientY) / height)
+
+        document.addEventListener('touchmove', this.HandleTouchMoveBind)
+        document.addEventListener('touchend', this.HandleTouchEndBind)
+    }
+
+    public HandleTouchMove(e: TouchEvent) {
+        if (!this.state.timeline) return
+
+        if (e.touches.length <= 0 || !e.touches[0]) return
+
+        const { bottom, height } = this.state.timeline.getBoundingClientRect()
+        this.HandlePercentage((bottom - e.touches[0].clientY) / height)
+    }
+
+    private HandleTouchEnd() {
+        document.removeEventListener('touchmove', this.HandleTouchMoveBind)
+        document.removeEventListener('touchend', this.HandleTouchEndBind)
 
         if (!this.state.isHover && !this.state.isIconHover) {
             this.setState({ showRange: false, isMouseDown: false })
@@ -133,12 +174,11 @@ export class Volume extends BaseComponent<VolumeProps, VolumeState> {
                             onMouseLeave={() =>
                                 this.setState({ isHover: false })
                             }
+                            onMouseDown={this.HandleMouseDownBind}
+                            onTouchStart={this.HandleTouchStartBind}
+                            ref={this.TimeLineRef.bind(this)}
                         >
-                            <span
-                                className='range'
-                                onMouseDown={this.HandleMouseDownBind}
-                                ref={this.TimeLineRef.bind(this)}
-                            >
+                            <span className='range'>
                                 <span
                                     className='rail'
                                     style={{
