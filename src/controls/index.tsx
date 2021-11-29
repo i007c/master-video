@@ -50,17 +50,29 @@ export class Controls extends BaseComponent<ControlsProps, ControlsState> {
     private KeyEvent(e: KeyboardEvent) {
         switch (e.code) {
             case 'Space':
+                e.preventDefault()
                 return togglePlay(this.video)
+
             case 'KeyP':
+                e.preventDefault()
                 return togglePlay(this.video)
+
             case 'KeyF':
+                e.preventDefault()
                 return toggleFullScreen(this.master)
+
             case 'KeyM':
+                e.preventDefault()
                 return (this.video.muted = !this.video.muted)
+
             case 'ArrowRight':
+                e.preventDefault()
                 return (this.video.currentTime += 5)
+
             case 'ArrowLeft':
+                e.preventDefault()
                 return (this.video.currentTime -= 5)
+
             default:
                 return
         }

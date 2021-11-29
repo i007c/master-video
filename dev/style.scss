@@ -5,11 +5,12 @@
 // }
 
 body {
-    overflow: hidden;
+    // overflow: hidden;
     background-color: #000;
     color: #fff;
-    display: grid;
-    place-items: center;
+    display: flex;
+    justify-content: center;
+    height: 500vh;
 }
 
 .app {
@@ -19,7 +20,6 @@ body {
     width: 60vw;
     // border: 3px solid #00f;
     margin: 100px auto 0;
-
     .gg {
         border: 3px solid red;
     }
