@@ -41,16 +41,39 @@ export class Controls extends BaseComponent<ControlsProps, ControlsState> {
     override state = defaultState
 
     private CanPlayEventBind = this.CanPlayEvent.bind(this)
+    private KeyBind = this.KeyEvent.bind(this)
+
     private CanPlayEvent() {
         this.setState({ duration: TimeConvert(this.video.duration) })
     }
 
+    private KeyEvent(e: KeyboardEvent) {
+        switch (e.code) {
+            case 'Space':
+                return togglePlay(this.video)
+            case 'KeyP':
+                return togglePlay(this.video)
+            case 'KeyF':
+                return toggleFullScreen(this.master)
+            case 'KeyM':
+                return (this.video.muted = !this.video.muted)
+            case 'ArrowRight':
+                return (this.video.currentTime += 5)
+            case 'ArrowLeft':
+                return (this.video.currentTime -= 5)
+            default:
+                return
+        }
+    }
+
     override componentDidMount() {
         this.video.addEventListener('canplay', this.CanPlayEventBind)
+        document.addEventListener('keydown', this.KeyBind)
     }
 
     override componentWillUnmount() {
         this.video.removeEventListener('canplay', this.CanPlayEventBind)
+        document.removeEventListener('keydown', this.KeyBind)
         if (this.state.ctrlObserver) {
             this.state.ctrlObserver.disconnect()
         }
