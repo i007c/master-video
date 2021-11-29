@@ -7,7 +7,7 @@ import './sass/volume.scss'
 
 import { VolumeThumb } from '../utils'
 
-type TimeLineElement = HTMLDivElement
+type VolumeElement = HTMLDivElement
 
 interface VolumeProps {}
 
@@ -17,7 +17,7 @@ interface VolumeState {
     isMouseDown: boolean
     isIconHover: boolean
     percentage: number
-    timeline?: TimeLineElement
+    volume?: VolumeElement
 }
 
 export class Volume extends BaseComponent<VolumeProps, VolumeState> {
@@ -29,8 +29,8 @@ export class Volume extends BaseComponent<VolumeProps, VolumeState> {
         isIconHover: false,
     }
 
-    private TimeLineRef(node: HTMLDivElement) {
-        this.setState({ timeline: node })
+    private VolumeRef(node: HTMLDivElement) {
+        this.setState({ volume: node })
     }
 
     private HandleMouseMoveBind = this.HandleMouseMove.bind(this)
@@ -75,11 +75,11 @@ export class Volume extends BaseComponent<VolumeProps, VolumeState> {
     }
 
     public HandleMouseMove(e: MouseEvent) {
-        if (!this.state.timeline) return
+        if (!this.state.volume) return
 
         e.preventDefault()
 
-        const { bottom, height } = this.state.timeline.getBoundingClientRect()
+        const { bottom, height } = this.state.volume.getBoundingClientRect()
         this.HandlePercentage((bottom - e.clientY) / height)
     }
 
@@ -95,7 +95,7 @@ export class Volume extends BaseComponent<VolumeProps, VolumeState> {
     }
 
     // touch
-    private HandleTouchStart(e: React.TouchEvent<TimeLineElement>) {
+    private HandleTouchStart(e: React.TouchEvent<VolumeElement>) {
         if (e.touches.length <= 0 || !e.touches[0]) return
 
         this.setState({ isMouseDown: true })
@@ -108,11 +108,11 @@ export class Volume extends BaseComponent<VolumeProps, VolumeState> {
     }
 
     public HandleTouchMove(e: TouchEvent) {
-        if (!this.state.timeline) return
+        if (!this.state.volume) return
 
         if (e.touches.length <= 0 || !e.touches[0]) return
 
-        const { bottom, height } = this.state.timeline.getBoundingClientRect()
+        const { bottom, height } = this.state.volume.getBoundingClientRect()
         this.HandlePercentage((bottom - e.touches[0].clientY) / height)
     }
 
@@ -176,7 +176,7 @@ export class Volume extends BaseComponent<VolumeProps, VolumeState> {
                             }
                             onMouseDown={this.HandleMouseDownBind}
                             onTouchStart={this.HandleTouchStartBind}
-                            ref={this.TimeLineRef.bind(this)}
+                            ref={this.VolumeRef.bind(this)}
                         >
                             <span className='range'>
                                 <span
