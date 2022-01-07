@@ -4,9 +4,10 @@
 src
 dev
 dist
-webpack.config.js
-webpack.dev.config.js
-tsconfig.dev.json
+webpack
+tsconfig/tsconfig.dev.json
+.vscode
 __tests__
 jest.config.ts
 jest.setup.ts
+postcss.config.js
