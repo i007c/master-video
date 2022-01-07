@@ -8,7 +8,7 @@ import Controls from './controls'
 import './sass/player.scss'
 
 // types
-import { Options, Source } from 'src'
+import { Options, Source } from './types'
 
 // utils
 import { GetSource } from './utils/data.functions'
@@ -64,4 +64,4 @@ export class Player extends PureComponent<PlayerProps, PlayerState> {
 }
 
 export default Player
-export * from './@types'
+export * from './types'

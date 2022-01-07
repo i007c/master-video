@@ -1,6 +1,6 @@
 import { createContext } from 'react'
 
-import { Options, Source } from '../@types'
+import { Options, Source } from '../types'
 
 export interface PlayerContextType {
     video: HTMLVideoElement

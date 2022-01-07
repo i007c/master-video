@@ -1,7 +1,7 @@
 @use 'mixins' as *;
 
 .master-video .master-menu-container {
-    width: 250px;
+    min-width: 250px;
     padding: 1rem;
     position: absolute;
     display: flex;
@@ -81,6 +81,7 @@
 
     *::-webkit-scrollbar {
         width: 10px;
+        background-color: #070707;
     }
 
     *::-webkit-scrollbar-thumb {

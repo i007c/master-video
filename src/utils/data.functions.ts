@@ -1,4 +1,4 @@
-import { Source } from 'src'
+import { Source } from '../types'
 
 export const GetSource = (source: Source): string => {
     if (typeof source === 'string') return source

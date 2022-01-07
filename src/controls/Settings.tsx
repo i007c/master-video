@@ -3,7 +3,7 @@ import BaseComponent from './BaseComponent'
 
 // menu
 import Menu from '../Menu'
-import { MenuType, MenuOption } from 'src'
+import { MenuType, MenuOption } from '../types'
 
 // icons
 import SettingsIcon from './icons/settings'

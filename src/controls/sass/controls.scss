@@ -46,8 +46,7 @@
             height: 100%;
             aspect-ratio: 1;
             flex-shrink: 0;
-            display: grid;
-            place-items: center;
+            @include f-center;
             cursor: pointer;
             padding: 0.2em;
 

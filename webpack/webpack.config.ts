@@ -29,7 +29,6 @@ export const MCFG: Configuration = {
     resolve: {
         extensions: ['.mjs', '.tsx', '.ts', '.js'],
     },
-    devtool: 'source-map',
     optimization: {
         emitOnErrors: false,
         minimize: true,

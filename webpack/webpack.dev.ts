@@ -44,6 +44,7 @@ const BuildConfig: Config = {
         ...MCFG.optimization!,
         minimize: false,
     },
+    devtool: 'source-map',
     devServer: {
         port: 8000,
         hot: false,

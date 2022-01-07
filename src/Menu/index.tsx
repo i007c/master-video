@@ -1,7 +1,7 @@
 import React, { FC, PureComponent, ReactElement } from 'react'
 
 // types
-import { MenuType, InnerMenuType } from 'src'
+import { MenuType, InnerMenuType } from '../types'
 
 // style
 import './style/index.scss'
