@@ -26,6 +26,17 @@ export class Settings extends BaseComponent<SettingsProps, SettingsState> {
         Menus: [],
     }
 
+    private ChangeQuality(q: string) {
+        const CurrentTime = this.video.currentTime
+        const Paused = this.video.paused
+        const speed = this.video.playbackRate
+        this.video.src = q
+        this.video.load()
+        this.video.currentTime = CurrentTime
+        this.video.playbackRate = speed
+        if (!Paused) this.video.play()
+    }
+
     override componentDidMount() {
         const SpeedMenu: MenuOption = {
             label: 'Speed',
@@ -38,8 +49,25 @@ export class Settings extends BaseComponent<SettingsProps, SettingsState> {
                 }),
             ],
         }
+        let opts = [SpeedMenu]
+        if (typeof this.source === 'object') {
+            const QualityMenu: MenuOption = {
+                label: 'Quality',
+                menu: [
+                    ...this.source.map(({ lable, source }) => {
+                        return {
+                            label: lable,
+                            action: () => this.ChangeQuality(source),
+                        }
+                    }),
+                ],
+            }
+
+            opts.push(QualityMenu)
+        }
+
         this.setState({
-            Menus: [...this.state.Menus, SpeedMenu],
+            Menus: [...this.state.Menus, ...opts],
         })
     }
 
