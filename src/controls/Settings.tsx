@@ -1,8 +1,9 @@
-import React, { PureComponent, ReactElement } from 'react'
+import React, { ReactElement } from 'react'
+import BaseComponent from './BaseComponent'
 
 // menu
 import Menu from '../Menu'
-import { MenuType } from 'src'
+import { MenuType, MenuOption } from 'src'
 
 // icons
 import SettingsIcon from './icons/settings'
@@ -10,29 +11,37 @@ import SettingsIcon from './icons/settings'
 // style
 import './sass/settings.scss'
 
-const Menus: MenuType = [
-    { label: 'label 1', action: () => console.log(1) },
-    { label: 'label 2', action: () => console.log(2) },
-    { label: 'label 3', action: () => console.log(3) },
-    {
-        label: 'label 4',
-        action: () => console.log(4),
-        menu: [
-            { label: 'cool menu 1', action: () => console.log('4-1') },
-            { label: 'cool menu 2', action: () => console.log('4-2') },
-            { label: 'cool menu 3', action: () => console.log('4-3') },
-        ],
-    },
-]
+// config
+import { DefaultSpeeds } from './config/settings'
 
 interface SettingsProps {}
 
 interface SettingsState {
     active?: boolean
+    Menus: MenuType
 }
 
-export class Settings extends PureComponent<SettingsProps, SettingsState> {
-    override state: SettingsState = {}
+export class Settings extends BaseComponent<SettingsProps, SettingsState> {
+    override state: SettingsState = {
+        Menus: [],
+    }
+
+    override componentDidMount() {
+        const SpeedMenu: MenuOption = {
+            label: 'Speed',
+            menu: [
+                ...DefaultSpeeds.map(({ label, value }) => {
+                    return {
+                        label: label,
+                        action: () => (this.video.playbackRate = value),
+                    }
+                }),
+            ],
+        }
+        this.setState({
+            Menus: [...this.state.Menus, SpeedMenu],
+        })
+    }
 
     override render(): ReactElement {
         return (
@@ -45,7 +54,7 @@ export class Settings extends PureComponent<SettingsProps, SettingsState> {
                 >
                     <SettingsIcon active={this.state.active} />
                 </div>
-                <Menu menu={Menus} />
+                {this.state.active && <Menu menu={this.state.Menus} />}
             </div>
         )
     }

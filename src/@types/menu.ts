@@ -1,4 +1,4 @@
-interface MenuOption {
+export interface MenuOption {
     label: string
     menu?: InnerMenuType
     action?: Function
