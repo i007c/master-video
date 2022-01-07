@@ -9,8 +9,8 @@
         "declaration": true,
         "declarationMap": true,
         "sourceMap": true,
-        "outDir": "./lib",
-        "rootDir": "./",
+        "outDir": "../lib",
+        "rootDir": "../",
         "removeComments": true,
         "noEmitOnError": true,
 
@@ -27,7 +27,7 @@
         "noImplicitOverride": true,
 
         "moduleResolution": "node",
-        "baseUrl": "./",
+        "baseUrl": "../",
         "typeRoots": ["node_modules/@types"],
         "allowSyntheticDefaultImports": true,
         "esModuleInterop": true,
@@ -37,6 +37,6 @@
         "forceConsistentCasingInFileNames": true,
         "resolveJsonModule": true
     },
-    "include": ["./src"],
-    "exclude": ["webpack.*", "*.js", "__tests__", "lib"]
+    "include": ["../src"],
+    "exclude": ["../webpack.*", "**/*.js", "**/__tests__", "../lib"]
 }
