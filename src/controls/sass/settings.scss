@@ -1,6 +1,7 @@
 @use 'mixins' as *;
 
 .master-video .controls .settings {
+    position: relative;
     .icon {
         @include box(100%);
 
