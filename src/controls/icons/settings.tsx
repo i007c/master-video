@@ -1,6 +1,8 @@
 import React, { PureComponent, ReactElement } from 'react'
 
-interface SettingsProps {}
+interface SettingsProps {
+    active?: boolean
+}
 
 interface SettingsState {}
 
@@ -16,6 +18,7 @@ export class Settings extends PureComponent<SettingsProps, SettingsState> {
                 width='24px'
                 viewBox='0 0 24 24'
                 fill='currentColor'
+                style={this.props.active ? { transform: 'rotate(-30deg)' } : {}}
             >
                 <g>
                     <path d='M0,0h24v24H0V0z' fill='none' />

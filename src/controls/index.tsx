@@ -12,9 +12,9 @@ import TimeLine from './TimeLine'
 import Volume from './Volume'
 // icons
 import Play from './icons/Play'
-import SettingsIcon from './icons/settings'
 
 import './sass/controls.scss'
+import Settings from './Settings'
 
 interface ControlsProps {}
 
@@ -165,9 +165,7 @@ export class Controls extends BaseComponent<ControlsProps, ControlsState> {
                         <TimeLine />
                     </div>
                     <Volume />
-                    <div className='master-btn settings'>
-                        <SettingsIcon />
-                    </div>
+                    <Settings />
                     <div
                         className='master-btn fullscreen'
                         onClick={() => toggleFullScreen(this.master)}

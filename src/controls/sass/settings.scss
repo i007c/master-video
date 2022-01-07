@@ -1,0 +1,11 @@
+@use 'mixins' as *;
+
+.master-video .controls .settings {
+    .icon {
+        @include box(100%);
+
+        svg {
+            transition: transform 200ms ease;
+        }
+    }
+}
