@@ -142,7 +142,7 @@ export class Volume extends BaseComponent<VolumeProps, VolumeState> {
     override render(): ReactElement {
         return (
             <div
-                className='btn volume'
+                className='master-btn volume'
                 onMouseEnter={() =>
                     this.setState({ showRange: true, isIconHover: true })
                 }

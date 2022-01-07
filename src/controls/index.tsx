@@ -12,6 +12,7 @@ import TimeLine from './TimeLine'
 import Volume from './Volume'
 // icons
 import Play from './icons/Play'
+import SettingsIcon from './icons/settings'
 
 import './sass/controls.scss'
 
@@ -150,7 +151,7 @@ export class Controls extends BaseComponent<ControlsProps, ControlsState> {
                 ></div>
                 <div className='controls' ref={this.CTRLRef.bind(this)}>
                     <div
-                        className='btn play-pause'
+                        className='master-btn play-pause'
                         onClick={() => togglePlay(this.video)}
                     >
                         <Play />
@@ -164,8 +165,11 @@ export class Controls extends BaseComponent<ControlsProps, ControlsState> {
                         <TimeLine />
                     </div>
                     <Volume />
+                    <div className='master-btn settings'>
+                        <SettingsIcon />
+                    </div>
                     <div
-                        className='btn fullscreen'
+                        className='master-btn fullscreen'
                         onClick={() => toggleFullScreen(this.master)}
                     >
                         <FullScreen />
