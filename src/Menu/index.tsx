@@ -23,7 +23,7 @@ export class Menu extends PureComponent<MenuProps, MenuState> {
     override state: MenuState = {}
 
     override render(): ReactElement {
-        return (
+        return this.MENU.length > 0 ? (
             <div className='master-menu-container'>
                 <div className='master-menu'>
                     {!this.state.menu ? (
@@ -64,6 +64,8 @@ export class Menu extends PureComponent<MenuProps, MenuState> {
                     )}
                 </div>
             </div>
+        ) : (
+            <></>
         )
     }
 }
