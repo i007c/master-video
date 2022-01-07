@@ -47,6 +47,21 @@ export class Controls extends BaseComponent<ControlsProps, ControlsState> {
         this.setState({ duration: TimeConvert(this.video.duration) })
     }
 
+    private GetVolumeValue(a?: number): number {
+        if (a && a < 1 && a > -1) {
+            const b = this.video.volume + a
+            if (b < 0) {
+                this.video.volume = 0
+            } else if (b > 1) {
+                this.video.volume = 1
+            } else {
+                this.video.volume = b
+            }
+        }
+
+        return this.video.volume
+    }
+
     private KeyEvent(e: KeyboardEvent) {
         switch (e.code) {
             case 'Space':
@@ -72,6 +87,16 @@ export class Controls extends BaseComponent<ControlsProps, ControlsState> {
             case 'ArrowLeft':
                 e.preventDefault()
                 return (this.video.currentTime -= 5)
+
+            case 'ArrowUp':
+                e.preventDefault()
+                if (this.video.volume === 1) return
+                else return this.GetVolumeValue(0.1)
+
+            case 'ArrowDown':
+                e.preventDefault()
+                if (this.video.volume === 0) return
+                else return this.GetVolumeValue(-0.1)
 
             default:
                 return
