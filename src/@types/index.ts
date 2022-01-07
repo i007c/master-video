@@ -16,3 +16,12 @@ export interface Options {
         thumb?: string
     }
 }
+
+export type Source = string | SourceObject[]
+
+interface SourceObject {
+    lable: string
+    source: string
+}
+
+export * from './menu'
