@@ -52,6 +52,7 @@ export class Player extends PureComponent<PlayerProps, PlayerState> {
                             video: this.state.videoNode,
                             master: this.state.masterNode,
                             options: this.props.options,
+                            source: this.props.source,
                         }}
                     >
                         <Controls />

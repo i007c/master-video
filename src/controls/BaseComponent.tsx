@@ -11,4 +11,5 @@ export default class BaseComponent<P = {}, S = {}> extends PureComponent<P, S> {
     public video = this.context.video
     public master = this.context.master
     public options = this.context.options
+    public source = this.context.source
 }
