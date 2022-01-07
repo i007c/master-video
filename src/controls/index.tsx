@@ -11,7 +11,8 @@ import FullScreen from './icons/FullScreen'
 import TimeLine from './TimeLine'
 import Volume from './Volume'
 // icons
-import Play from './icons/Play'
+import Play, { BigPlay } from './icons/Play'
+import Loading from './icons/Loading'
 
 import './sass/controls.scss'
 import Settings from './Settings'
@@ -20,9 +21,7 @@ interface ControlsProps {}
 
 interface ControlsState {
     isPlaying: boolean
-    isFullScreen: boolean
-    isMuted: boolean
-    volume: number
+    isLoading: boolean
     duration: string
     ctrl?: HTMLDivElement
     showTime: boolean
@@ -31,9 +30,8 @@ interface ControlsState {
 
 const defaultState: ControlsState = {
     isPlaying: false,
-    isFullScreen: false,
-    isMuted: false,
-    volume: 1.0,
+    isLoading: true,
+
     duration: '0:00',
     showTime: true,
 }
@@ -42,10 +40,29 @@ export class Controls extends BaseComponent<ControlsProps, ControlsState> {
     override state = defaultState
 
     private CanPlayEventBind = this.CanPlayEvent.bind(this)
+    private PlayStatusBind = this.PlayStatus.bind(this)
+
+    private LoadStartBind = this.LoadStart.bind(this)
+    private LoadedBind = this.Loaded.bind(this)
+
     private KeyBind = this.KeyEvent.bind(this)
+
+    private LoadStart() {
+        this.setState({ isLoading: true })
+    }
+
+    /** @todo this most be false */
+
+    private Loaded() {
+        this.setState({ isLoading: false })
+    }
 
     private CanPlayEvent() {
         this.setState({ duration: TimeConvert(this.video.duration) })
+    }
+
+    private PlayStatus() {
+        this.setState({ isPlaying: !this.video.paused })
     }
 
     private GetVolumeValue(a?: number): number {
@@ -106,11 +123,20 @@ export class Controls extends BaseComponent<ControlsProps, ControlsState> {
 
     override componentDidMount() {
         this.video.addEventListener('canplay', this.CanPlayEventBind)
+        this.video.addEventListener('play', this.PlayStatusBind)
+        this.video.addEventListener('pause', this.PlayStatusBind)
+        this.video.addEventListener('loadstart', this.LoadStartBind)
+        this.video.addEventListener('loadeddata', this.LoadedBind)
+
         document.addEventListener('keydown', this.KeyBind)
     }
 
     override componentWillUnmount() {
         this.video.removeEventListener('canplay', this.CanPlayEventBind)
+        this.video.removeEventListener('play', this.PlayStatusBind)
+        this.video.removeEventListener('pause', this.PlayStatusBind)
+        this.video.removeEventListener('loadstart', this.LoadStartBind)
+        this.video.removeEventListener('loadeddata', this.LoadedBind)
         document.removeEventListener('keydown', this.KeyBind)
         if (this.state.ctrlObserver) {
             this.state.ctrlObserver.disconnect()
@@ -148,7 +174,16 @@ export class Controls extends BaseComponent<ControlsProps, ControlsState> {
                 <div
                     className='toggle-play'
                     onClick={() => togglePlay(this.video)}
-                ></div>
+                >
+                    {!this.state.isPlaying && !this.state.isLoading && (
+                        <BigPlay />
+                    )}
+                    {this.state.isLoading && (
+                        <div className='loading'>
+                            <Loading />
+                        </div>
+                    )}
+                </div>
                 <div className='controls' ref={this.CTRLRef.bind(this)}>
                     <div
                         className='master-btn play-pause'

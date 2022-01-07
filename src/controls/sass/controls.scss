@@ -8,6 +8,33 @@
 
     .toggle-play {
         @include box(100%);
+        @include f-center;
+        position: relative;
+
+        svg {
+            @include box(20%);
+            cursor: pointer;
+        }
+
+        .loading {
+            position: absolute;
+            @include box(100%);
+            @include f-center;
+
+            svg {
+                @include box(20%);
+                animation: loading 2.2s ease infinite;
+
+                @keyframes loading {
+                    from {
+                        transform: rotate(0deg);
+                    }
+                    to {
+                        transform: rotate(360deg);
+                    }
+                }
+            }
+        }
     }
 
     .controls {
