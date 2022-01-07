@@ -4,13 +4,17 @@ import { PlayerContext } from './context'
 
 import Controls from './controls'
 
+// style
 import './sass/player.scss'
 
-import { Options } from './@types'
-export * from './@types'
+// types
+import { Options, Source } from 'src'
+
+// utils
+import { GetSource } from './utils/data.functions'
 
 interface PlayerProps {
-    source: string
+    source: Source
     options?: Options
 }
 
@@ -38,7 +42,7 @@ export class Player extends PureComponent<PlayerProps, PlayerState> {
                 ref={this.MasterRef}
             >
                 <video
-                    src={this.props.source}
+                    src={GetSource(this.props.source)}
                     ref={this.videoRef}
                     loop={this.opt?.loop}
                 ></video>
@@ -59,3 +63,4 @@ export class Player extends PureComponent<PlayerProps, PlayerState> {
 }
 
 export default Player
+export * from './@types'
