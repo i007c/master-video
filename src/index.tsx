@@ -21,11 +21,14 @@ interface PlayerProps {
 interface PlayerState {
     videoNode?: HTMLVideoElement
     masterNode?: HTMLDivElement
+    options?: Options
+    source: Source
 }
 
 export class Player extends PureComponent<PlayerProps, PlayerState> {
-    override state: PlayerState = {}
-    private opt = this.props.options
+    override state: PlayerState = {
+        source: this.props.source,
+    }
 
     private videoRef = (node: HTMLVideoElement) => {
         this.setState({ videoNode: node })
@@ -35,24 +38,40 @@ export class Player extends PureComponent<PlayerProps, PlayerState> {
         this.setState({ masterNode: node })
     }
 
+    override componentDidMount() {
+        this.setState({
+            source: this.props.source,
+            options: this.props.options,
+        })
+    }
+
+    override componentDidUpdate() {
+        this.setState({
+            source: this.props.source,
+            options: this.props.options,
+        })
+    }
+
     override render(): ReactElement {
         return (
             <div
-                className={`master-video ${this.opt?.masterClass || ''}`}
+                className={`master-video ${
+                    this.state.options?.masterClass || ''
+                }`}
                 ref={this.MasterRef}
             >
                 <video
-                    src={GetSource(this.props.source)}
+                    src={GetSource(this.state.source)}
                     ref={this.videoRef}
-                    loop={this.opt?.loop}
+                    loop={this.state.options?.loop}
                 ></video>
                 {this.state.videoNode && this.state.masterNode && (
                     <PlayerContext.Provider
                         value={{
                             video: this.state.videoNode,
                             master: this.state.masterNode,
-                            options: this.props.options,
-                            source: this.props.source,
+                            options: this.state.options,
+                            source: this.state.source,
                         }}
                     >
                         <Controls />

@@ -21,6 +21,10 @@ interface SettingsState {
     Menus: MenuType
 }
 
+type EA = Array<unknown>
+const equals = (a: EA, b: EA): boolean =>
+    JSON.stringify(a) === JSON.stringify(b)
+
 export class Settings extends BaseComponent<SettingsProps, SettingsState> {
     override state: SettingsState = {
         Menus: [],
@@ -37,8 +41,8 @@ export class Settings extends BaseComponent<SettingsProps, SettingsState> {
         if (!Paused) this.video.play()
     }
 
-    override componentDidMount() {
-        const SpeedMenu: MenuOption = {
+    private GetSpeedMenu(): MenuOption {
+        return {
             label: 'Speed',
             menu: [
                 ...DefaultSpeeds.map(({ label, value }) => {
@@ -49,26 +53,48 @@ export class Settings extends BaseComponent<SettingsProps, SettingsState> {
                 }),
             ],
         }
-        let opts = [SpeedMenu]
-        if (typeof this.source === 'object') {
-            const QualityMenu: MenuOption = {
+    }
+
+    private GetQualityMenu(): MenuOption | null {
+        if (typeof this.context.source === 'object') {
+            return {
                 label: 'Quality',
                 menu: [
-                    ...this.source.map(({ lable, source }) => {
+                    ...this.context.source.map(({ lable, source }) => {
                         return {
                             label: lable,
-                            action: () => this.ChangeQuality(source),
+                            action: () => {
+                                this.ChangeQuality(source)
+                                this.setState({ active: false })
+                            },
                         }
                     }),
                 ],
             }
-
-            opts.push(QualityMenu)
         }
+        return null
+    }
 
-        this.setState({
-            Menus: [...this.state.Menus, ...opts],
-        })
+    private UpdateMenus() {
+        let opts = [this.GetSpeedMenu()]
+
+        const quality = this.GetQualityMenu()
+        if (quality) opts.push(quality)
+
+        if (!equals(opts, this.state.Menus)) {
+            this.setState({
+                Menus: opts,
+                active: false,
+            })
+        }
+    }
+
+    override componentDidUpdate() {
+        this.UpdateMenus()
+    }
+
+    override componentDidMount() {
+        this.UpdateMenus()
     }
 
     override render(): ReactElement {
