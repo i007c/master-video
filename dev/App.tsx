@@ -36,7 +36,7 @@ const OPT: Options = {
     // },
 }
 
-const VideoSources: Source = [
+const VideoSources1: Source = [
     {
         lable: '144p',
         source: 'https://cdn.discordapp.com/attachments/741696928957464720/928941374378754068/144p.mp4',
@@ -57,19 +57,41 @@ const VideoSources: Source = [
         lable: '720p',
         source: 'https://cdn.discordapp.com/attachments/741696928957464720/928941477768351754/720p.mp4',
     },
+]
+
+const VideoSources2: Source = [
     {
-        lable: 'source',
-        source: 'https://cdn.discordapp.com/attachments/741696928957464720/928941477365710878/source.mp4',
+        lable: '144p',
+        source: 'https://cdn.discordapp.com/attachments/741696928957464720/930159422850887771/black.mp4',
+    },
+    {
+        lable: '240p',
+        source: 'https://cdn.discordapp.com/attachments/741696928957464720/930159422850887771/black.mp4',
+    },
+]
+
+type S = { t: string; s: Source }
+
+const Sources: S[] = [
+    {
+        t: 'Source 1',
+        s: VideoSources1,
+    },
+    {
+        t: 'Source 2',
+        s: VideoSources2,
     },
 ]
 
 const App: FC = () => {
-    const [see, setSee] = useState(true)
+    const [CS, SCS] = useState<S | undefined>(Sources[0])
 
     return (
         <div className='app'>
-            {see && <MasterVideo source={VideoSources} options={OPT} />}
-            <button onClick={() => setSee(!see)}>Toggle Video</button>
+            {CS && <h1>{CS.t}</h1>}
+            {CS && <MasterVideo source={CS.s} options={OPT} />}
+            <button onClick={() => SCS(Sources[0])}>Source 1</button>
+            <button onClick={() => SCS(Sources[1])}>Source 2</button>
         </div>
     )
 }
