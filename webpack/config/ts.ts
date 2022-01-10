@@ -1,4 +1,4 @@
-import { RuleSetRule, RuleSetUseItem } from 'webpack'
+import { RuleSetRule } from 'webpack'
 
 // path
 import { resolve } from 'path'
