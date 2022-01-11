@@ -20,6 +20,7 @@ import './style.scss'
 const OPT: Options = {
     // loop: false,
     masterClass: 'gg',
+    bufferColor: '#51EAFF99',
     // iconsColor: '#0f0',
     // playIconColor: '#0ff',
     // fullscreenIconColor: '#ff0',
@@ -62,11 +63,7 @@ const VideoSources1: Source = [
 const VideoSources2: Source = [
     {
         lable: '144p',
-        source: 'https://cdn.discordapp.com/attachments/741696928957464720/930159422850887771/black.mp4',
-    },
-    {
-        lable: '240p',
-        source: 'https://cdn.discordapp.com/attachments/741696928957464720/930159422850887771/black.mp4',
+        source: 'https://cdn.discordapp.com/attachments/837976157609656323/842785794485780520/Shrek_1.mp4',
     },
 ]
 
@@ -84,7 +81,7 @@ const Sources: S[] = [
 ]
 
 const App: FC = () => {
-    const [CS, SCS] = useState<S | undefined>(Sources[0])
+    const [CS, SCS] = useState<S | undefined>(Sources[1])
 
     return (
         <div className='app'>

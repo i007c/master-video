@@ -36,12 +36,14 @@
                     background-color: currentColor;
                     left: 0;
                     width: 0%;
+                    z-index: 2;
                 }
             }
 
             .thumb {
                 @include box(10px);
                 opacity: 0;
+                z-index: 3;
                 cursor: pointer;
 
                 position: absolute;
@@ -58,6 +60,22 @@
 
                 &.hold {
                     opacity: 1;
+                }
+            }
+
+            .buffer-container {
+                position: absolute;
+                inset: 0;
+                z-index: 1;
+                overflow: hidden;
+                pointer-events: none;
+                border-radius: 10px;
+                color: #fff6;
+
+                .buffer {
+                    position: absolute;
+                    height: 100%;
+                    background-color: currentColor;
                 }
             }
         }

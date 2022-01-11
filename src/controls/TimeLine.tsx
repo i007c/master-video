@@ -5,11 +5,18 @@ import './sass/timeline.scss'
 
 type TimeLineElement = HTMLDivElement
 
+interface BufferType {
+    left: string
+    right: string
+}
+
 interface TimeLineState {
     isHover: boolean
     isMouseDown: boolean
     percentage: number
     timeline?: TimeLineElement
+    buffers: BufferType[]
+    buffertimer?: ReturnType<typeof setInterval>
 }
 
 export class TimeLine extends BaseComponent<{}, TimeLineState> {
@@ -17,6 +24,7 @@ export class TimeLine extends BaseComponent<{}, TimeLineState> {
         isHover: false,
         isMouseDown: false,
         percentage: 0,
+        buffers: [],
     }
 
     private TimeLineRef(node: TimeLineElement) {
@@ -36,6 +44,7 @@ export class TimeLine extends BaseComponent<{}, TimeLineState> {
     private HandleTimeBind = this.HandleTime.bind(this)
 
     private HandlePercentage(percentage: number) {
+        // if (this.video.readyState !== 4) return
         percentage = percentage * 100
 
         if (percentage > 100) percentage = 100
@@ -45,6 +54,7 @@ export class TimeLine extends BaseComponent<{}, TimeLineState> {
 
         let time = (this.video.duration / 100) * percentage
         this.video.currentTime = time
+        this.video.dispatchEvent(new Event('timeupdate'))
     }
 
     private HandleTime() {
@@ -108,14 +118,39 @@ export class TimeLine extends BaseComponent<{}, TimeLineState> {
         this.setState({ isMouseDown: false })
     }
 
+    // Buffer
+    private DrawBuffer(buffered: TimeRanges) {
+        if (!this.state.timeline || !(this.video.duration > 0)) return
+
+        const inc = 100 / this.video.duration
+
+        let bb: BufferType[] = []
+
+        for (let i = 0; i < buffered.length; i++) {
+            const StartX = buffered.start(i) * inc
+            const EndX = 100 - buffered.end(i) * inc
+
+            bb.push({ left: `${StartX}%`, right: `${EndX}%` })
+        }
+
+        this.setState({ buffers: bb })
+    }
+
     override componentDidMount() {
         this.video.addEventListener('timeupdate', this.HandleTimeBind)
+        const BufferTimer = setInterval(
+            () => this.DrawBuffer(this.video.buffered),
+            1000
+        )
+        this.setState({ buffertimer: BufferTimer })
     }
     override componentWillUnmount() {
         this.video.removeEventListener('timeupdate', this.HandleTimeBind)
 
         document.removeEventListener('mousemove', this.HandleMouseMoveBind)
         document.removeEventListener('mouseup', this.HandleMouseUpBind)
+
+        if (this.state.buffertimer) clearInterval(this.state.buffertimer)
     }
 
     override render(): ReactElement {
@@ -159,6 +194,19 @@ export class TimeLine extends BaseComponent<{}, TimeLineState> {
                                 this.options?.timeLine?.thumb || 'currentcolor',
                         }}
                     ></span>
+
+                    <div
+                        className='buffer-container'
+                        style={{ color: this.options?.bufferColor || '#fff6' }}
+                    >
+                        {this.state.buffers.map(({ left, right }, index) => (
+                            <div
+                                className='buffer'
+                                key={index}
+                                style={{ left: left, right: right }}
+                            ></div>
+                        ))}
+                    </div>
                 </span>
             </div>
         )

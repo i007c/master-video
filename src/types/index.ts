@@ -5,6 +5,7 @@ export interface Options {
     playIconColor?: string
     volumeIconColor?: string
     fullscreenIconColor?: string
+    bufferColor?: string
     timeLine?: {
         rail?: string
         track?: string
