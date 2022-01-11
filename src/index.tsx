@@ -16,6 +16,7 @@ import { GetSource } from './utils/data.functions'
 interface PlayerProps {
     source: Source
     options?: Options
+    poster?: string
 }
 
 interface PlayerState {
@@ -23,6 +24,7 @@ interface PlayerState {
     masterNode?: HTMLDivElement
     options?: Options
     source: Source
+    poster?: string
 }
 
 export class Player extends PureComponent<PlayerProps, PlayerState> {
@@ -42,6 +44,7 @@ export class Player extends PureComponent<PlayerProps, PlayerState> {
         this.setState({
             source: this.props.source,
             options: this.props.options,
+            poster: this.props.poster,
         })
     }
 
@@ -49,6 +52,7 @@ export class Player extends PureComponent<PlayerProps, PlayerState> {
         this.setState({
             source: this.props.source,
             options: this.props.options,
+            poster: this.props.poster,
         })
     }
 
@@ -64,6 +68,7 @@ export class Player extends PureComponent<PlayerProps, PlayerState> {
                     src={GetSource(this.state.source)}
                     ref={this.videoRef}
                     loop={this.state.options?.loop}
+                    poster={this.state.poster}
                 ></video>
                 {this.state.videoNode && this.state.masterNode && (
                     <PlayerContext.Provider

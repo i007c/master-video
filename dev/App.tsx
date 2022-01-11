@@ -89,7 +89,13 @@ const App: FC = () => {
     return (
         <div className='app'>
             {CS && <h1>{CS.t}</h1>}
-            {CS && <MasterVideo source={CS.s} options={OPT} />}
+            {CS && (
+                <MasterVideo
+                    source={CS.s}
+                    options={OPT}
+                    poster='https://cdn.discordapp.com/attachments/731174051170746500/899610698240368671/Hela_f8d8c0_6625678.jpg'
+                />
+            )}
             <button onClick={() => SCS(Sources[0])}>Source 1</button>
             <button onClick={() => SCS(Sources[1])}>Source 2</button>
         </div>
