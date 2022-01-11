@@ -1,23 +1,26 @@
 name: Publish
 
 on:
-  release:
-    types: [published]
+    push:
+        branches:
+            - main
+        paths:
+            - 'package.json'
 
 jobs:
-  build:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v1
-      - name: Setup Node
-        uses: actions/setup-node@v1
-        with:
-          node-version: 12
-          registry-url: https://registry.npmjs.org/
-      - run: npm ci
-      - name: Build Package
-        run: npm run build
-      - name: Publish Package
-        run: npm publish
-        env:
-          NODE_AUTH_TOKEN: ${{secrets.NPM_TOKEN}}
+    build:
+        runs-on: ubuntu-latest
+        steps:
+            - uses: actions/checkout@v1
+            - name: Setup Node
+              uses: actions/setup-node@v1
+              with:
+                  node-version: 12
+                  registry-url: https://registry.npmjs.org/
+            - run: npm ci
+            - name: Build Package
+              run: npm run build
+            - name: Publish Package
+              run: npm publish
+              env:
+                  NODE_AUTH_TOKEN: ${{secrets.NPM_TOKEN}}
