@@ -31,7 +31,6 @@ interface ControlsState {
 const defaultState: ControlsState = {
     isPlaying: false,
     isLoading: true,
-
     duration: '0:00',
     showTime: true,
 }
@@ -43,18 +42,12 @@ export class Controls extends BaseComponent<ControlsProps, ControlsState> {
     private PlayStatusBind = this.PlayStatus.bind(this)
 
     private LoadStartBind = this.LoadStart.bind(this)
-    private LoadedBind = this.Loaded.bind(this)
 
     private KeyBind = this.KeyEvent.bind(this)
 
     private LoadStart() {
-        this.setState({ isLoading: true })
-    }
-
-    /** @todo this most be false */
-
-    private Loaded() {
-        this.setState({ isLoading: false })
+        if (this.video.readyState === 4) this.setState({ isLoading: false })
+        else this.setState({ isLoading: true })
     }
 
     private CanPlayEvent() {
@@ -125,8 +118,11 @@ export class Controls extends BaseComponent<ControlsProps, ControlsState> {
         this.video.addEventListener('canplay', this.CanPlayEventBind)
         this.video.addEventListener('play', this.PlayStatusBind)
         this.video.addEventListener('pause', this.PlayStatusBind)
+        // loading
         this.video.addEventListener('loadstart', this.LoadStartBind)
-        this.video.addEventListener('loadeddata', this.LoadedBind)
+        this.video.addEventListener('canplay', this.LoadStartBind)
+        this.video.addEventListener('progress', this.LoadStartBind)
+        this.video.addEventListener('loadeddata', this.LoadStartBind)
 
         document.addEventListener('keydown', this.KeyBind)
     }
@@ -135,8 +131,12 @@ export class Controls extends BaseComponent<ControlsProps, ControlsState> {
         this.video.removeEventListener('canplay', this.CanPlayEventBind)
         this.video.removeEventListener('play', this.PlayStatusBind)
         this.video.removeEventListener('pause', this.PlayStatusBind)
+        // loading
         this.video.removeEventListener('loadstart', this.LoadStartBind)
-        this.video.removeEventListener('loadeddata', this.LoadedBind)
+        this.video.removeEventListener('canplay', this.LoadStartBind)
+        this.video.removeEventListener('loadeddata', this.LoadStartBind)
+        this.video.removeEventListener('loadeddata', this.LoadStartBind)
+
         document.removeEventListener('keydown', this.KeyBind)
         if (this.state.ctrlObserver) {
             this.state.ctrlObserver.disconnect()
