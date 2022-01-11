@@ -123,6 +123,7 @@ export class Controls extends BaseComponent<ControlsProps, ControlsState> {
         this.video.addEventListener('canplay', this.LoadStartBind)
         this.video.addEventListener('progress', this.LoadStartBind)
         this.video.addEventListener('loadeddata', this.LoadStartBind)
+        this.video.addEventListener('play', this.LoadStartBind)
 
         document.addEventListener('keydown', this.KeyBind)
     }
@@ -136,6 +137,7 @@ export class Controls extends BaseComponent<ControlsProps, ControlsState> {
         this.video.removeEventListener('canplay', this.LoadStartBind)
         this.video.removeEventListener('loadeddata', this.LoadStartBind)
         this.video.removeEventListener('loadeddata', this.LoadStartBind)
+        this.video.removeEventListener('play', this.LoadStartBind)
 
         document.removeEventListener('keydown', this.KeyBind)
         if (this.state.ctrlObserver) {
