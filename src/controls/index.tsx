@@ -125,7 +125,7 @@ export class Controls extends BaseComponent<ControlsProps, ControlsState> {
         this.video.addEventListener('loadeddata', this.LoadStartBind)
         this.video.addEventListener('play', this.LoadStartBind)
 
-        document.addEventListener('keydown', this.KeyBind)
+        this.master.addEventListener('keydown', this.KeyBind)
     }
 
     override componentWillUnmount() {
@@ -139,7 +139,7 @@ export class Controls extends BaseComponent<ControlsProps, ControlsState> {
         this.video.removeEventListener('loadeddata', this.LoadStartBind)
         this.video.removeEventListener('play', this.LoadStartBind)
 
-        document.removeEventListener('keydown', this.KeyBind)
+        this.master.removeEventListener('keydown', this.KeyBind)
         if (this.state.ctrlObserver) {
             this.state.ctrlObserver.disconnect()
         }

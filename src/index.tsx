@@ -63,6 +63,7 @@ export class Player extends PureComponent<PlayerProps, PlayerState> {
                     this.state.options?.masterClass || ''
                 }`}
                 ref={this.MasterRef}
+                tabIndex={0}
             >
                 <video
                     src={GetSource(this.state.source)}
