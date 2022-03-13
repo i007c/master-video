@@ -1,10 +1,18 @@
+// types
 import { Configuration } from 'webpack'
 
-// path
-import { LIB_DIR, SRC_DIR } from './config/path'
-import { resolve } from 'path'
+// styles
+import { BuildStyle } from './config/style'
 
-export const MCFG: Configuration = {
+// path
+import { LIB_DIR, resolve, SRC_DIR } from './config/path'
+
+// base configs
+import main from './main'
+
+const BuildConfig: Configuration = {
+    ...main,
+    mode: 'production',
     entry: resolve(SRC_DIR, 'index.tsx'),
     output: {
         path: LIB_DIR,
@@ -19,18 +27,12 @@ export const MCFG: Configuration = {
         },
     },
     module: {
-        rules: [
-            {
-                test: /\.(png|svg|jpg|jpeg|gif)$/i,
-                type: 'asset/resource',
-            },
-        ],
-    },
-    resolve: {
-        extensions: ['.mjs', '.tsx', '.ts', '.js'],
+        rules: [...main.module!.rules!, BuildStyle],
     },
     optimization: {
         emitOnErrors: false,
         minimize: true,
     },
 }
+
+export default BuildConfig

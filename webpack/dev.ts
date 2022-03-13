@@ -4,31 +4,28 @@ import { Configuration as DevConfiguration } from 'webpack-dev-server'
 
 // styles
 import { DevStyle } from './config/style'
-import { DevTS } from './config/ts'
 
 // path
-import { DEV_DIR } from './config/path'
-import { resolve } from 'path'
+import { DEV_DIR, resolve } from './config/path'
 
 // plugins
 import HtmlWP from 'html-webpack-plugin'
 
 // base configs
-import { MCFG } from './webpack.config'
+import main from './main'
 
 interface Config extends Configuration {
     devServer: DevConfiguration
 }
 
-const BuildConfig: Config = {
-    ...MCFG,
+const DevConfig: Config = {
+    ...main,
     mode: 'development',
     entry: resolve(DEV_DIR, 'App.tsx'),
     module: {
         rules: [
-            ...MCFG.module!.rules!,
+            ...main.module!.rules!,
             DevStyle,
-            DevTS,
             {
                 test: /\.(mp4|ico)$/i,
                 use: 'file-loader',
@@ -40,10 +37,6 @@ const BuildConfig: Config = {
             template: resolve(DEV_DIR, 'template.html'),
         }),
     ],
-    optimization: {
-        ...MCFG.optimization!,
-        minimize: false,
-    },
     devtool: 'source-map',
     devServer: {
         port: 8000,
@@ -55,4 +48,4 @@ const BuildConfig: Config = {
     },
 }
 
-export default BuildConfig
+export default DevConfig
