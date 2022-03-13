@@ -5,7 +5,7 @@ import ReactDOM from 'react-dom'
 import MasterVideo, { Options, Source } from '../lib'
 
 // video file
-import videoFile1 from './videos/3.mp4'
+import videoFile1 from './videos/1.mp4'
 
 // const videoFile1 =
 //     'https://cdn.discordapp.com/attachments/849749181735501824/905656394378780692/237135009_4012155565580090_8467516022250211201_n.mp4'
@@ -87,13 +87,7 @@ const App: FC = () => {
     return (
         <div className='app'>
             {CS && <h1>{CS.t}</h1>}
-            {CS && (
-                <MasterVideo
-                    source={CS.s}
-                    options={OPT}
-                    poster='https://cdn.discordapp.com/attachments/731174051170746500/899610698240368671/Hela_f8d8c0_6625678.jpg'
-                />
-            )}
+            {CS && <MasterVideo source={videoFile1} options={OPT} />}
             <button onClick={() => SCS(Sources[0])}>Source 1</button>
             <button onClick={() => SCS(Sources[1])}>Source 2</button>
         </div>
