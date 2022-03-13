@@ -1,19 +1,19 @@
 {
     "name": "master-video",
-    "version": "1.3.7",
+    "version": "1.3.8",
     "description": "a React Video Player",
     "main": "lib",
     "scripts": {
-        "start": "webpack serve --config webpack/webpack.dev.ts",
-        "build": "webpack --config webpack/webpack.build.ts",
-        "build:watch": "webpack --config webpack/webpack.build.ts --watch"
+        "start": "webpack serve -c webpack/dev.ts",
+        "build": "webpack -c webpack/build.ts",
+        "build:watch": "webpack -c webpack/build.ts --watch"
     },
     "repository": {
         "type": "git",
         "url": "https://github.com/i007c/master-video.git"
     },
     "engines": {
-        "node": ">=12.0.0"
+        "node": ">=16.0.0"
     },
     "keywords": [
         "react-video-player",
@@ -27,7 +27,7 @@
         "player"
     ],
     "author": "i007c",
-    "license": "GPL",
+    "license": "GPL-3.0",
     "bugs": {
         "url": "https://github.com/i007c/master-video/issues"
     },
